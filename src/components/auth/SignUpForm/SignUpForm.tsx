@@ -18,6 +18,10 @@ interface SignUpFormData {
   password: string;
 }
 
+interface SignUpFormProps {
+  basic?: boolean;
+}
+
 const initValues = {
   firstName: 'Christopher',
   lastName: 'Johnson',
@@ -27,7 +31,7 @@ const initValues = {
   termOfUse: true,
 };
 
-export const SignUpForm: React.FC = () => {
+export const SignUpForm: React.FC<SignUpFormProps> = ({ basic = true }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isLoading, setLoading] = useState(false);
@@ -43,7 +47,7 @@ export const SignUpForm: React.FC = () => {
           message: t('auth.signUpSuccessMessage'),
           description: t('auth.signUpSuccessDescription'),
         });
-        navigate('/auth/login');
+        basic ? navigate(-1) : navigate('/auth/login');
       })
       .catch((err) => {
         notificationController.error({ message: err.message });
@@ -54,7 +58,7 @@ export const SignUpForm: React.FC = () => {
   return (
     <Auth.FormWrapper>
       <BaseForm layout="vertical" onFinish={handleSubmit} requiredMark="optional" initialValues={initValues}>
-        <S.Title>{t('common.signUp')}</S.Title>
+        {!basic && <S.Title>{t('common.signUp')}</S.Title>}
         <Auth.FormItem
           name="firstName"
           label={t('common.firstName')}
@@ -70,7 +74,7 @@ export const SignUpForm: React.FC = () => {
           <Auth.FormInput placeholder={t('common.lastName')} />
         </Auth.FormItem>
         <Auth.FormItem
-          name="email"
+          name="email.name"
           label={t('common.email')}
           rules={[
             { required: true, message: t('common.requiredField') },
@@ -81,6 +85,20 @@ export const SignUpForm: React.FC = () => {
           ]}
         >
           <Auth.FormInput placeholder={t('common.email')} />
+        </Auth.FormItem>
+        <Auth.FormItem
+          name="city"
+          label={t('common.city')}
+          rules={[{ required: true, message: t('common.requiredField') }]}
+        >
+          <Auth.FormInput placeholder={t('common.city')} />
+        </Auth.FormItem>
+        <Auth.FormItem
+          name="address1"
+          label={t('common.address')}
+          rules={[{ required: true, message: t('common.requiredField') }]}
+        >
+          <Auth.FormInput placeholder={t('common.address')} />
         </Auth.FormItem>
         <Auth.FormItem
           label={t('common.password')}
@@ -128,30 +146,34 @@ export const SignUpForm: React.FC = () => {
             {t('common.signUp')}
           </Auth.SubmitButton>
         </BaseForm.Item>
-        <BaseForm.Item noStyle>
-          <Auth.SocialButton type="default" htmlType="submit">
-            <Auth.SocialIconWrapper>
-              <GoogleIcon />
-            </Auth.SocialIconWrapper>
-            {t('signup.googleLink')}
-          </Auth.SocialButton>
-        </BaseForm.Item>
-        <BaseForm.Item noStyle>
-          <Auth.SocialButton type="default" htmlType="submit">
-            <Auth.SocialIconWrapper>
-              <FacebookIcon />
-            </Auth.SocialIconWrapper>
-            {t('signup.facebookLink')}
-          </Auth.SocialButton>
-        </BaseForm.Item>
-        <Auth.FooterWrapper>
-          <Auth.Text>
-            {t('signup.alreadyHaveAccount')}{' '}
-            <Link to="/auth/login">
-              <Auth.LinkText>{t('common.here')}</Auth.LinkText>
-            </Link>
-          </Auth.Text>
-        </Auth.FooterWrapper>
+        {!basic && (
+          <>
+            <BaseForm.Item noStyle>
+              <Auth.SocialButton type="default" htmlType="submit">
+                <Auth.SocialIconWrapper>
+                  <GoogleIcon />
+                </Auth.SocialIconWrapper>
+                {t('signup.googleLink')}
+              </Auth.SocialButton>
+            </BaseForm.Item>
+            <BaseForm.Item noStyle>
+              <Auth.SocialButton type="default" htmlType="submit">
+                <Auth.SocialIconWrapper>
+                  <FacebookIcon />
+                </Auth.SocialIconWrapper>
+                {t('signup.facebookLink')}
+              </Auth.SocialButton>
+            </BaseForm.Item>
+            <Auth.FooterWrapper>
+              <Auth.Text>
+                {t('signup.alreadyHaveAccount')}{' '}
+                <Link to="/auth/login">
+                  <Auth.LinkText>{t('common.here')}</Auth.LinkText>
+                </Link>
+              </Auth.Text>
+            </Auth.FooterWrapper>
+          </>
+        )}
       </BaseForm>
     </Auth.FormWrapper>
   );

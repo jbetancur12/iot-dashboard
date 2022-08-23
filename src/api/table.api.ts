@@ -1,4 +1,18 @@
 import { Priority } from '../constants/enums/priorities';
+import { httpApi } from './http.api';
+
+export interface DeviceTableRow {
+  createdAt: string;
+  updatedAt: string;
+  mac: string;
+  name: string;
+  user: string;
+  _id: string;
+}
+
+export interface DeviceTableData {
+  data: DeviceTableRow[];
+}
 
 export interface Tag {
   value: string;
@@ -35,6 +49,9 @@ export interface TreeTableData extends BasicTableData {
 export interface EditableTableData extends BasicTableData {
   data: BasicTableRow[];
 }
+
+export const getDevicesData = (): Promise<DeviceTableData> =>
+  httpApi.get<DeviceTableRow[]>('api/things').then((res) => res);
 
 export const getBasicTableData = (pagination: Pagination): Promise<BasicTableData> => {
   return new Promise((res) => {
