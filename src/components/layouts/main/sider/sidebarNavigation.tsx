@@ -32,9 +32,15 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
   {
     title: 'common.devices',
     key: 'devices',
-    url: '/devices',
+    url: '/devices-manager',
     icon: <BulbOutlined />,
     admin: true,
+  },
+  {
+    title: 'common.devices',
+    key: 'devices',
+    url: '/devices',
+    icon: <BulbOutlined />,
   },
   {
     title: 'common.apps',

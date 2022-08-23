@@ -17,6 +17,7 @@ import { withLoading } from '@app/hocs/withLoading.hoc';
 
 const DashboardPage = React.lazy(() => import('@app/pages/DashboardPage/DashboardPage'));
 const DevicesPage = React.lazy(() => import('@app/pages/DevicesPage/DevicesPage'));
+const DevicesManagerPage = React.lazy(() => import('@app/pages/DevicesManagerPage/DevicesManagerPage'));
 const NewsFeedPage = React.lazy(() => import('@app/pages/NewsFeedPage'));
 const KanbanPage = React.lazy(() => import('@app/pages/KanbanPage'));
 const DataTablesPage = React.lazy(() => import('@app/pages/DataTablesPage'));
@@ -64,6 +65,7 @@ const Logout = React.lazy(() => import('./Logout'));
 export const DASHBOARD_PATH = '/';
 
 const Dashboard = withLoading(DashboardPage);
+const DevicesManager = withLoading(DevicesManagerPage);
 const Devices = withLoading(DevicesPage);
 const NewsFeed = withLoading(NewsFeedPage);
 const Kanban = withLoading(KanbanPage);
@@ -131,7 +133,7 @@ export const AppRouter: React.FC = () => {
       <Routes>
         <Route path={DASHBOARD_PATH} element={protectedLayout}>
           <Route index element={<Dashboard />} />
-          <Route path="devices" element={<Devices />} />
+          <Route path="devices-manager" element={<DevicesManager />} />
           <Route path="apps">
             <Route path="feed" element={<NewsFeed />} />
             <Route path="kanban" element={<Kanban />} />
