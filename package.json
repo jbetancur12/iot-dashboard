@@ -121,7 +121,7 @@
     "webpackbar": "^5.0.0-3"
   },
   "lint-staged": {
-    "*/**/*.{js,ts,tsx}": "yarn lint"
+    "*/**/*.{js,ts,tsx,json}": "npx prettier --write src"
   },
   "engines": {
     "node": ">=16.0.0"

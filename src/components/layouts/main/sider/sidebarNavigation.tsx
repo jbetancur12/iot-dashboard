@@ -9,6 +9,7 @@ import {
   TableOutlined,
   UserOutlined,
   BlockOutlined,
+  BulbOutlined,
 } from '@ant-design/icons';
 
 export interface SidebarNavigationItem {
@@ -26,6 +27,13 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     key: 'dashboard',
     url: '/',
     icon: <DashboardOutlined />,
+    admin: true,
+  },
+  {
+    title: 'common.devices',
+    key: 'devices',
+    url: '/devices',
+    icon: <BulbOutlined />,
     admin: true,
   },
   {
