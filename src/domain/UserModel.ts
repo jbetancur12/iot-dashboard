@@ -1,5 +1,5 @@
 export interface UserModel {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   imgUrl: string;
@@ -26,4 +26,5 @@ export interface UserModel {
     facebook?: string;
     linkedin?: string;
   };
+  role: string;
 }

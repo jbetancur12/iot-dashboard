@@ -16,8 +16,8 @@ interface LoginFormData {
 }
 
 export const initValues: LoginFormData = {
-  email: 'hello@altence.com',
-  password: 'some-test-pass',
+  email: 'christopher.johnson@altence.com',
+  password: '12345678',
 };
 
 export const LoginForm: React.FC = () => {

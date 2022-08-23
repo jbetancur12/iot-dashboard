@@ -8,7 +8,7 @@ export interface CalendarEvent {
 const now = Dates.getToday().valueOf();
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getUserCalendar = (id: number): Promise<CalendarEvent[]> => {
+export const getUserCalendar = (id: string): Promise<CalendarEvent[]> => {
   return new Promise((res) => {
     setTimeout(() => {
       res([

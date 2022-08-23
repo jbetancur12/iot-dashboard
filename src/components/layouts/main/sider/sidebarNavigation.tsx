@@ -17,6 +17,7 @@ export interface SidebarNavigationItem {
   url?: string;
   children?: SidebarNavigationItem[];
   icon?: React.ReactNode;
+  admin?: boolean;
 }
 
 export const sidebarNavigation: SidebarNavigationItem[] = [
@@ -25,6 +26,7 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     key: 'dashboard',
     url: '/',
     icon: <DashboardOutlined />,
+    admin: true,
   },
   {
     title: 'common.apps',
