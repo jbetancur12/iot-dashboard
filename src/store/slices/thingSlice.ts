@@ -1,7 +1,16 @@
 import { createThing, deleteThing, getThings, ThingData, ThingDataResponse } from '@app/api/thing.api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { stamenTerrain } from 'pigeon-maps/lib/providers';
 
-const initialState: ThingDataResponse[] = [];
+interface ThingState {
+  things: ThingDataResponse[];
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
+}
+
+const initialState = {
+  things: [],
+  loading: 'idle',
+} as ThingState;
 
 export const doCreateThing = createAsyncThunk('things/create', async (thingData: ThingData) => createThing(thingData));
 
@@ -14,10 +23,12 @@ const thingSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(retrieveThings.fulfilled, (state, action) => [...action.payload]);
+    builder.addCase(retrieveThings.fulfilled, (state, action) => {
+      return { ...state, things: action.payload };
+    });
     builder.addCase(doDeleteThing.fulfilled, (state, action) => {
-      const index = state.findIndex(({ _id }) => _id === action.payload._id);
-      state.splice(index, 1);
+      const index = state.things.findIndex(({ _id }) => _id === action.payload._id);
+      state.things.splice(index, 1);
     });
   },
 });

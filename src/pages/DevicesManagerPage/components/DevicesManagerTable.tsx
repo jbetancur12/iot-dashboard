@@ -24,7 +24,7 @@ import { useAppDispatch, useAppSelector } from '@app/hooks/reduxHooks';
 
 export const DevicesManagerTable: React.FC = () => {
   const dispatch = useAppDispatch();
-  const things = useAppSelector((state) => state.thing);
+  const { things } = useAppSelector((state) => state.thing);
   const [tableData, setTableData] = useState<{ data: DeviceTableRow[]; loading: boolean }>({
     data: [],
     loading: false,
