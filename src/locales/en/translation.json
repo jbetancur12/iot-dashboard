@@ -363,6 +363,7 @@
     "name": "Device name",
     "mac": "Device MAC",
     "deviceCreatedSuccesfullly": "Device Created Successfully",
+    "deviceDeletedSuccesfullly": "Device Deleted Successfully",
     "createdNewDevice": "Created a new device named",
     "and": "and mac",
     "create": "Create Device"
@@ -842,6 +843,7 @@
     "delete": "Delete",
     "editableTable": "Editable Table",
     "invite": "Invite",
+    "edit": "Edit",
     "inviteMessage": "{{name}} invited successfully",
     "treeTable": "Tree Table"
   },

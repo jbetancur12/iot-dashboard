@@ -19,48 +19,61 @@ import { Status } from '@app/components/profile/profileCard/profileFormNav/nav/p
 import { useMounted } from '@app/hooks/useMounted';
 import { useTheme } from 'styled-components';
 
-const initialPagination: Pagination = {
-  current: 1,
-  pageSize: 5,
-};
+import { doDeleteThing, retrieveThings } from '@app/store/slices/thingSlice';
+import { useAppDispatch, useAppSelector } from '@app/hooks/reduxHooks';
 
 export const DevicesManagerTable: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const things = useAppSelector((state) => state.thing);
   const [tableData, setTableData] = useState<{ data: DeviceTableRow[]; loading: boolean }>({
     data: [],
     loading: false,
   });
+
+  const initFetch = useCallback(() => {
+    dispatch(retrieveThings());
+  }, [dispatch]);
+
+  useEffect(() => {
+    initFetch();
+  }, [initFetch]);
+
   const { t } = useTranslation();
   const { isMounted } = useMounted();
 
   const theme = useTheme();
 
-  const fetch = useCallback(() => {
-    setTableData((tableData) => ({ ...tableData, loading: true }));
-    getDevicesData().then((res) => {
-      if (isMounted.current) {
-        setTableData({ data: res.data, loading: false });
-      }
-    });
-  }, [isMounted]);
+  // const fetch = useCallback(() => {
+  //   setTableData((tableData) => ({ ...tableData, loading: true }));
+  //   getDevicesData().then((res) => {
+  //     if (isMounted.current) {
+  //       setTableData({ data: res.data, loading: false });
+  //     }
+  //   });
+  // }, [isMounted]);
 
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
+  // useEffect(() => {
+  //   fetch();
+  // }, [fetch]);
 
   const handleTableChange: TableProps<DeviceTableRow>['onChange'] = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
   };
 
-  // const handleDeleteRow = (rowId: number) => {
-  //   setTableData({
-  //     ...tableData,
-  //     data: tableData.data.filter((item) => item.key !== rowId),
-  //     pagination: {
-  //       ...tableData.pagination,
-  //       total: tableData.pagination.total ? tableData.pagination.total - 1 : tableData.pagination.total,
-  //     },
-  //   });
-  // };
+  const handleDeleteRow = (rowId: string) => {
+    dispatch(doDeleteThing(rowId))
+      .unwrap()
+      .then((data) => {
+        notificationController.success({
+          message: t('device.deviceDeletedSuccesfullly'),
+          // @ts-ignored
+          description: data.name,
+        });
+      })
+      .catch((err) => {
+        notificationController.error({ message: err.message });
+      });
+  };
 
   const columns: ColumnsType<DeviceTableRow> = [
     {
@@ -125,35 +138,35 @@ export const DevicesManagerTable: React.FC = () => {
       title: 'Date',
       dataIndex: 'createdAt',
     },
-    // {
-    //   title: t('tables.actions'),
-    //   dataIndex: 'actions',
-    //   width: '15%',
-    //   render: (text: string, record: { name: string; key: number }) => {
-    //     return (
-    //       <Space>
-    //         <Button
-    //           type="ghost"
-    //           onClick={() => {
-    //             notificationController.info({ message: t('tables.inviteMessage', { name: record.name }) });
-    //           }}
-    //         >
-    //           {t('tables.invite')}
-    //         </Button>
-    //         <Button type="default" danger onClick={() => handleDeleteRow(record.key)}>
-    //           {t('tables.delete')}
-    //         </Button>
-    //       </Space>
-    //     );
-    //   },
-    // },
+    {
+      title: t('tables.actions'),
+      dataIndex: 'actions',
+      width: '15%',
+      render: (text: string, record: { name: string; _id: string }) => {
+        return (
+          <Space>
+            <Button
+              type="ghost"
+              onClick={() => {
+                notificationController.info({ message: t('tables.inviteMessage', { name: record.name }) });
+              }}
+            >
+              {t('tables.edit')}
+            </Button>
+            <Button type="default" danger onClick={() => handleDeleteRow(record._id)}>
+              {t('tables.delete')}
+            </Button>
+          </Space>
+        );
+      },
+    },
   ];
 
   return (
     <Table
       columns={columns}
-      dataSource={tableData.data}
-      loading={tableData.loading}
+      dataSource={things}
+      // loading={tableData.loading}
       onChange={handleTableChange}
       scroll={{ x: 800 }}
       bordered

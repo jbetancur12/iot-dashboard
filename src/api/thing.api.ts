@@ -1,4 +1,5 @@
 import { httpApi } from '@app/api/http.api';
+import { DeviceTableData, DeviceTableRow } from './table.api';
 
 export interface ThingData {
   name: string;
@@ -6,5 +7,13 @@ export interface ThingData {
   user: string;
 }
 
+export interface ThingDataResponse extends ThingData {
+  _id: string;
+}
+export const getThings = (): Promise<any> => httpApi.get<DeviceTableRow[]>('api/things').then((res) => res.data);
+
 export const createThing = (thingData: ThingData): Promise<undefined> =>
   httpApi.post<undefined>('api/things', { ...thingData }).then(({ data }) => data);
+
+export const deleteThing = (thingId: string): Promise<ThingDataResponse> =>
+  httpApi.delete<ThingDataResponse>(`api/things/${thingId}`).then(({ data }) => data);
