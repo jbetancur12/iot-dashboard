@@ -123,7 +123,7 @@ const DevicesManagerForm: React.FC = () => {
           <DebounceSelect
             showSearch={true}
             value={value}
-            placeholder="Select users"
+            placeholder={t('device.user')}
             fetchOptions={fetchUserList}
             onChange={(newValue) => {
               setValue(newValue as UserValue[]);
@@ -142,25 +142,22 @@ const DevicesManagerForm: React.FC = () => {
         <Auth.FormItem
           name="mac"
           label={t('device.mac')}
-          rules={[{ required: true, message: t('common.requiredField') }]}
+          rules={[
+            {
+              pattern: new RegExp(/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/i),
+              message: 'Invalid MAC address',
+            },
+            { required: true, message: t('common.requiredField') },
+          ]}
         >
           <Auth.FormInput placeholder={t('device.mac')} />
         </Auth.FormItem>
 
         <BaseForm.Item noStyle>
           <Auth.SubmitButton type="primary" htmlType="submit" loading={isLoading}>
-            {t('common.signUp')}
+            {t('device.create')}
           </Auth.SubmitButton>
         </BaseForm.Item>
-
-        <Auth.FooterWrapper>
-          <Auth.Text>
-            {t('signup.alreadyHaveAccount')}{' '}
-            <Link to="/auth/login">
-              <Auth.LinkText>{t('common.here')}</Auth.LinkText>
-            </Link>
-          </Auth.Text>
-        </Auth.FooterWrapper>
       </BaseForm>
     </Auth.FormWrapper>
   );

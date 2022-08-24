@@ -359,9 +359,13 @@
     "time": "Time picker"
   },
   "device": {
+    "user": "Select user",
+    "name": "Device name",
+    "mac": "Device MAC",
     "deviceCreatedSuccesfullly": "Device Created Successfully",
     "createdNewDevice": "Created a new device named",
-    "and": "and mac"
+    "and": "and mac",
+    "create": "Create Device"
   },
   "dropdowns": {
     "basic": "Basic dropdown",
