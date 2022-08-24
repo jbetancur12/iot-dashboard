@@ -73,7 +73,7 @@ interface SignUpFormData {
 async function fetchUserList(username: string): Promise<UserValue[]> {
   console.log('fetching user', username);
 
-  return fetch(`${process.env.REACT_APP_BASE_URL}/api/users/?email=${username}`)
+  return fetch(`${process.env.REACT_APP_BASE_URL}api/users/?email=${username}`)
     .then((response) => response.json())
     .then((body) => {
       console.log(body);
