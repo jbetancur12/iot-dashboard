@@ -141,6 +141,7 @@ export const AppRouter: React.FC = () => {
             <Route index element={<DevicesManager />} />
             <Route path="new-user" element={<NewUser />} />
             <Route path="new-device" element={<NewDevice />} />
+            <Route path="edit-device/:id" element={<NewDevice />} />
           </Route>
           <Route path="apps">
             <Route path="feed" element={<NewsFeed />} />

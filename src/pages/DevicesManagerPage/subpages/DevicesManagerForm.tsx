@@ -1,15 +1,16 @@
 import { BaseForm } from '@app/components/common/forms/BaseForm/BaseForm';
 import * as Auth from '@app/components/layouts/AuthLayout/AuthLayout.styles';
-import { useAppDispatch } from '@app/hooks/reduxHooks';
-import { useMemo, useRef, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@app/hooks/reduxHooks';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import type { SelectProps } from 'antd/es/select';
 import debounce from 'lodash.debounce';
-import { Select, Spin } from 'antd';
+import { Form, Select, Spin } from 'antd';
 import { doCreateThing } from '@app/store/slices/thingSlice';
 import { notificationController } from '@app/controllers/notificationController';
+import { createUnparsedSourceFile } from 'typescript';
 
 export interface DebounceSelectProps<ValueType = any>
   extends Omit<SelectProps<ValueType | ValueType[]>, 'options' | 'children'> {
@@ -64,10 +65,21 @@ interface UserValue {
   value: string;
 }
 
-interface SignUpFormData {
+interface DeviceFormData {
   user: UserValue;
   mac: string;
   name: string;
+}
+
+interface DeviceRequestData extends Omit<DeviceFormData, 'user'> {
+  user: string;
+  mac: string;
+  name: string;
+  [index: string]: any;
+}
+interface DeviceUpdateData {
+  id: string;
+  data: DeviceRequestData;
 }
 
 async function fetchUserList(username: string): Promise<UserValue[]> {
@@ -87,17 +99,25 @@ async function fetchUserList(username: string): Promise<UserValue[]> {
 //comments
 
 const DevicesManagerForm: React.FC = () => {
-  const [value, setValue] = useState<UserValue[]>([]);
-  const { t } = useTranslation();
   const navigate = useNavigate();
+  const [form] = Form.useForm();
+  let { id } = useParams();
   const dispatch = useAppDispatch();
+  const { things } = useAppSelector((state) => state.thing);
+  const { t } = useTranslation();
+  const isAddMode = !id;
 
+  const [value, setValue] = useState<UserValue[]>([]);
   const [isLoading, setLoading] = useState(false);
 
-  const handleSubmit = (values: SignUpFormData) => {
+  const handleSubmit = (values: DeviceFormData) => {
     const valuesToSend = { ...values, user: values.user.value };
     setLoading(true);
-    dispatch(doCreateThing(valuesToSend))
+    return isAddMode ? createDevice(valuesToSend) : updateDevice(id, valuesToSend);
+  };
+
+  const createDevice = (data: DeviceRequestData) => {
+    dispatch(doCreateThing(data))
       .unwrap()
       .then((res) => {
         notificationController.success({
@@ -113,9 +133,19 @@ const DevicesManagerForm: React.FC = () => {
       });
   };
 
+  const updateDevice = (id: string | undefined, data: DeviceRequestData) => {};
+
+  useEffect(() => {
+    if (!isAddMode) {
+      const deviceToEditIndex = things.findIndex((thing) => thing._id === id);
+      const deviceToEdit = things[deviceToEditIndex] as DeviceRequestData;
+      form.setFieldsValue(deviceToEdit);
+    }
+  }, []);
+
   return (
     <Auth.FormWrapper>
-      <BaseForm layout="vertical" onFinish={handleSubmit} requiredMark="optional">
+      <BaseForm layout="vertical" onFinish={handleSubmit} requiredMark="optional" form={form}>
         {/* <S.Title>{t('common.signUp')}</S.Title> */}
         <Auth.FormItem
           name="user"

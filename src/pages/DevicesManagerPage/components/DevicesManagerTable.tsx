@@ -21,8 +21,10 @@ import { useTheme } from 'styled-components';
 
 import { doDeleteThing, retrieveThings } from '@app/store/slices/thingSlice';
 import { useAppDispatch, useAppSelector } from '@app/hooks/reduxHooks';
+import { useNavigate } from 'react-router-dom';
 
 export const DevicesManagerTable: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { things } = useAppSelector((state) => state.thing);
   const [tableData, setTableData] = useState<{ data: DeviceTableRow[]; loading: boolean }>({
@@ -145,12 +147,7 @@ export const DevicesManagerTable: React.FC = () => {
       render: (text: string, record: { name: string; _id: string }) => {
         return (
           <Space>
-            <Button
-              type="ghost"
-              onClick={() => {
-                notificationController.info({ message: t('tables.inviteMessage', { name: record.name }) });
-              }}
-            >
+            <Button type="ghost" onClick={() => navigate(`edit-device/${record._id}`)}>
               {t('tables.edit')}
             </Button>
             <Button type="default" danger onClick={() => handleDeleteRow(record._id)}>
