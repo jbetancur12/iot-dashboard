@@ -14,7 +14,7 @@ const DevicesManagerPage = () => {
           New User
         </Button>
       </Link>
-      <Link to="new-user">
+      <Link to="new-device">
         <Button type="primary" icon={<PlusOutlined />}>
           New Device
         </Button>
