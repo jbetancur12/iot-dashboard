@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import type { SelectProps } from 'antd/es/select';
 import debounce from 'lodash.debounce';
 import { Select, Spin } from 'antd';
+import { doCreateThing } from '@app/store/slices/thingSlice';
+import { notificationController } from '@app/controllers/notificationController';
 
 export interface DebounceSelectProps<ValueType = any>
   extends Omit<SelectProps<ValueType | ValueType[]>, 'options' | 'children'> {
@@ -57,29 +59,15 @@ function DebounceSelect<ValueType extends { key?: string; label: React.ReactNode
   );
 }
 
-interface UserForm {
-  value: string;
-  label: string;
-}
-
-interface SignUpFormData {
-  user: UserForm;
-  mac: string;
-  name: string;
-}
-
-const initValues = {
-  firstName: 'Christopher',
-  lastName: 'Johnson',
-  email: 'christopher.johnson@altence.com',
-  password: 'test-pass',
-  confirmPassword: 'test-pass',
-  termOfUse: true,
-};
-
 interface UserValue {
   label: string;
   value: string;
+}
+
+interface SignUpFormData {
+  user: UserValue;
+  mac: string;
+  name: string;
 }
 
 async function fetchUserList(username: string): Promise<UserValue[]> {
@@ -94,15 +82,6 @@ async function fetchUserList(username: string): Promise<UserValue[]> {
         value: user.id,
       }));
     });
-
-  // return fetch('https://randomuser.me/api/?results=5')
-  //   .then((response) => response.json())
-  //   .then((body) =>
-  //     body.results.map((user: { name: { first: string; last: string }; login: { username: string } }) => ({
-  //       label: `${user.name.first} ${user.name.last}`,
-  //       value: user.login.username,
-  //     })),
-  //   );
 }
 
 const DevicesManagerForm: React.FC = () => {
@@ -114,13 +93,26 @@ const DevicesManagerForm: React.FC = () => {
   const [isLoading, setLoading] = useState(false);
 
   const handleSubmit = (values: SignUpFormData) => {
+    const valuesToSend = { ...values, user: values.user.value };
     setLoading(true);
-    console.log(values.user.value);
+    dispatch(doCreateThing(valuesToSend))
+      .unwrap()
+      .then(() => {
+        notificationController.success({
+          message: t('auth.signUpSuccessMessage'),
+          description: t('auth.signUpSuccessDescription'),
+        });
+        navigate(-1);
+      })
+      .catch((err) => {
+        notificationController.error({ message: err.message });
+        setLoading(false);
+      });
   };
 
   return (
     <Auth.FormWrapper>
-      <BaseForm layout="vertical" onFinish={handleSubmit} requiredMark="optional" initialValues={initValues}>
+      <BaseForm layout="vertical" onFinish={handleSubmit} requiredMark="optional">
         {/* <S.Title>{t('common.signUp')}</S.Title> */}
         <Auth.FormItem
           name="user"
