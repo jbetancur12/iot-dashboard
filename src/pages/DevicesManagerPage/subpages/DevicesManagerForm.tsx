@@ -97,10 +97,11 @@ const DevicesManagerForm: React.FC = () => {
     setLoading(true);
     dispatch(doCreateThing(valuesToSend))
       .unwrap()
-      .then(() => {
+      .then((res) => {
         notificationController.success({
-          message: t('auth.signUpSuccessMessage'),
-          description: t('auth.signUpSuccessDescription'),
+          message: t('device.deviceCreatedSuccesfullly'),
+          // @ts-ignored
+          description: `${t('device.createdNewDevice')} ${res.data.name} ${t('device.and')} ${res.data.mac}`,
         });
         navigate(-1);
       })

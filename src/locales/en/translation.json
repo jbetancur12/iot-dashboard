@@ -358,6 +358,11 @@
     "sizes": "Picker sizes",
     "time": "Time picker"
   },
+  "device": {
+    "deviceCreatedSuccesfullly": "Device Created Successfully",
+    "createdNewDevice": "Created a new device named",
+    "and": "and mac"
+  },
   "dropdowns": {
     "basic": "Basic dropdown",
     "bc": "bottomCenter",
