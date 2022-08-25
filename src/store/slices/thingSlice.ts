@@ -1,4 +1,4 @@
-import { createThing, deleteThing, getThings, ThingData, ThingDataResponse } from '@app/api/thing.api';
+import { createThing, deleteThing, getThings, ThingData, ThingDataResponse, updateThing } from '@app/api/thing.api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { stamenTerrain } from 'pigeon-maps/lib/providers';
 
@@ -13,6 +13,11 @@ const initialState = {
 } as ThingState;
 
 export const doCreateThing = createAsyncThunk('things/create', async (thingData: ThingData) => createThing(thingData));
+
+export const doUpdateThing = createAsyncThunk(
+  'things/update',
+  async ({ id, data }: { id: string | undefined; data: ThingData }) => updateThing(id, data),
+);
 
 export const doDeleteThing = createAsyncThunk('things/delete', async (thingId: string) => deleteThing(thingId));
 

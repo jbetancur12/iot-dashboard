@@ -15,5 +15,8 @@ export const getThings = (): Promise<any> => httpApi.get<DeviceTableRow[]>('api/
 export const createThing = (thingData: ThingData): Promise<undefined> =>
   httpApi.post<undefined>('api/things', { ...thingData }).then(({ data }) => data);
 
+export const updateThing = (id: string | undefined, thingData: ThingData): Promise<undefined> =>
+  httpApi.put<undefined>(`api/things/${id}`, { ...thingData }).then(({ data }) => data);
+
 export const deleteThing = (thingId: string): Promise<ThingDataResponse> =>
   httpApi.delete<ThingDataResponse>(`api/things/${thingId}`).then(({ data }) => data);

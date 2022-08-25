@@ -8,9 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import type { SelectProps } from 'antd/es/select';
 import debounce from 'lodash.debounce';
 import { Form, Select, Spin } from 'antd';
-import { doCreateThing } from '@app/store/slices/thingSlice';
+import { doCreateThing, doUpdateThing } from '@app/store/slices/thingSlice';
 import { notificationController } from '@app/controllers/notificationController';
 import { createUnparsedSourceFile } from 'typescript';
+import { ThingData } from '@app/api/thing.api';
 
 export interface DebounceSelectProps<ValueType = any>
   extends Omit<SelectProps<ValueType | ValueType[]>, 'options' | 'children'> {
@@ -111,6 +112,7 @@ const DevicesManagerForm: React.FC = () => {
   const [isLoading, setLoading] = useState(false);
 
   const handleSubmit = (values: DeviceFormData) => {
+    console.log(values);
     const valuesToSend = { ...values, user: values.user.value };
     setLoading(true);
     return isAddMode ? createDevice(valuesToSend) : updateDevice(id, valuesToSend);
@@ -133,13 +135,46 @@ const DevicesManagerForm: React.FC = () => {
       });
   };
 
-  const updateDevice = (id: string | undefined, data: DeviceRequestData) => {};
+  const updateDevice = (id: string | undefined, data: ThingData) => {
+    const dataToUpdate = {
+      id: id,
+      data,
+    };
+    console.log(dataToUpdate);
+    dispatch(doUpdateThing(dataToUpdate))
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+        notificationController.success({
+          message: t('device.deviceUpdatedCreatedSuccesfullly'),
+          // @ts-ignored
+          description: `${t('device.updatedDevice')} ${res.name} ${t('device.and')} ${res.mac}`,
+        });
+        navigate(-1);
+      })
+      .catch((err) => {
+        notificationController.error({ message: err.message });
+        setLoading(false);
+      });
+  };
+
+  const getUser = async (id: string | undefined) => {
+    const res = await fetch(process.env.REACT_APP_BASE_URL + 'api/users/' + id);
+    const user = await res.json();
+    console.log(user.email.name);
+    // @ts-ignore
+    form.setFields([{ name: 'user', value: { label: user.email.name, value: user.id } }]);
+  };
 
   useEffect(() => {
     if (!isAddMode) {
       const deviceToEditIndex = things.findIndex((thing) => thing._id === id);
-      const deviceToEdit = things[deviceToEditIndex] as DeviceRequestData;
-      form.setFieldsValue(deviceToEdit);
+      const deviceToEdit = things[deviceToEditIndex];
+      getUser(deviceToEdit.user);
+      form.setFields([
+        { name: 'mac', value: deviceToEdit.mac },
+        { name: 'name', value: deviceToEdit.name },
+      ]);
     }
   }, []);
 
