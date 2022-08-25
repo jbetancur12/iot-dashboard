@@ -112,7 +112,6 @@ const DevicesManagerForm: React.FC = () => {
   const [isLoading, setLoading] = useState(false);
 
   const handleSubmit = (values: DeviceFormData) => {
-    console.log(values);
     const valuesToSend = { ...values, user: values.user.value };
     setLoading(true);
     return isAddMode ? createDevice(valuesToSend) : updateDevice(id, valuesToSend);
@@ -140,7 +139,6 @@ const DevicesManagerForm: React.FC = () => {
       id: id,
       data,
     };
-    console.log(dataToUpdate);
     dispatch(doUpdateThing(dataToUpdate))
       .unwrap()
       .then((res) => {

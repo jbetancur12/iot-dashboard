@@ -20,3 +20,6 @@ export const updateThing = (id: string | undefined, thingData: ThingData): Promi
 
 export const deleteThing = (thingId: string): Promise<ThingDataResponse> =>
   httpApi.delete<ThingDataResponse>(`api/things/${thingId}`).then(({ data }) => data);
+
+export const getUserThings = (userId: string | undefined): Promise<ThingDataResponse[]> =>
+  httpApi.get<ThingDataResponse[]>(`api/things?user=${userId}`).then(({ data }) => data);
