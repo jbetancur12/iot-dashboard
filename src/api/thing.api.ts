@@ -1,10 +1,17 @@
 import { httpApi } from '@app/api/http.api';
+import { AppDate } from '@app/constants/Dates';
 import { DeviceTableData, DeviceTableRow } from './table.api';
 
 export interface ThingData {
   name: string;
   mac: string;
   user: string;
+}
+
+export interface ThingMeasure {
+  _id: string;
+  averageT: number;
+  averageH: number;
 }
 
 export interface ThingDataResponse extends ThingData {
@@ -23,3 +30,8 @@ export const deleteThing = (thingId: string): Promise<ThingDataResponse> =>
 
 export const getUserThings = (userId: string | undefined): Promise<ThingDataResponse[]> =>
   httpApi.get<ThingDataResponse[]>(`api/things?user=${userId}`).then(({ data }) => data);
+
+export const getThingMeasurements = (startDate: AppDate, endDate: AppDate, mac: string): Promise<any> =>
+  httpApi.get<ThingMeasure[]>(
+    `api/sensor/data?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}&unit=minute&period=15&mac=${mac}`,
+  );
