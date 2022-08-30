@@ -19,6 +19,8 @@ export interface SidebarNavigationItem {
   children?: SidebarNavigationItem[];
   icon?: React.ReactNode;
   admin?: boolean;
+  dev?: boolean;
+  user?: boolean;
 }
 
 export const sidebarNavigation: SidebarNavigationItem[] = [
@@ -28,6 +30,8 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     url: '/',
     icon: <DashboardOutlined />,
     admin: true,
+    dev: true,
+    user: true,
   },
   {
     title: 'common.devices',
@@ -35,17 +39,20 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     url: '/devices-manager',
     icon: <BulbOutlined />,
     admin: true,
+    dev: true,
   },
   {
     title: 'common.devices',
     key: 'devices',
     url: '/devices',
     icon: <BulbOutlined />,
+    user: true,
   },
   {
     title: 'common.apps',
     key: 'apps',
     icon: <HomeOutlined />,
+    dev: true,
     children: [
       {
         title: 'common.feed',
@@ -63,6 +70,7 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     title: 'common.authPages',
     key: 'auth',
     icon: <UserOutlined />,
+    dev: true,
     children: [
       {
         title: 'common.login',
@@ -100,6 +108,7 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     title: 'common.forms',
     key: 'forms',
     icon: <FormOutlined />,
+    dev: true,
     children: [
       {
         title: 'common.advancedForms',
@@ -113,17 +122,20 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     key: 'dataTables',
     url: '/data-tables',
     icon: <TableOutlined />,
+    dev: true,
   },
   {
     title: 'common.charts',
     key: 'charts',
     url: '/charts',
     icon: <LineChartOutlined />,
+    dev: true,
   },
   {
     title: 'common.maps',
     key: 'maps',
     icon: <CompassOutlined />,
+    dev: true,
     children: [
       {
         title: 'common.googleMap',
@@ -151,6 +163,7 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     title: 'common.pages',
     key: 'pages',
     icon: <LayoutOutlined />,
+    dev: true,
     children: [
       {
         title: 'common.profilePage',
@@ -173,6 +186,7 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     title: 'common.ui',
     key: 'ui',
     icon: <BlockOutlined />,
+    dev: true,
     children: [
       {
         title: 'common.alert',

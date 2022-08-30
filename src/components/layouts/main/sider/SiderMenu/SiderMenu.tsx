@@ -32,10 +32,18 @@ const SiderMenu: React.FC<SiderContentProps> = ({ setCollapsed }) => {
   const defaultOpenKeys = openedSubmenu ? [openedSubmenu.key] : [];
 
   const renderNavigation = (role: string) => {
-    const navigationByRole =
-      role && role === 'ADMIN_ROLE'
-        ? sidebarNavigation.filter((item) => item.admin === true)
-        : sidebarNavigation.filter((item) => item.admin !== true);
+    let navigationByRole: SidebarNavigationItem[] = [];
+    // role && role === 'ADMIN_ROLE'
+    //   ? sidebarNavigation.filter((item) => item.admin === true)
+    //   : sidebarNavigation.filter((item) => item.admin !== true);
+
+    if (role && role === 'DEV_ROLE') {
+      navigationByRole = sidebarNavigation.filter((item) => item.dev);
+    } else if (role && role === 'ADMIN_ROLE') {
+      navigationByRole = sidebarNavigation.filter((item) => item.admin);
+    } else {
+      navigationByRole = sidebarNavigation.filter((item) => item.user);
+    }
 
     return navigationByRole.map((nav) =>
       nav.children && nav.children.length > 0 ? (
