@@ -40,19 +40,24 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     icon: <BulbOutlined />,
     admin: true,
     dev: true,
+    user: false,
   },
   {
     title: 'common.devices',
     key: 'devices',
     url: '/devices',
     icon: <BulbOutlined />,
+    admin: false,
+    dev: false,
     user: true,
   },
   {
     title: 'common.apps',
     key: 'apps',
     icon: <HomeOutlined />,
+    admin: false,
     dev: true,
+    user: false,
     children: [
       {
         title: 'common.feed',
@@ -70,7 +75,9 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     title: 'common.authPages',
     key: 'auth',
     icon: <UserOutlined />,
+    admin: false,
     dev: true,
+    user: false,
     children: [
       {
         title: 'common.login',
@@ -108,7 +115,9 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     title: 'common.forms',
     key: 'forms',
     icon: <FormOutlined />,
+    admin: false,
     dev: true,
+    user: false,
     children: [
       {
         title: 'common.advancedForms',
@@ -122,6 +131,8 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     key: 'dataTables',
     url: '/data-tables',
     icon: <TableOutlined />,
+    admin: false,
+    user: false,
     dev: true,
   },
   {
@@ -135,6 +146,8 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     title: 'common.maps',
     key: 'maps',
     icon: <CompassOutlined />,
+    admin: false,
+    user: false,
     dev: true,
     children: [
       {
@@ -163,6 +176,8 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     title: 'common.pages',
     key: 'pages',
     icon: <LayoutOutlined />,
+    admin: false,
+    user: false,
     dev: true,
     children: [
       {
@@ -186,6 +201,8 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     title: 'common.ui',
     key: 'ui',
     icon: <BlockOutlined />,
+    admin: false,
+    user: false,
     dev: true,
     children: [
       {
