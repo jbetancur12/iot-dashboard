@@ -24,13 +24,15 @@ const Charts = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    getThingMeasurements(startDate, endDate, 'EC:62:60:93:7A:98').then(({ data }) => setData(data));
+    getThingMeasurements(startDate, endDate, 'AA:BB:CC:DD:EE:FF').then(({ data }) => setData(data));
   }, [endDate, startDate]);
 
   const T: number[] = [];
+  const H: number[] = [];
   const D: string[] = [];
   data.forEach((dt: ThingMeasure) => {
     T.push(dt.averageT);
+    H.push(dt.averageH);
     D.push(new Date(dt._id).toLocaleString());
   });
 
@@ -51,12 +53,12 @@ const Charts = () => {
     },
     legend: {
       // data: [`coal`].map((item) => t(`charts.${item}`)),
-      data: [`Temperature`].map((item) => item),
-      top: 0,
-      left: 10,
-      textStyle: {
-        color: theme.colors.text.main,
-      },
+      // data: [`Temperature`, `Humedad`].map((item) => item),
+      // top: 0,
+      // left: 10,
+      // textStyle: {
+      //     color: theme.colors.text.main,
+      // },
     },
     grid: {
       top: 80,
@@ -78,48 +80,61 @@ const Charts = () => {
         },
       },
     ],
-    yAxis: {
-      type: 'value',
-      name: 'C',
-      scale: true,
-      axisLabel: {
-        fontSize: theme.commonFontSizes.xxs,
-        fontWeight: theme.commonFontWeight.light,
-        color: theme.colors.text.main,
+    yAxis: [
+      {
+        type: 'value',
+        name: 'T',
+        scale: true,
+        axisLabel: {
+          fontSize: theme.commonFontSizes.xxs,
+          fontWeight: theme.commonFontWeight.light,
+          color: theme.colors.text.main,
+          formatter: '{value} °C',
+        },
+        axisTick: {
+          show: false,
+        },
       },
-      axisTick: {
-        show: false,
+      {
+        type: 'value',
+        scale: true,
+        name: 'H',
+        axisLabel: {
+          fontSize: theme.commonFontSizes.xxs,
+          fontWeight: theme.commonFontWeight.light,
+          color: theme.colors.text.main,
+          formatter: '{value} °%',
+        },
+        axisTick: {
+          show: false,
+        },
       },
-    },
+    ],
 
     series: [
       {
-        // name: t('charts.coal'),
         name: 'Temperature',
         type: 'line',
-        stack: 'Total',
+        yAxisIndex: 0,
         smooth: true,
         lineStyle: {
           width: 2,
         },
         showSymbol: true,
-        // areaStyle: {
-        //   opacity: 0.8,
-        //   color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-        //     {
-        //       offset: 0,
-        //       color: chartColors.color1,
-        //     },
-        //     {
-        //       offset: 1,
-        //       color: chartColors.color1Tint,
-        //     },
-        //   ]),
-        // },
-        // emphasis: {
-        //   focus: 'series',
-        // },
         data: T,
+      },
+
+      {
+        name: 'Humidity',
+        type: 'line',
+        //stack: 'Total',
+        yAxisIndex: 1,
+        smooth: true,
+        lineStyle: {
+          width: 2,
+        },
+        showSymbol: true,
+        data: H,
       },
     ],
   };
