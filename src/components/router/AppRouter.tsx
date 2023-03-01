@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 // no lazy loading for auth pages to avoid flickering
 const AuthLayout = React.lazy(() => import('@app/components/layouts/AuthLayout/AuthLayout'));
@@ -14,6 +14,7 @@ import MainLayout from '@app/components/layouts/main/MainLayout/MainLayout';
 import ProfileLayout from '@app/components/profile/ProfileLayout';
 import RequireAuth from '@app/components/router/RequireAuth';
 import { withLoading } from '@app/hocs/withLoading.hoc';
+import { useAppSelector } from '@app/hooks/reduxHooks';
 
 const DashboardPage = React.lazy(() => import('@app/pages/DashboardPage/DashboardPage'));
 const DevicesPage = React.lazy(() => import('@app/pages/DevicesUserPage/DevicesPage'));
@@ -129,6 +130,9 @@ const AuthLayoutFallback = withLoading(AuthLayout);
 const LogoutFallback = withLoading(Logout);
 
 export const AppRouter: React.FC = () => {
+  const user = useAppSelector((state) => state.user.user);
+  const userRole = user ? user.role : 'USER_ROLE';
+
   const protectedLayout = (
     <RequireAuth>
       <MainLayout />
@@ -139,7 +143,12 @@ export const AppRouter: React.FC = () => {
     <BrowserRouter>
       <Routes>
         <Route path={DASHBOARD_PATH} element={protectedLayout}>
-          <Route index element={<Dashboard />} />
+          {/* <Route index element={<Dashboard />} /> */}
+          {userRole === 'USER_ROLE' ? (
+            <Route index element={<Navigate to="/devices" replace />} />
+          ) : (
+            <Route index element={<Navigate to="/devices-manager" replace />} />
+          )}
           <Route path="devices-manager">
             <Route index element={<DevicesManager />} />
             <Route path="new-user" element={<NewUser />} />

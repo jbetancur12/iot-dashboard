@@ -27,7 +27,7 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
   {
     title: 'common.dashboard',
     key: 'dashboard',
-    url: '/',
+    url: '/home',
     icon: <DashboardOutlined />,
     admin: true,
     dev: true,
