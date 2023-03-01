@@ -86,6 +86,12 @@ export const GradientStackedAreaChart: React.FC = () => {
           focus: 'series',
         },
         data: [140, 232, 101, 264, 90, 340, 250],
+        markLine: {
+          data: {
+            name: 'Horizontal line with Y value at 100',
+            yAxis: 100,
+          },
+        },
       },
     ],
   };

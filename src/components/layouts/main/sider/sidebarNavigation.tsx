@@ -31,7 +31,7 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     icon: <DashboardOutlined />,
     admin: true,
     dev: true,
-    user: true,
+    user: false,
   },
   {
     title: 'common.devices',

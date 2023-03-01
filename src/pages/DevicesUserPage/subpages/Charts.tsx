@@ -103,7 +103,7 @@ const Charts = () => {
           fontSize: theme.commonFontSizes.xxs,
           fontWeight: theme.commonFontWeight.light,
           color: theme.colors.text.main,
-          formatter: '{value} °%',
+          formatter: '{value} %',
         },
         axisTick: {
           show: false,
@@ -122,6 +122,28 @@ const Charts = () => {
         },
         showSymbol: true,
         data: T,
+        markLine: {
+          data: [
+            {
+              name: 'average line',
+              type: 'average',
+              symbol: 'none',
+              lineStyle: {
+                color: '#FF0002',
+              },
+              label: {
+                position: 'middle',
+              },
+            },
+            {
+              name: 'Horizontal line with Y value at 100',
+              yAxis: 24,
+              label: {
+                position: 'middle',
+              },
+            },
+          ],
+        },
       },
 
       {
@@ -135,6 +157,28 @@ const Charts = () => {
         },
         showSymbol: true,
         data: H,
+        markLine: {
+          data: [
+            {
+              name: 'average line',
+              type: 'average',
+              symbol: 'none',
+              lineStyle: {
+                color: '#FF0000',
+              },
+              label: {
+                position: 'middle',
+              },
+            },
+            {
+              name: 'Horizontal line with Y value at 100',
+              yAxis: 90,
+              label: {
+                position: 'middle',
+              },
+            },
+          ],
+        },
       },
     ],
   };
