@@ -356,7 +356,10 @@
     "disabled": "Disabled pickers",
     "range": "Range picker",
     "sizes": "Picker sizes",
-    "time": "Time picker"
+    "time": "Time picker",
+    "since": "Since",
+    "to": "To",
+    "choose": "Choose Date"
   },
   "device": {
     "user": "Select user",

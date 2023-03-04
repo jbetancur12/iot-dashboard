@@ -356,7 +356,10 @@
     "disabled": "Selectores deshabilitados",
     "range": "Selector de rango",
     "sizes": "Tamaños de selector",
-    "time": "Selector de tiempo"
+    "time": "Selector de tiempo",
+    "since": "Desde",
+    "to": "Hasta",
+    "choose": "Escoger Fecha"
   },
   "dropdowns": {
     "basic": "Menú desplegable básico",

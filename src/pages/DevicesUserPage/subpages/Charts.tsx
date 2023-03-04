@@ -198,11 +198,11 @@ const Charts = () => {
   return (
     <>
       <ST.CollapseWrapper defaultActiveKey={['1']}>
-        <Panel header="Choose Date" key="1">
+        <Panel header={t('dateTimePickers.choose')} key="1">
           <Row gutter={[30, 30]}>
             <Col xs={24} xl={12}>
               <Col>
-                <S.Card title="Since">
+                <S.Card title={t('dateTimePickers.since')}>
                   <DayjsDatePicker
                     onChange={(date) => setStartDate(date as AppDate)}
                     showTime
@@ -214,7 +214,7 @@ const Charts = () => {
             </Col>
             <Col xs={24} xl={12}>
               <Col>
-                <S.Card title="To">
+                <S.Card title={t('dateTimePickers.to')}>
                   <DayjsDatePicker
                     onChange={(date) => setEndDate(date as AppDate)}
                     showTime
@@ -246,7 +246,10 @@ const Charts = () => {
           </Col>
         </Col>
       </Row> */}
-      <Card padding="0 0 1.875rem" title={t('charts.gradientLabel')}>
+      <Card
+        padding="0 0 1.875rem"
+        //title={t('charts.gradientLabel')}
+      >
         <BaseChart option={option} />
       </Card>
     </>
