@@ -49,7 +49,7 @@ const Charts = () => {
 
   const option = {
     tooltip: {
-      valueFormatter: (value: number) => value.toFixed(2),
+      valueFormatter: (value: number) => value.toFixed(1),
       trigger: 'axis',
       axisPointer: {
         type: 'cross',
