@@ -74,7 +74,7 @@ const Charts = () => {
     },
     xAxis: [
       {
-        show: false,
+        show: true,
         type: 'category',
         boundaryGap: false,
         data: D,
@@ -127,28 +127,28 @@ const Charts = () => {
         },
         showSymbol: true,
         data: T,
-        markLine: {
-          data: [
-            {
-              name: 'average line',
-              type: 'average',
-              symbol: 'none',
-              lineStyle: {
-                color: '#FF0002',
-              },
-              label: {
-                position: 'middle',
-              },
-            },
-            {
-              name: 'Horizontal line with Y value at 100',
-              yAxis: 24,
-              label: {
-                position: 'middle',
-              },
-            },
-          ],
-        },
+        // markLine: {
+        //   data: [
+        //     {
+        //       name: 'average line',
+        //       type: 'average',
+        //       symbol: 'none',
+        //       lineStyle: {
+        //         color: '#FF0002',
+        //       },
+        //       label: {
+        //         position: 'middle',
+        //       },
+        //     },
+        //     {
+        //       name: 'Horizontal line with Y value at 100',
+        //       yAxis: 24,
+        //       label: {
+        //         position: 'middle',
+        //       },
+        //     },
+        //   ],
+        // },
       },
 
       {
@@ -162,28 +162,28 @@ const Charts = () => {
         },
         showSymbol: true,
         data: H,
-        markLine: {
-          data: [
-            {
-              name: 'average line',
-              type: 'average',
-              symbol: 'none',
-              lineStyle: {
-                color: '#FF0000',
-              },
-              label: {
-                position: 'middle',
-              },
-            },
-            {
-              name: 'Horizontal line with Y value at 100',
-              yAxis: 90,
-              label: {
-                position: 'middle',
-              },
-            },
-          ],
-        },
+        // markLine: {
+        //   data: [
+        //     {
+        //       name: 'average line',
+        //       type: 'average',
+        //       symbol: 'none',
+        //       lineStyle: {
+        //         color: '#FF0000',
+        //       },
+        //       label: {
+        //         position: 'middle',
+        //       },
+        //     },
+        //     {
+        //       name: 'Horizontal line with Y value at 100',
+        //       yAxis: 90,
+        //       label: {
+        //         position: 'middle',
+        //       },
+        //     },
+        //   ],
+        // },
       },
     ],
   };
