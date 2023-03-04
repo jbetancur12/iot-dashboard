@@ -3,7 +3,7 @@ import { LanguageType } from '@app/interfaces/interfaces';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const localLanguage = (localStorage.getItem('lng') as LanguageType) || 'en';
+const localLanguage = (localStorage.getItem('lng') as LanguageType) || 'es';
 
 export const useLanguage = (): { language: LanguageType; setLanguage: (locale: LanguageType) => Promise<void> } => {
   const { i18n } = useTranslation();
