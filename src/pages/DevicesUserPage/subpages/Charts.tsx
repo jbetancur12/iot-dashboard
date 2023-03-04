@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { Card } from '@app/components/common/Card/Card';
 import { BaseChart } from '@app/components/common/charts/BaseChart';
 import * as echarts from 'echarts';
+import { useSearchParams } from 'react-router-dom';
 
 const dt: Date = new Date();
 dt.setHours(dt.getHours() - 24);
@@ -22,9 +23,13 @@ const Charts = () => {
   const [startDate, setStartDate] = useState<AppDate>(dayjs(dt));
   const [endDate, setEndDate] = useState<AppDate>(dayjs());
   const [data, setData] = useState([]);
+  let [searchParams] = useSearchParams();
+  const mav = searchParams.get('mac');
+
+  console.log(typeof mav);
 
   useEffect(() => {
-    getThingMeasurements(startDate, endDate, 'AA:BB:CC:DD:EE:FF').then(({ data }) => setData(data));
+    getThingMeasurements(startDate, endDate, mav).then(({ data }) => setData(data));
   }, [endDate, startDate]);
 
   const T: number[] = [];

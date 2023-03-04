@@ -18,7 +18,13 @@ const DevicesPage: React.FC = () => {
     <Row gutter={[30, 30]}>
       {things.map((thing) => (
         <Col xs={24} xl={8} key={thing._id}>
-          <Link to={`charts?mac=${userId}`}>
+          {/* <Link to={`charts?user=${userId}&mac=${thing.mac}`}> */}
+          <Link
+            to={{
+              pathname: 'charts',
+              search: `?user=${userId}&mac=${thing.mac}`,
+            }}
+          >
             <S.DeviceCard key={thing._id}>
               <S.Title>{thing.name}</S.Title>
               <S.Text>{thing.mac}</S.Text>
