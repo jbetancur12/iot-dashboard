@@ -26,8 +26,6 @@ const Charts = () => {
   let [searchParams] = useSearchParams();
   const mav = searchParams.get('mac');
 
-  console.log(typeof mav);
-
   useEffect(() => {
     getThingMeasurements(startDate, endDate, mav).then(({ data }) => setData(data));
   }, [endDate, startDate]);
@@ -36,8 +34,11 @@ const Charts = () => {
   const H: number[] = [];
   const D: string[] = [];
   data.forEach((dt: ThingMeasure) => {
-    T.push(dt.averageT);
-    H.push(dt.averageH);
+    const temp: number = dt.averageT;
+    const hum: number = dt.averageH;
+
+    T.push(temp);
+    H.push(hum);
     D.push(new Date(dt._id).toLocaleString());
   });
 
@@ -48,6 +49,7 @@ const Charts = () => {
 
   const option = {
     tooltip: {
+      valueFormatter: (value: number) => value.toFixed(2),
       trigger: 'axis',
       axisPointer: {
         type: 'cross',
@@ -127,6 +129,11 @@ const Charts = () => {
         },
         showSymbol: true,
         data: T,
+        markPoint: {
+          label: {
+            formatter: '{b}\n{c}',
+          },
+        },
         // markLine: {
         //   data: [
         //     {
@@ -200,6 +207,7 @@ const Charts = () => {
                     onChange={(date) => setStartDate(date as AppDate)}
                     showTime
                     defaultValue={dayjs(dt)}
+                    allowClear={false}
                   />
                 </S.Card>
               </Col>
@@ -207,7 +215,12 @@ const Charts = () => {
             <Col xs={24} xl={12}>
               <Col>
                 <S.Card title="To">
-                  <DayjsDatePicker onChange={(date) => setEndDate(date as AppDate)} showTime defaultValue={dayjs()} />
+                  <DayjsDatePicker
+                    onChange={(date) => setEndDate(date as AppDate)}
+                    showTime
+                    defaultValue={dayjs()}
+                    allowClear={false}
+                  />
                 </S.Card>
               </Col>
             </Col>
