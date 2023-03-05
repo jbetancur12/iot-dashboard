@@ -92,7 +92,9 @@
     "search": "Motor de búsqueda",
     "union": "Anuncios de la Unión",
     "video": "Anuncios de video",
-    "visitorsFrom": "Visitantes de"
+    "visitorsFrom": "Visitantes de",
+    "temperature": "Temperatura",
+    "humidity": "Humedad"
   },
   "checkboxes": {
     "apple": "Manzana",

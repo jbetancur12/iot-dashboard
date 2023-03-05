@@ -92,7 +92,9 @@
     "search": "Search Engine",
     "union": "Union Ads",
     "video": "Video Ads",
-    "visitorsFrom": "Visitors from"
+    "visitorsFrom": "Visitors from",
+    "temperature": "Temperature",
+    "humidity": "Humidity"
   },
   "checkboxes": {
     "apple": "Apple",

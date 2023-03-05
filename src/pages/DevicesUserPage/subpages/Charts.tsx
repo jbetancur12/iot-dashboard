@@ -120,7 +120,7 @@ const Charts = () => {
 
     series: [
       {
-        name: 'Temperature',
+        name: t('charts.temperature'),
         type: 'line',
         yAxisIndex: 0,
         smooth: true,
