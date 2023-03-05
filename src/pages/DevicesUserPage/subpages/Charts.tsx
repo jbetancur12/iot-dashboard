@@ -159,7 +159,7 @@ const Charts = () => {
       },
 
       {
-        name: 'Humidity',
+        name: t('charts.humidity'),
         type: 'line',
         //stack: 'Total',
         yAxisIndex: 1,
