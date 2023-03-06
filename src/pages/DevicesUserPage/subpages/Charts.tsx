@@ -1,5 +1,5 @@
 import { DayjsDatePicker } from '@app/components/common/pickers/DayjsDatePicker';
-import { Col, DatePickerProps, Row } from 'antd';
+import { Button, Col, DatePickerProps, Row } from 'antd';
 import { GradientStackedAreaChart } from './GradientStackedAreaChart';
 import * as S from '@app/pages/uiComponentsPages/UIComponentsPage.styles';
 import * as ST from './chartStyles';
@@ -17,11 +17,15 @@ import * as echarts from 'echarts';
 import { useSearchParams } from 'react-router-dom';
 
 const dt: Date = new Date();
-dt.setHours(dt.getHours() - 24);
+dt.setHours(dt.getHours() - 6);
+
+const ranges = ['Last Hour', '6 Hours', '1 Day', '1 Week', '1 Month', '3 Months', 'Custom'];
 
 const Charts = () => {
   const [startDate, setStartDate] = useState<AppDate>(dayjs(dt));
   const [endDate, setEndDate] = useState<AppDate>(dayjs());
+  const [range, setRange] = useState<String>('6 Hours');
+  const [custom, setCustom] = useState<Boolean>(false);
   const [data, setData] = useState([]);
   let [searchParams] = useSearchParams();
   const mav = searchParams.get('mac');
@@ -46,6 +50,42 @@ const Charts = () => {
   const { t } = useTranslation();
 
   const chartColors = theme.colors.charts;
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const dt: Date = new Date();
+    const value = event.currentTarget.innerText;
+    setCustom(false);
+    switch (value) {
+      case 'Last Hour':
+        dt.setHours(dt.getHours() - 1);
+        break;
+      case '6 Hours':
+        dt.setHours(dt.getHours() - 6);
+        break;
+      case '1 Day':
+        dt.setHours(dt.getHours() - 24);
+        break;
+      case '1 Week':
+        dt.setHours(dt.getHours() - 168);
+        break;
+      case '1 Month':
+        dt.setHours(dt.getHours() - 730);
+        break;
+      case '3 Months':
+        dt.setHours(dt.getHours() - 2190);
+        break;
+      case 'Custom':
+        setCustom(true);
+        dt.setHours(dt.getHours() - 6);
+        break;
+
+      default:
+        break;
+    }
+
+    setStartDate(dayjs(dt));
+    setRange(value);
+  };
 
   const option = {
     tooltip: {
@@ -197,36 +237,45 @@ const Charts = () => {
 
   return (
     <>
-      <ST.CollapseWrapper defaultActiveKey={['1']}>
-        <Panel header={t('dateTimePickers.choose')} key="1">
-          <Row gutter={[30, 30]}>
-            <Col xs={24} xl={12}>
-              <Col>
-                <S.Card title={t('dateTimePickers.since')}>
-                  <DayjsDatePicker
-                    onChange={(date) => setStartDate(date as AppDate)}
-                    showTime
-                    defaultValue={dayjs(dt)}
-                    allowClear={false}
-                  />
-                </S.Card>
+      <div style={{ display: 'flex', border: 'solid 1px #f0f0f0', borderRadius: '7px', marginBottom: '10px' }}>
+        {ranges.map((value) => (
+          <ST.divWrapper $isSelected={range === value} onClick={handleClick}>
+            {value}
+          </ST.divWrapper>
+        ))}
+      </div>
+      {custom && (
+        <ST.CollapseWrapper defaultActiveKey={['1']}>
+          <Panel header={t('dateTimePickers.choose')} key="1">
+            <Row gutter={[30, 30]}>
+              <Col xs={24} xl={12}>
+                <Col>
+                  <S.Card title={t('dateTimePickers.since')}>
+                    <DayjsDatePicker
+                      onChange={(date) => setStartDate(date as AppDate)}
+                      //showTime
+                      defaultValue={dayjs(dt)}
+                      allowClear={false}
+                    />
+                  </S.Card>
+                </Col>
               </Col>
-            </Col>
-            <Col xs={24} xl={12}>
-              <Col>
-                <S.Card title={t('dateTimePickers.to')}>
-                  <DayjsDatePicker
-                    onChange={(date) => setEndDate(date as AppDate)}
-                    showTime
-                    defaultValue={dayjs()}
-                    allowClear={false}
-                  />
-                </S.Card>
+              <Col xs={24} xl={12}>
+                <Col>
+                  <S.Card title={t('dateTimePickers.to')}>
+                    <DayjsDatePicker
+                      onChange={(date) => setEndDate(date as AppDate)}
+                      //showTime
+                      defaultValue={dayjs()}
+                      allowClear={false}
+                    />
+                  </S.Card>
+                </Col>
               </Col>
-            </Col>
-          </Row>
-        </Panel>
-      </ST.CollapseWrapper>
+            </Row>
+          </Panel>
+        </ST.CollapseWrapper>
+      )}
 
       {/* <Row gutter={[30, 30]}>
         <Col xs={24} xl={12}>
