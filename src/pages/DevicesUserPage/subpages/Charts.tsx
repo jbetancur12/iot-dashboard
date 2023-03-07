@@ -1,5 +1,5 @@
 import { DayjsDatePicker } from '@app/components/common/pickers/DayjsDatePicker';
-import { Button, Col, DatePickerProps, Row } from 'antd';
+import { Col, DatePickerProps, Row, Space } from 'antd';
 import { GradientStackedAreaChart } from './GradientStackedAreaChart';
 import * as S from '@app/pages/uiComponentsPages/UIComponentsPage.styles';
 import * as ST from './chartStyles';
@@ -15,6 +15,7 @@ import { Card } from '@app/components/common/Card/Card';
 import { BaseChart, getChartColors } from '@app/components/common/charts/BaseChart';
 import * as echarts from 'echarts';
 import { useSearchParams } from 'react-router-dom';
+import { Button } from '@app/components/common/buttons/Button/Button';
 
 const dt: Date = new Date();
 dt.setHours(dt.getHours() - 6);
@@ -94,7 +95,6 @@ const Charts = () => {
   const defaultOption = {
     color: getChartColors(theme),
   };
-  console.log('🚀 ~ file: Charts.tsx:93 ~ Charts ~ defaultOption:', defaultOption);
 
   const option = {
     tooltip: {
@@ -155,7 +155,7 @@ const Charts = () => {
           },
         },
         axisTick: {
-          show: false,
+          show: true,
         },
       },
       {
@@ -259,13 +259,20 @@ const Charts = () => {
 
   return (
     <>
-      <ST.containerDiv>
+      {/* <ST.containerDiv>
         {ranges.map((value) => (
           <ST.divWrapper $isSelected={range === value} onClick={handleClick} data-value={value}>
             {t(`charts.ranges.${value}`)}
           </ST.divWrapper>
         ))}
-      </ST.containerDiv>
+      </ST.containerDiv> */}
+      <Space size="small" wrap style={{ marginBottom: '10px' }}>
+        {ranges.map((value) => (
+          <Button type="primary" severity="info" onClick={handleClick} data-value={value}>
+            {t(`charts.ranges.${value}`)}
+          </Button>
+        ))}
+      </Space>
       {custom && (
         <ST.CollapseWrapper defaultActiveKey={['1']}>
           <Panel header={t('dateTimePickers.choose')} key="1">
