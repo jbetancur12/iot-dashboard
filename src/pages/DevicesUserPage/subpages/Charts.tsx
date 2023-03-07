@@ -31,6 +31,8 @@ const Charts = () => {
   const [endDate, setEndDate] = useState<AppDate>(dayjs());
   const [range, setRange] = useState<String | undefined>('6Hours');
   const [custom, setCustom] = useState<Boolean>(false);
+  const [maxMin, setMaxMin] = useState<Boolean>(false);
+  const [average, setAverage] = useState<Boolean>(false);
   const [data, setData] = useState([]);
   let [searchParams] = useSearchParams();
   const mav = searchParams.get('mac');
@@ -190,22 +192,32 @@ const Charts = () => {
         type: 'line',
         yAxisIndex: 0,
         smooth: true,
+        sampling: 'average',
         lineStyle: {
           width: 2,
         },
         showSymbol: true,
         data: T,
-        markPoint: {
+        markPoint: maxMin && {
+          symbolSize: 50,
+          data: [
+            { type: 'max', name: 'Max' },
+            { type: 'min', name: 'Min' },
+          ],
           label: {
-            formatter: '{b}\n{c}',
+            //formatter: '{b}\n{c}',
+            formatter: function (param: any) {
+              console.log(param);
+              return param.value.toFixed(2) + ' °C' + ' - ' + D[param.data.coord[0]];
+            },
           },
         },
-        markLine: custom && {
+        markLine: average && {
           data: [
             {
               // Use the same name with starting and ending point
-              name: 'Max',
-              type: 'max',
+              name: t('charts.averageValue'),
+              type: 'average',
               label: {
                 position: 'middle',
                 formatter: '{b} - {c} °C',
@@ -306,6 +318,13 @@ const Charts = () => {
             }}
           />
         )}
+
+        <Button type="primary" severity="info" onClick={() => setMaxMin(!maxMin)}>
+          Max/Min
+        </Button>
+        <Button type="primary" severity="info" onClick={() => setAverage(!average)}>
+          {t('charts.averageValue')}
+        </Button>
       </Space>
       {/* {custom && (
         <ST.CollapseWrapper defaultActiveKey={['1']}>
