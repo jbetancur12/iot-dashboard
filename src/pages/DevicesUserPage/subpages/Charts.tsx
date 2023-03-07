@@ -200,6 +200,19 @@ const Charts = () => {
             formatter: '{b}\n{c}',
           },
         },
+        markLine: custom && {
+          data: [
+            {
+              // Use the same name with starting and ending point
+              name: 'Max',
+              type: 'max',
+              label: {
+                position: 'middle',
+                formatter: '{b} - {c} °C',
+              },
+            },
+          ],
+        },
         // markLine: {
         //   data: [
         //     {
