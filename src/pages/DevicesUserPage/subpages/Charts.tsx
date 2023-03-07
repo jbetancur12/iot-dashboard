@@ -270,6 +270,7 @@ const Charts = () => {
           </ST.divWrapper>
         ))}
       </ST.containerDiv> */}
+
       <Space size="small" wrap style={{ marginBottom: '10px' }}>
         {ranges.map((value) => (
           <ST.rangeButton
@@ -282,8 +283,17 @@ const Charts = () => {
             {t(`charts.ranges.${value}`)}
           </ST.rangeButton>
         ))}
+        {custom && (
+          <DayjsDatePicker.RangePicker
+            allowClear={false}
+            onChange={(dt: any) => {
+              setStartDate(dt[0] as AppDate);
+              setEndDate(dt[1] as AppDate);
+            }}
+          />
+        )}
       </Space>
-      {custom && (
+      {/* {custom && (
         <ST.CollapseWrapper defaultActiveKey={['1']}>
           <Panel header={t('dateTimePickers.choose')} key="1">
             <Row gutter={[30, 30]}>
@@ -314,7 +324,7 @@ const Charts = () => {
             </Row>
           </Panel>
         </ST.CollapseWrapper>
-      )}
+      )} */}
 
       {/* <Row gutter={[30, 30]}>
         <Col xs={24} xl={12}>
