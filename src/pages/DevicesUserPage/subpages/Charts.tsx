@@ -286,6 +286,7 @@ const Charts = () => {
         {custom && (
           <DayjsDatePicker.RangePicker
             allowClear={false}
+            defaultValue={[dayjs(dt), dayjs()]}
             onChange={(dt: any) => {
               setStartDate(dt[0] as AppDate);
               setEndDate(dt[1] as AppDate);
