@@ -151,6 +151,7 @@ const Charts = () => {
           show: true,
           lineStyle: {
             color: defaultOption.color[0],
+            width: 2,
           },
         },
         axisTick: {
@@ -170,6 +171,7 @@ const Charts = () => {
           show: true,
           lineStyle: {
             color: defaultOption.color[1],
+            width: 2,
           },
         },
         axisTick: {
