@@ -12,19 +12,20 @@ import { setDefaultHandler } from 'workbox-routing';
 import { useTheme } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Card } from '@app/components/common/Card/Card';
-import { BaseChart } from '@app/components/common/charts/BaseChart';
+import { BaseChart, getChartColors } from '@app/components/common/charts/BaseChart';
 import * as echarts from 'echarts';
 import { useSearchParams } from 'react-router-dom';
 
 const dt: Date = new Date();
 dt.setHours(dt.getHours() - 6);
 
-const ranges = ['Last Hour', '6 Hours', '1 Day', '1 Week', '1 Month', '3 Months', 'Custom'];
+// const ranges = ['Last Hour', '6 Hours', '1 Day', '1 Week', '1 Month', '3 Months', 'Custom'];
+const ranges = ['lastHour', '6Hours', '1Day', '1Week', '1Month', '3Months', 'custom'];
 
 const Charts = () => {
   const [startDate, setStartDate] = useState<AppDate>(dayjs(dt));
   const [endDate, setEndDate] = useState<AppDate>(dayjs());
-  const [range, setRange] = useState<String>('6 Hours');
+  const [range, setRange] = useState<String | undefined>('6Hours');
   const [custom, setCustom] = useState<Boolean>(false);
   const [data, setData] = useState([]);
   let [searchParams] = useSearchParams();
@@ -53,28 +54,31 @@ const Charts = () => {
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const dt: Date = new Date();
-    const value = event.currentTarget.innerText;
+    //const value = event.currentTarget.innerText;
+    const value = event.currentTarget.dataset.value;
+    console.log('🚀 ~ file: Charts.tsx:59 ~ handleClick ~ value:', value);
+
     setCustom(false);
     switch (value) {
-      case 'Last Hour':
+      case 'lastHour':
         dt.setHours(dt.getHours() - 1);
         break;
-      case '6 Hours':
+      case '6Hours':
         dt.setHours(dt.getHours() - 6);
         break;
-      case '1 Day':
+      case '1Day':
         dt.setHours(dt.getHours() - 24);
         break;
-      case '1 Week':
+      case '1Week':
         dt.setHours(dt.getHours() - 168);
         break;
-      case '1 Month':
+      case '1Month':
         dt.setHours(dt.getHours() - 730);
         break;
-      case '3 Months':
+      case '3Months':
         dt.setHours(dt.getHours() - 2190);
         break;
-      case 'Custom':
+      case 'custom':
         setCustom(true);
         dt.setHours(dt.getHours() - 6);
         break;
@@ -86,6 +90,11 @@ const Charts = () => {
     setStartDate(dayjs(dt));
     setRange(value);
   };
+
+  const defaultOption = {
+    color: getChartColors(theme),
+  };
+  console.log('🚀 ~ file: Charts.tsx:93 ~ Charts ~ defaultOption:', defaultOption);
 
   const option = {
     tooltip: {
@@ -135,8 +144,14 @@ const Charts = () => {
         axisLabel: {
           fontSize: theme.commonFontSizes.xxs,
           fontWeight: theme.commonFontWeight.light,
-          color: theme.colors.text.main,
+          //color: theme.colors.text.main,
           formatter: '{value} °C',
+        },
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: defaultOption.color[0],
+          },
         },
         axisTick: {
           show: false,
@@ -149,8 +164,13 @@ const Charts = () => {
         axisLabel: {
           fontSize: theme.commonFontSizes.xxs,
           fontWeight: theme.commonFontWeight.light,
-          color: theme.colors.text.main,
           formatter: '{value} %',
+        },
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: defaultOption.color[1],
+          },
         },
         axisTick: {
           show: false,
@@ -237,13 +257,13 @@ const Charts = () => {
 
   return (
     <>
-      <div style={{ display: 'flex', border: 'solid 1px #f0f0f0', borderRadius: '7px', marginBottom: '10px' }}>
+      <ST.containerDiv>
         {ranges.map((value) => (
-          <ST.divWrapper $isSelected={range === value} onClick={handleClick}>
-            {value}
+          <ST.divWrapper $isSelected={range === value} onClick={handleClick} data-value={value}>
+            {t(`charts.ranges.${value}`)}
           </ST.divWrapper>
         ))}
-      </div>
+      </ST.containerDiv>
       {custom && (
         <ST.CollapseWrapper defaultActiveKey={['1']}>
           <Panel header={t('dateTimePickers.choose')} key="1">

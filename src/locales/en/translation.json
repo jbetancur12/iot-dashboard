@@ -94,7 +94,16 @@
     "video": "Video Ads",
     "visitorsFrom": "Visitors from",
     "temperature": "Temperature",
-    "humidity": "Humidity"
+    "humidity": "Humidity",
+    "ranges": {
+      "lastHour": "Last Hour",
+      "6Hours": "6 Hours",
+      "1Day": "1 Day",
+      "1Week": "1 Week",
+      "1Month": "1 Month",
+      "3Months": "3 Month",
+      "custom": "Custom"
+    }
   },
   "checkboxes": {
     "apple": "Apple",

@@ -10,12 +10,23 @@ export const CollapseWrapper = styled(Collapse)`
   margin-bottom: 20px;
 `;
 
-export const divWrapper = styled.div<WrapperProps>`
-  display: inline-block;
-  width: 25%;
-  text-align: center;
+export const containerDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+
   border: solid 1px #f0f0f0;
-  height: 100%;
+  border-radius: 7px;
+  margin-bottom: 10px;
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
+`;
+
+export const divWrapper = styled.div<WrapperProps>`
+  //flex-basis: 30%;
+  border: solid 1px #f0f0f0;
+  width: 100%;
+  text-align: center;
   cursor: pointer;
   ${(props) =>
     props.$isSelected &&

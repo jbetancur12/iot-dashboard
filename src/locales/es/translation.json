@@ -94,7 +94,16 @@
     "video": "Anuncios de video",
     "visitorsFrom": "Visitantes de",
     "temperature": "Temperatura",
-    "humidity": "Humedad"
+    "humidity": "Humedad",
+    "ranges": {
+      "lastHour": "Ultima Hora",
+      "6Hours": "6 Horas",
+      "1Day": "1 Dia",
+      "1Week": "1 Semana",
+      "1Month": "1 Mes",
+      "3Months": "3 Meses",
+      "custom": "Personalizado"
+    }
   },
   "checkboxes": {
     "apple": "Manzana",
