@@ -4,7 +4,7 @@ import { GradientStackedAreaChart } from './GradientStackedAreaChart';
 import * as S from '@app/pages/uiComponentsPages/UIComponentsPage.styles';
 import * as ST from './chartStyles';
 import { Panel } from '@app/components/common/Collapse/Collapse';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AppDate } from '@app/constants/Dates';
 import dayjs from 'dayjs';
 import { getThingMeasurements, ThingMeasure } from '@app/api/thing.api';
@@ -16,6 +16,7 @@ import { BaseChart, getChartColors } from '@app/components/common/charts/BaseCha
 import * as echarts from 'echarts';
 import { useSearchParams } from 'react-router-dom';
 import { Button } from '@app/components/common/buttons/Button/Button';
+import './Charts.css';
 
 const dt: Date = new Date();
 dt.setHours(dt.getHours() - 6);
@@ -24,6 +25,8 @@ dt.setHours(dt.getHours() - 6);
 const ranges = ['lastHour', '6Hours', '1Day', '1Week', '1Month', '3Months', 'custom'];
 
 const Charts = () => {
+  const btnRef = useRef<HTMLButtonElement>(null);
+
   const [startDate, setStartDate] = useState<AppDate>(dayjs(dt));
   const [endDate, setEndDate] = useState<AppDate>(dayjs());
   const [range, setRange] = useState<String | undefined>('6Hours');
@@ -60,6 +63,7 @@ const Charts = () => {
     console.log('🚀 ~ file: Charts.tsx:59 ~ handleClick ~ value:', value);
 
     setCustom(false);
+
     switch (value) {
       case 'lastHour':
         dt.setHours(dt.getHours() - 1);
@@ -268,9 +272,15 @@ const Charts = () => {
       </ST.containerDiv> */}
       <Space size="small" wrap style={{ marginBottom: '10px' }}>
         {ranges.map((value) => (
-          <Button type="primary" severity="info" onClick={handleClick} data-value={value}>
+          <ST.rangeButton
+            type="primary"
+            severity="info"
+            $isSelected={range === value}
+            onClick={handleClick}
+            data-value={value}
+          >
             {t(`charts.ranges.${value}`)}
-          </Button>
+          </ST.rangeButton>
         ))}
       </Space>
       {custom && (

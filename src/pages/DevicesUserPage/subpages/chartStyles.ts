@@ -34,3 +34,11 @@ export const divWrapper = styled.div<WrapperProps>`
       background: blue;
     `}
 `;
+
+export const rangeButton = styled(Button)<WrapperProps>`
+  ${(props) =>
+    props.$isSelected &&
+    css`
+      background: ${props.theme.colors.main.mainBackground};
+    `}
+`;
