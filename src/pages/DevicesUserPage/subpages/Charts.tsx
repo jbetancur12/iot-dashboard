@@ -1,5 +1,5 @@
 import { DayjsDatePicker } from '@app/components/common/pickers/DayjsDatePicker';
-import { Col, DatePickerProps, Row, Space } from 'antd';
+import { Col, DatePickerProps, Empty, Row, Space } from 'antd';
 import { GradientStackedAreaChart } from './GradientStackedAreaChart';
 import * as S from '@app/pages/uiComponentsPages/UIComponentsPage.styles';
 import * as ST from './chartStyles';
@@ -16,6 +16,8 @@ import { BaseChart, getChartColors } from '@app/components/common/charts/BaseCha
 import * as echarts from 'echarts';
 import { useSearchParams } from 'react-router-dom';
 import { Button } from '@app/components/common/buttons/Button/Button';
+import ExcelExport from '../../../utils/ExcelExport';
+
 import './Charts.css';
 
 const dt: Date = new Date();
@@ -23,6 +25,12 @@ dt.setHours(dt.getHours() - 6);
 
 // const ranges = ['Last Hour', '6 Hours', '1 Day', '1 Week', '1 Month', '3 Months', 'Custom'];
 const ranges = ['lastHour', '6Hours', '1Day', '1Week', '1Month', '3Months', 'custom'];
+
+interface ThingMeasurex {
+  date: string;
+  temperature: number;
+  humidity: number;
+}
 
 const Charts = () => {
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -51,6 +59,11 @@ const Charts = () => {
     T.push(temp);
     H.push(hum);
     D.push(new Date(dt._id).toLocaleString());
+  });
+
+  const newData: ThingMeasurex[] = [];
+  data.forEach(function (obj: ThingMeasure) {
+    newData.push({ date: obj._id, temperature: obj.averageT, humidity: obj.averageH });
   });
 
   const theme = useTheme();
@@ -325,6 +338,8 @@ const Charts = () => {
         <Button type="primary" severity="info" onClick={() => setAverage(!average)}>
           {t('charts.averageValue')}
         </Button>
+
+        <ExcelExport fileName={'Excel'} excelData={newData}></ExcelExport>
       </Space>
       {/* {custom && (
         <ST.CollapseWrapper defaultActiveKey={['1']}>
@@ -381,7 +396,13 @@ const Charts = () => {
         padding="0 0 1.875rem"
         //title={t('charts.gradientLabel')}
       >
-        <BaseChart option={option} />
+        {data.length > 0 ? (
+          <BaseChart option={option} />
+        ) : (
+          <div style={{ marginTop: '30px' }}>
+            <Empty />
+          </div>
+        )}
       </Card>
     </>
   );
