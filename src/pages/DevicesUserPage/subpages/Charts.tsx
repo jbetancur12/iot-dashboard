@@ -63,7 +63,11 @@ const Charts = () => {
 
   const newData: ThingMeasurex[] = [];
   data.forEach(function (obj: ThingMeasure) {
-    newData.push({ date: new Date(obj._id).toLocaleString(), temperature: obj.averageT, humidity: obj.averageH });
+    newData.push({
+      date: new Date(obj._id).toLocaleString(),
+      temperature: Number(obj.averageT.toFixed(1)),
+      humidity: Number(obj.averageH.toFixed(1)),
+    });
   });
 
   const theme = useTheme();
