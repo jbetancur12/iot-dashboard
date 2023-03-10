@@ -3,6 +3,7 @@ import { ConfigProvider } from 'antd';
 import deDe from 'antd/lib/locale/de_DE';
 import enUS from 'antd/lib/locale/en_US';
 import esES from 'antd/lib/locale/es_ES';
+import ptBR from 'antd/lib/locale/pt_BR';
 import { ThemeProvider } from 'styled-components';
 import lightTheme from './styles/themes/light/lightTheme';
 import GlobalStyle from './styles/GlobalStyle';
@@ -25,12 +26,25 @@ const App: React.FC = () => {
 
   useAutoNightMode();
 
+  let lang = esES;
+
+  switch (language) {
+    case 'en':
+      lang = enUS;
+      break;
+    case 'de':
+      lang = deDe;
+      break;
+    default:
+      break;
+  }
+
   return (
     <>
       <meta name="theme-color" content={currentTheme.colors.main.primary} />
       <ThemeProvider theme={currentTheme}>
         <GlobalStyle />
-        <ConfigProvider locale={language === 'en' ? enUS : esES}>
+        <ConfigProvider locale={lang}>
           <ThemeSwitcher theme={theme}>
             <AppRouter />
           </ThemeSwitcher>

@@ -63,7 +63,7 @@ const Charts = () => {
 
   const newData: ThingMeasurex[] = [];
   data.forEach(function (obj: ThingMeasure) {
-    newData.push({ date: obj._id, temperature: obj.averageT, humidity: obj.averageH });
+    newData.push({ date: new Date(obj._id).toLocaleString(), temperature: obj.averageT, humidity: obj.averageH });
   });
 
   const theme = useTheme();
@@ -75,7 +75,6 @@ const Charts = () => {
     const dt: Date = new Date();
     //const value = event.currentTarget.innerText;
     const value = event.currentTarget.dataset.value;
-    console.log('🚀 ~ file: Charts.tsx:59 ~ handleClick ~ value:', value);
 
     setCustom(false);
 
@@ -117,7 +116,10 @@ const Charts = () => {
 
   const option = {
     tooltip: {
-      valueFormatter: (value: number) => value.toFixed(1),
+      valueFormatter: (value: number) => {
+        console.log(value);
+        return value.toFixed(1);
+      },
       trigger: 'axis',
       axisPointer: {
         type: 'cross',
@@ -220,7 +222,6 @@ const Charts = () => {
           label: {
             //formatter: '{b}\n{c}',
             formatter: function (param: any) {
-              console.log(param);
               return param.value.toFixed(2) + ' °C' + ' - ' + D[param.data.coord[0]];
             },
           },
@@ -310,13 +311,14 @@ const Charts = () => {
       </ST.containerDiv> */}
 
       <Space size="small" wrap style={{ marginBottom: '10px' }}>
-        {ranges.map((value) => (
+        {ranges.map((value, idx) => (
           <ST.rangeButton
             type="primary"
             severity="info"
             $isSelected={range === value}
             onClick={handleClick}
             data-value={value}
+            key={idx}
           >
             {t(`charts.ranges.${value}`)}
           </ST.rangeButton>
@@ -339,7 +341,7 @@ const Charts = () => {
           {t('charts.averageValue')}
         </Button>
 
-        <ExcelExport fileName={'Excel'} excelData={newData}></ExcelExport>
+        <ExcelExport fileName={'Export - ' + Date.now()} excelData={newData}></ExcelExport>
       </Space>
       {/* {custom && (
         <ST.CollapseWrapper defaultActiveKey={['1']}>
