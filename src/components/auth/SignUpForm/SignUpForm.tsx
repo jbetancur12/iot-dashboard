@@ -74,7 +74,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ basic = true }) => {
           <Auth.FormInput placeholder={t('common.lastName')} />
         </Auth.FormItem>
         <Auth.FormItem
-          name="email.name"
+          name="email"
           label={t('common.email')}
           rules={[
             { required: true, message: t('common.requiredField') },

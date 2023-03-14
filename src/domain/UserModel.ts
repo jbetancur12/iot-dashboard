@@ -4,10 +4,7 @@ export interface UserModel {
   lastName: string;
   imgUrl: string;
   userName: string;
-  email: {
-    name: string;
-    verified: boolean;
-  };
+  email: string;
   phone: {
     number: string;
     verified: boolean;
@@ -26,7 +23,13 @@ export interface UserModel {
     facebook?: string;
     linkedin?: string;
   };
-  role: string;
+  roles: [
+    {
+      name: string;
+      _id?: string;
+      createdAt?: Date;
+    },
+  ];
 }
 
 //ter

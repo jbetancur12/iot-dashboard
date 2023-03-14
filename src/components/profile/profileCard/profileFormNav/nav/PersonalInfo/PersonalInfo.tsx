@@ -73,7 +73,7 @@ export const PersonalInfo: React.FC = () => {
         ? {
             firstName: user.firstName,
             lastName: user.lastName,
-            email: user.email.name,
+            email: user.email,
             phone: user.phone.number,
             nickname: user.userName,
             sex: user.sex,
@@ -164,9 +164,9 @@ export const PersonalInfo: React.FC = () => {
             <PhoneItem verified={user?.phone.verified} />
           </Col>
 
-          <Col xs={24} md={12}>
+          {/* <Col xs={24} md={12}>
             <EmailItem verified={user?.email.verified} />
-          </Col>
+          </Col> */}
 
           <Col span={24}>
             <BaseButtonsForm.Item>

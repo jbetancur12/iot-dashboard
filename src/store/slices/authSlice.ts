@@ -12,22 +12,29 @@ import {
   setNewPassword,
 } from '@app/api/auth.api';
 import { setUser } from '@app/store/slices/userSlice';
-import { deleteToken, deleteUser, persistToken, readToken } from '@app/services/localStorage.service';
+import {
+  deleteToken,
+  deleteUser,
+  persistRefreshToken,
+  persistToken,
+  readToken,
+} from '@app/services/localStorage.service';
 
 export interface AuthSlice {
-  token: string | null;
+  accessToken: string | null;
 }
 
 const initialState: AuthSlice = {
-  token: readToken(),
+  accessToken: readToken(),
 };
 
 export const doLogin = createAsyncThunk('auth/doLogin', async (loginPayload: LoginRequest, { dispatch }) =>
   login(loginPayload).then((res) => {
     dispatch(setUser(res.user));
-    persistToken(res.token);
+    persistToken(res.accessToken);
+    persistRefreshToken(res.refreshToken);
 
-    return res.token;
+    return res.accessToken;
   }),
 );
 
@@ -61,10 +68,10 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(doLogin.fulfilled, (state, action) => {
-      state.token = action.payload;
+      state.accessToken = action.payload;
     });
     builder.addCase(doLogout.fulfilled, (state) => {
-      state.token = '';
+      state.accessToken = '';
     });
   },
 });

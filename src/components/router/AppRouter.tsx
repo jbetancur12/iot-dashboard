@@ -22,6 +22,7 @@ const DevicesChartPage = React.lazy(() => import('@app/pages/DevicesUserPage/sub
 
 const DevicesManagerPage = React.lazy(() => import('@app/pages/DevicesManagerPage/DevicesManagerPage'));
 const NewDevicePage = React.lazy(() => import('@app/pages/DevicesManagerPage/subpages/DevicesManagerForm'));
+const NewDevicePage2 = React.lazy(() => import('@app/pages/DevicesManagerPage/subpages/DevicesManagerForm2'));
 const NewUserPage = React.lazy(() => import('@app/pages/NewUser/NewUser'));
 const NewsFeedPage = React.lazy(() => import('@app/pages/NewsFeedPage'));
 const KanbanPage = React.lazy(() => import('@app/pages/KanbanPage'));
@@ -74,6 +75,7 @@ const DevicesManager = withLoading(DevicesManagerPage);
 const DevicesChart = withLoading(DevicesChartPage);
 const NewUser = withLoading(NewUserPage);
 const NewDevice = withLoading(NewDevicePage);
+const NewDevice2 = withLoading(NewDevicePage2);
 const Devices = withLoading(DevicesPage);
 const NewsFeed = withLoading(NewsFeedPage);
 const Kanban = withLoading(KanbanPage);
@@ -131,7 +133,10 @@ const LogoutFallback = withLoading(Logout);
 
 export const AppRouter: React.FC = () => {
   const user = useAppSelector((state) => state.user.user);
-  const userRole = user ? user.role : 'USER_ROLE';
+  const userRole = user ? user.roles : [{ name: 'USER_ROLE' }];
+  console.log('🚀 ~ file: AppRouter.tsx:137 ~ userRole:', user);
+
+  const _roles = userRole.map((rol) => rol.name);
 
   const protectedLayout = (
     <RequireAuth>
@@ -144,7 +149,7 @@ export const AppRouter: React.FC = () => {
       <Routes>
         <Route path={DASHBOARD_PATH} element={protectedLayout}>
           {/* <Route index element={<Dashboard />} /> */}
-          {userRole === 'USER_ROLE' ? (
+          {_roles.includes('USER_ROLE') ? (
             <Route index element={<Navigate to="/devices" replace />} />
           ) : (
             <Route index element={<Navigate to="/devices-manager" replace />} />
@@ -153,6 +158,7 @@ export const AppRouter: React.FC = () => {
             <Route index element={<DevicesManager />} />
             <Route path="new-user" element={<NewUser />} />
             <Route path="new-device" element={<NewDevice />} />
+            <Route path="new-device2" element={<NewDevice2 />} />
             <Route path="edit-device/:id" element={<NewDevice />} />
           </Route>
           <Route path="devices">

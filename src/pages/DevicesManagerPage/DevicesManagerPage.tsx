@@ -19,6 +19,11 @@ const DevicesManagerPage = () => {
           New Device
         </Button>
       </Link>
+      <Link to="new-device2">
+        <Button type="primary" icon={<PlusOutlined />}>
+          New Device2
+        </Button>
+      </Link>
       <S.TablesWrapper>
         <DevicesManagerTable />
       </S.TablesWrapper>

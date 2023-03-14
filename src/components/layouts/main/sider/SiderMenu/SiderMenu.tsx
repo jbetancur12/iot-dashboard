@@ -21,7 +21,7 @@ const SiderMenu: React.FC<SiderContentProps> = ({ setCollapsed }) => {
   const location = useLocation();
   const user = useAppSelector((state) => state.user.user);
 
-  const userRole = user ? user.role : 'USER_ROLE';
+  const userRole = user ? user.roles : [{ name: 'USER_ROLE' }];
 
   const currentMenuItem = sidebarNavFlat.find(({ url }) => url === location.pathname);
   const defaultSelectedKeys = currentMenuItem ? [currentMenuItem.key] : [];
@@ -31,15 +31,17 @@ const SiderMenu: React.FC<SiderContentProps> = ({ setCollapsed }) => {
   );
   const defaultOpenKeys = openedSubmenu ? [openedSubmenu.key] : [];
 
-  const renderNavigation = (role: string) => {
+  const renderNavigation = (roles: { name: string }[]) => {
     let navigationByRole: SidebarNavigationItem[] = [];
     // role && role === 'ADMIN_ROLE'
     //   ? sidebarNavigation.filter((item) => item.admin === true)
     //   : sidebarNavigation.filter((item) => item.admin !== true);
 
-    if (role && role === 'DEV_ROLE') {
+    const _roles = roles.map((rol) => rol.name);
+
+    if (_roles.length && _roles.includes('DEV_ROLE')) {
       navigationByRole = sidebarNavigation.filter((item) => item.dev);
-    } else if (role && role === 'ADMIN_ROLE') {
+    } else if (_roles.length && _roles.includes('ADMIN_ROLE')) {
       navigationByRole = sidebarNavigation.filter((item) => item.admin);
     } else {
       navigationByRole = sidebarNavigation.filter((item) => item.user);

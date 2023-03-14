@@ -7,11 +7,15 @@ import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import type { SelectProps } from 'antd/es/select';
 import debounce from 'lodash.debounce';
-import { Form, Select, Spin } from 'antd';
+import { Button, Collapse, Form, InputNumber, Select, Spin, Tag } from 'antd';
 import { doCreateThing, doUpdateThing } from '@app/store/slices/thingSlice';
 import { notificationController } from '@app/controllers/notificationController';
-import { createUnparsedSourceFile } from 'typescript';
+import { createSemanticDiagnosticsBuilderProgram, createUnparsedSourceFile } from 'typescript';
 import { ThingData } from '@app/api/thing.api';
+import { PlusCircleFilled } from '@ant-design/icons';
+import { map } from 'leaflet';
+
+const { Panel } = Collapse;
 
 export interface DebounceSelectProps<ValueType = any>
   extends Omit<SelectProps<ValueType | ValueType[]>, 'options' | 'children'> {
@@ -26,6 +30,7 @@ function DebounceSelect<ValueType extends { key?: string; label: React.ReactNode
 }: DebounceSelectProps<ValueType>) {
   const [fetching, setFetching] = useState(false);
   const [options, setOptions] = useState<ValueType[]>([]);
+
   const fetchRef = useRef(0);
 
   const debounceFetcher = useMemo(() => {
@@ -99,7 +104,7 @@ async function fetchUserList(username: string): Promise<UserValue[]> {
 
 //comments
 
-const DevicesManagerForm: React.FC = () => {
+const DevicesManagerForm2: React.FC = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   let { id } = useParams();
@@ -110,12 +115,39 @@ const DevicesManagerForm: React.FC = () => {
 
   const [value, setValue] = useState<UserValue[]>([]);
   const [isLoading, setLoading] = useState(false);
+  const [sensor, setSensor] = useState<{
+    name: string;
+    qty: number;
+  }>({
+    name: '',
+    qty: 1,
+  });
+  const [sensors, setSensors] = useState<string[]>([]);
 
   const handleSubmit = (values: DeviceFormData) => {
     const valuesToSend = { ...values, user: values.user.value };
     setLoading(true);
     return isAddMode ? createDevice(valuesToSend) : updateDevice(id, valuesToSend);
   };
+
+  const handleAddClick = () => {
+    const _sensors: string[] = Array(sensor.qty).fill(sensor.name);
+    console.log(_sensors);
+    setSensors([...sensors, ..._sensors]);
+    setSensor({
+      name: '',
+      qty: 1,
+    });
+  };
+
+  const handleChange = (value: string) => {
+    setSensor({
+      ...sensor,
+      name: value,
+    });
+  };
+
+  console.log(sensors);
 
   const createDevice = (data: DeviceRequestData) => {
     dispatch(doCreateThing(data))
@@ -218,6 +250,51 @@ const DevicesManagerForm: React.FC = () => {
           <Auth.FormInput placeholder={t('device.mac')} />
         </Auth.FormItem>
 
+        <Auth.FormItem name="user" label={'sensors'} rules={[{ required: true, message: t('common.requiredField') }]}>
+          <Select
+            placeholder="Select a sensor"
+            showSearch
+            optionFilterProp="children"
+            style={{ width: 120 }}
+            onChange={handleChange}
+            filterOption={(input, option) =>
+              (option?.label ?? '').toString().toLowerCase().includes(input.toLowerCase())
+            }
+            value={sensor.name}
+            options={[
+              {
+                value: 'dht11-T',
+                label: 'DHT11-T',
+              },
+              {
+                value: 'dht11-H',
+                label: 'DHT11-H',
+              },
+              {
+                value: 'pressure',
+                label: 'Pressure',
+              },
+              {
+                value: 'level',
+                label: 'Level',
+              },
+            ]}
+          />
+          <InputNumber
+            value={sensor.qty}
+            min={1}
+            defaultValue={1}
+            onChange={(value) => setSensor({ ...sensor, qty: value })}
+          />
+          <Button onClick={handleAddClick} shape="circle" icon={<PlusCircleFilled />} />
+        </Auth.FormItem>
+
+        <Collapse defaultActiveKey={['1']}>
+          <Panel header="Sensors" key="1">
+            {sensors.length > 0 && sensors.map((sensor) => <Tag>{sensor}</Tag>)}
+          </Panel>
+        </Collapse>
+
         <BaseForm.Item noStyle>
           <Auth.SubmitButton type="primary" htmlType="submit" loading={isLoading}>
             {t('device.create')}
@@ -228,4 +305,4 @@ const DevicesManagerForm: React.FC = () => {
   );
 };
 
-export default DevicesManagerForm;
+export default DevicesManagerForm2;
