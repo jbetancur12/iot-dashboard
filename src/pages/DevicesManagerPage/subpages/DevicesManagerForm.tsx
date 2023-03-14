@@ -12,6 +12,7 @@ import { doCreateThing, doUpdateThing } from '@app/store/slices/thingSlice';
 import { notificationController } from '@app/controllers/notificationController';
 import { createUnparsedSourceFile } from 'typescript';
 import { ThingData } from '@app/api/thing.api';
+import { readToken } from '@app/services/localStorage.service';
 
 export interface DebounceSelectProps<ValueType = any>
   extends Omit<SelectProps<ValueType | ValueType[]>, 'options' | 'children'> {
@@ -86,7 +87,12 @@ interface DeviceUpdateData {
 async function fetchUserList(username: string): Promise<UserValue[]> {
   console.log('fetching user', username);
 
-  return fetch(`${process.env.REACT_APP_BASE_URL}api/users/?email=${username}`)
+  return fetch(`${process.env.REACT_APP_BASE_URL}api/users/?email=${username}`, {
+    method: 'GET',
+    headers: {
+      'x-access-token': readToken(),
+    } as { [key: string]: string },
+  })
     .then((response) => response.json())
     .then((body) => {
       console.log(body);
