@@ -90,7 +90,7 @@ async function fetchUserList(username: string): Promise<UserValue[]> {
     .then((response) => response.json())
     .then((body) => {
       console.log(body);
-      return body.map((user: { email: { name: string }; id: string }) => ({
+      return body.map((user: { email: string; id: string }) => ({
         label: `${user.email}`,
         value: user.id,
       }));
