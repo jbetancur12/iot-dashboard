@@ -12,6 +12,8 @@ import {
   BulbOutlined,
 } from '@ant-design/icons';
 
+import { BiArch } from "react-icons/bi";
+
 export interface SidebarNavigationItem {
   title: string;
   key: string;
@@ -29,6 +31,15 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     key: 'dashboard',
     url: '/home',
     icon: <DashboardOutlined />,
+    admin: true,
+    dev: true,
+    user: false,
+  },
+  {
+    title: 'common.customers',
+    key: 'customers',
+    url: '/customers',
+    icon: <BiArch />,
     admin: true,
     dev: true,
     user: false,

@@ -20,6 +20,10 @@ const DashboardPage = React.lazy(() => import('@app/pages/DashboardPage/Dashboar
 const DevicesPage = React.lazy(() => import('@app/pages/DevicesUserPage/DevicesPage'));
 const DevicesChartPage = React.lazy(() => import('@app/pages/DevicesUserPage/subpages/Charts'));
 
+const CustomersPage = React.lazy(()=>import('@app/pages/CustomersPage/CustomersPage'))
+const VariablesPage = React.lazy(()=>import('@app/pages/VariablePage/VariablePage'))
+const NewCustomersPage = React.lazy(()=>import('@app/pages/CustomersPage/subpages/CustomersForm'))
+
 const DevicesManagerPage = React.lazy(() => import('@app/pages/DevicesManagerPage/DevicesManagerPage'));
 const NewDevicePage = React.lazy(() => import('@app/pages/DevicesManagerPage/subpages/DevicesManagerForm'));
 const NewDevicePage2 = React.lazy(() => import('@app/pages/DevicesManagerPage/subpages/DevicesManagerForm2'));
@@ -71,6 +75,9 @@ const Logout = React.lazy(() => import('./Logout'));
 export const DASHBOARD_PATH = '/';
 
 const Dashboard = withLoading(DashboardPage);
+const Customers = withLoading(CustomersPage);
+const Variables = withLoading(VariablesPage)
+const NewCustomer = withLoading(NewCustomersPage)
 const DevicesManager = withLoading(DevicesManagerPage);
 const DevicesChart = withLoading(DevicesChartPage);
 const NewUser = withLoading(NewUserPage);
@@ -160,6 +167,15 @@ export const AppRouter: React.FC = () => {
             <Route path="new-device" element={<NewDevice />} />
             <Route path="new-device2" element={<NewDevice2 />} />
             <Route path="edit-device/:id" element={<NewDevice />} />
+            
+          </Route>
+          <Route path="customers" >
+            <Route index element={<Customers/>}/>
+            <Route path="new-user" element={<NewCustomer />} />
+            <Route path="edit-user/:id" element={<NewCustomer />} />
+          </Route>
+          <Route path="variables">
+          <Route index element={<Variables/>}/>
           </Route>
           <Route path="devices">
             <Route index element={<Devices />} />

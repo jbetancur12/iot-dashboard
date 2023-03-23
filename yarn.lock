@@ -5,12 +5,34 @@ __metadata:
   version: 5
   cacheKey: 8
 
+"@ant-design/colors@npm:^3.1.0":
+  version: 3.2.2
+  resolution: "@ant-design/colors@npm:3.2.2"
+  dependencies:
+    tinycolor2: ^1.4.1
+  checksum: 6af3b744ef8d3f79345f910a13d4321961ccc56ff34f76af8f2f0cbf16d8a83b12cf67d142645852588a50d68a34147d0fbffef0a2bb163dec524d692f68cb7f
+  languageName: node
+  linkType: hard
+
 "@ant-design/colors@npm:^6.0.0":
   version: 6.0.0
   resolution: "@ant-design/colors@npm:6.0.0"
   dependencies:
     "@ctrl/tinycolor": ^3.4.0
   checksum: 55110ac8a3353f3ec2d2fdee6ffb841967dd75f3783ef4e68c22731e042606bc5b3c3febb6cd20aed3f14585729ce8eddf75b531c703c06a2e95b8569861bb47
+  languageName: node
+  linkType: hard
+
+"@ant-design/icons-react@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@ant-design/icons-react@npm:2.0.1"
+  dependencies:
+    "@ant-design/colors": ^3.1.0
+    babel-runtime: ^6.26.0
+  peerDependencies:
+    "@ant-design/icons": ^2.0.0
+    react: 16.x
+  checksum: e4f7dfd764de9e1d126a9701ae5ad46d15703ee90ae28407f2d523b62cbf6a647f4fe4dff34bdbb2bc185458d07105f06eec7d9a67941945eda9f664f9f249fc
   languageName: node
   linkType: hard
 
@@ -11133,6 +11155,7 @@ __metadata:
   resolution: "lightence-admin@workspace:."
   dependencies:
     "@ant-design/icons": ^4.6.2
+    "@ant-design/icons-react": ^2.0.1
     "@craco/craco": ^6.1.2
     "@reduxjs/toolkit": ^1.7.1
     "@types/country-list": ^2.1.0
@@ -11188,6 +11211,7 @@ __metadata:
     react-dom: ^17.0.2
     react-helmet: ^6.1.0
     react-i18next: ^11.11.4
+    react-icons: ^4.8.0
     react-infinite-scroll-component: ^6.1.0
     react-leaflet: ^3.2.2
     react-phone-number-input: ^3.1.27
@@ -15300,6 +15324,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-icons@npm:^4.8.0":
+  version: 4.8.0
+  resolution: "react-icons@npm:4.8.0"
+  peerDependencies:
+    react: "*"
+  checksum: 4dbba7ad989c295b410e19b2a702722dae44368cb04b6515f9471353552f31ac80bd350f121d5bff79f81504b84039ede44d09e9f035f48bb1032e6eace126c4
+  languageName: node
+  linkType: hard
+
 "react-infinite-scroll-component@npm:^6.1.0":
   version: 6.1.0
   resolution: "react-infinite-scroll-component@npm:6.1.0"
@@ -17913,6 +17946,13 @@ __metadata:
   version: 0.3.0
   resolution: "timsort@npm:0.3.0"
   checksum: 1a66cb897dacabd7dd7c91b7e2301498ca9e224de2edb9e42d19f5b17c4b6dc62a8d4cbc64f28be82aaf1541cb5a78ab49aa818f42a2989ebe049a64af731e2a
+  languageName: node
+  linkType: hard
+
+"tinycolor2@npm:^1.4.1":
+  version: 1.6.0
+  resolution: "tinycolor2@npm:1.6.0"
+  checksum: 6df4d07fceeedc0a878d7bac47e2cd47c1ceeb1078340a9eb8a295bc0651e17c750f73d47b3028d829f30b85c15e0572c0fd4142083e4c21a30a597e47f47230
   languageName: node
   linkType: hard
 
