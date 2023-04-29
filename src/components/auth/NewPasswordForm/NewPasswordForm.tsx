@@ -5,6 +5,7 @@ import { BaseForm } from '@app/components/common/forms/BaseForm/BaseForm';
 import { notificationController } from '@app/controllers/notificationController';
 import { useAppDispatch } from '@app/hooks/reduxHooks';
 import { doSetNewPassword } from '@app/store/slices/authSlice';
+import { useSearchParams } from 'react-router-dom'
 import * as S from './NewPasswordForm.styles';
 import * as Auth from '@app/components/layouts/AuthLayout/AuthLayout.styles';
 
@@ -14,19 +15,22 @@ interface NewPasswordFormData {
 }
 
 const initStates = {
-  password: 'new-password',
-  confirmPassword: 'new-password',
+  password: '',
+  confirmPassword: '',
 };
 
 export const NewPasswordForm: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [searchParams, setSearchParams] = useSearchParams()
   const [isLoading, setLoading] = useState(false);
+
+  const code = searchParams.get('code')
 
   const handleSubmit = (values: NewPasswordFormData) => {
     setLoading(true);
-    dispatch(doSetNewPassword({ newPassword: values.password }))
+    dispatch(doSetNewPassword({ newPassword: values.password, code: code }))
       .unwrap()
       .then(() => {
         navigate('/auth/login');
@@ -44,12 +48,12 @@ export const NewPasswordForm: React.FC = () => {
   return (
     <Auth.FormWrapper>
       <BaseForm layout="vertical" onFinish={handleSubmit} requiredMark="optional" initialValues={initStates}>
-        <Auth.BackWrapper onClick={() => navigate(-1)}>
+        {/* <Auth.BackWrapper onClick={() => navigate(-1)}>
           <Auth.BackIcon />
           {t('common.back')}
-        </Auth.BackWrapper>
+        </Auth.BackWrapper> */}
         <Auth.FormTitle>{t('newPassword.title')}</Auth.FormTitle>
-        <S.Description>{t('newPassword.description')}</S.Description>
+        {!code ? <S.Description>{t('newPassword.description')}</S.Description> : null}
         <Auth.FormItem
           name="password"
           label={t('common.password')}
@@ -78,7 +82,7 @@ export const NewPasswordForm: React.FC = () => {
         </Auth.FormItem>
         <BaseForm.Item noStyle>
           <S.SubmitButton type="primary" htmlType="submit" loading={isLoading}>
-            {t('common.resetPassword')}
+            {!code ? t('common.resetPassword') : "Crear contraseña"}
           </S.SubmitButton>
         </BaseForm.Item>
       </BaseForm>
