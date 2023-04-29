@@ -52,6 +52,15 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     user: true,
   },
   {
+    title: 'common.customers',
+    key: 'customers',
+    url: '/customers',
+    icon: <BulbOutlined />,
+    admin: true,
+    dev: false,
+    user: false,
+  },
+  {
     title: 'common.apps',
     key: 'apps',
     icon: <HomeOutlined />,

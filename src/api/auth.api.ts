@@ -14,6 +14,14 @@ export interface SignUpRequest {
   password: string;
 }
 
+export interface SignUpRequest2 {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    custome?: string;
+}
+
 export interface ResetPasswordRequest {
   email: string;
 }
@@ -40,7 +48,7 @@ export interface LoginResponse {
 export const login = (loginPayload: LoginRequest): Promise<LoginResponse> =>
   httpApi.post<LoginResponse>('api/auth/signin', { ...loginPayload }).then(({ data }) => data);
 
-export const signUp = (signUpData: SignUpRequest): Promise<undefined> =>
+export const signUp = (signUpData: SignUpRequest2): Promise<undefined> =>
   httpApi.post<undefined>('api/users', { ...signUpData }).then(({ data }) => data);
 
 export const resetPassword = (resetPasswordPayload: ResetPasswordRequest): Promise<undefined> =>

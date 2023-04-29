@@ -18,6 +18,8 @@ import { useAppSelector } from '@app/hooks/reduxHooks';
 
 const DashboardPage = React.lazy(() => import('@app/pages/DashboardPage/DashboardPage'));
 const DevicesPage = React.lazy(() => import('@app/pages/DevicesUserPage/DevicesPage'));
+const CustomersPage = React.lazy(() => import('@app/pages/CustomersPage/CustomersPage'));
+const CustomerPage = React.lazy(() => import('@app/pages/CustomersPage/subpages/ProfilePage'));
 const DevicesChartPage = React.lazy(() => import('@app/pages/DevicesUserPage/subpages/Charts'));
 
 const DevicesManagerPage = React.lazy(() => import('@app/pages/DevicesManagerPage/DevicesManagerPage'));
@@ -72,6 +74,8 @@ export const DASHBOARD_PATH = '/';
 
 const Dashboard = withLoading(DashboardPage);
 const DevicesManager = withLoading(DevicesManagerPage);
+const Customers = withLoading(CustomersPage);
+const Customer = withLoading(CustomerPage);
 const DevicesChart = withLoading(DevicesChartPage);
 const NewUser = withLoading(NewUserPage);
 const NewDevice = withLoading(NewDevicePage);
@@ -154,6 +158,10 @@ export const AppRouter: React.FC = () => {
           ) : (
             <Route index element={<Navigate to="/devices-manager" replace />} />
           )}
+          <Route path='customers'>
+            <Route index element={<Customers/>} />
+            <Route path=":id" element={<Customer />} />
+          </Route>
           <Route path="devices-manager">
             <Route index element={<DevicesManager />} />
             <Route path="new-user" element={<NewUser />} />

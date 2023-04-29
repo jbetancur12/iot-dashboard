@@ -5,6 +5,7 @@ import {
   LoginRequest,
   signUp,
   SignUpRequest,
+  SignUpRequest2,
   resetPassword,
   verifySecurityCode,
   SecurityCodePayload,
@@ -38,7 +39,7 @@ export const doLogin = createAsyncThunk('auth/doLogin', async (loginPayload: Log
   }),
 );
 
-export const doSignUp = createAsyncThunk('auth/doSignUp', async (signUpPayload: SignUpRequest) =>
+export const doSignUp = createAsyncThunk('auth/doSignUp', async (signUpPayload: SignUpRequest2) =>
   signUp(signUpPayload),
 );
 

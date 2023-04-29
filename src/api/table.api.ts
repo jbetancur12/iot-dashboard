@@ -10,6 +10,15 @@ export interface DeviceTableRow {
   _id: string;
 }
 
+export interface CustomerTableRow {
+    createdAt: string;
+    updatedAt: string;
+    mac: string;
+    name: string;
+    user: string;
+    _id: string;
+  }
+
 export interface DeviceTableData {
   data: DeviceTableRow[];
 }
