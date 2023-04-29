@@ -6,6 +6,7 @@ import {  TemplateTableRow } from './table.api';
 export interface TemplateData {
     name: string;
     description: string;
+    type: string;
   }
   
 

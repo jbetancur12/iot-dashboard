@@ -165,6 +165,11 @@ const UserProfile = () => {
             dataIndex: 'description',
             key: 'description',
         },
+        {
+            title: 'Tipo',
+            dataIndex: 'type',
+            key: 'type', 
+        }
     ];
 
 

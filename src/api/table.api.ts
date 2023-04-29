@@ -25,6 +25,7 @@ export interface TemplateTableRow {
     updatedAt: string;
     description: string;
     name: string;
+    type: string;
     _id: string;
   }
 

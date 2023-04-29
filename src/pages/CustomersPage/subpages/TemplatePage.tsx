@@ -132,6 +132,9 @@ const TemplateProfile = () => {
                     <Descriptions.Item label="Description">
                         {template.description}
                     </Descriptions.Item>
+                    <Descriptions.Item label="Tipo">
+                        {template.type}
+                    </Descriptions.Item>
                 </Descriptions>
                 <Space />
                 <Button type="primary" icon={<PlusOutlined />} onClick={showModal}>Agregar Variable</Button>

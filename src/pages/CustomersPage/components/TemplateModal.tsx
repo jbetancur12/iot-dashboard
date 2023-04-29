@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Form, Input, Button } from 'antd';
+import { Select, Option } from '@app/components/common/selects/Select/Select';
 import { TemplateData } from '@app/api/template.api';
 
 interface ITemplateModalProps {
@@ -83,6 +84,23 @@ const TemplateModal: React.FC<ITemplateModalProps> = ({ visible, onCreate, onUpd
           ]}
         >
           <Input placeholder="Ingrese el nombre" />
+        </Form.Item>
+
+        <Form.Item
+         name="type"
+         label="Tipo"
+         rules={[
+           {
+             required: true,
+             message: 'Por favor selecciones algo'
+           },
+         ]}
+        >
+        <Select  placeholder="Seleccione algo">
+          <Option value="graph">Grafica</Option>
+          <Option value="display">Display</Option>
+          <Option value="output">Output</Option>
+        </Select>
         </Form.Item>
 
         <Form.Item
