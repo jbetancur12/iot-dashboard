@@ -20,6 +20,7 @@ const DashboardPage = React.lazy(() => import('@app/pages/DashboardPage/Dashboar
 const DevicesPage = React.lazy(() => import('@app/pages/DevicesUserPage/DevicesPage'));
 const CustomersPage = React.lazy(() => import('@app/pages/CustomersPage/CustomersPage'));
 const CustomerPage = React.lazy(() => import('@app/pages/CustomersPage/subpages/ProfilePage'));
+const TemplatePage = React.lazy(() => import('@app/pages/CustomersPage/subpages/TemplatePage'));
 const DevicesChartPage = React.lazy(() => import('@app/pages/DevicesUserPage/subpages/Charts'));
 
 const DevicesManagerPage = React.lazy(() => import('@app/pages/DevicesManagerPage/DevicesManagerPage'));
@@ -76,6 +77,7 @@ const Dashboard = withLoading(DashboardPage);
 const DevicesManager = withLoading(DevicesManagerPage);
 const Customers = withLoading(CustomersPage);
 const Customer = withLoading(CustomerPage);
+const Template = withLoading(TemplatePage);
 const DevicesChart = withLoading(DevicesChartPage);
 const NewUser = withLoading(NewUserPage);
 const NewDevice = withLoading(NewDevicePage);
@@ -136,113 +138,116 @@ const AuthLayoutFallback = withLoading(AuthLayout);
 const LogoutFallback = withLoading(Logout);
 
 export const AppRouter: React.FC = () => {
-  const user = useAppSelector((state) => state.user.user);
-  const userRole = user ? user.roles : [{ name: 'USER_ROLE' }];
-  console.log('🚀 ~ file: AppRouter.tsx:137 ~ userRole:', user);
+    const user = useAppSelector((state) => state.user.user);
+    const userRole = user ? user.roles : [{ name: 'USER_ROLE' }];
+    console.log('🚀 ~ file: AppRouter.tsx:137 ~ userRole:', user);
 
-  const _roles = userRole.map((rol) => rol.name);
+    const _roles = userRole.map((rol) => rol.name);
 
-  const protectedLayout = (
-    <RequireAuth>
-      <MainLayout />
-    </RequireAuth>
-  );
+    const protectedLayout = (
+        <RequireAuth>
+            <MainLayout />
+        </RequireAuth>
+    );
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={DASHBOARD_PATH} element={protectedLayout}>
-          {/* <Route index element={<Dashboard />} /> */}
-          {_roles.includes('USER_ROLE') ? (
-            <Route index element={<Navigate to="/devices" replace />} />
-          ) : (
-            <Route index element={<Navigate to="/devices-manager" replace />} />
-          )}
-          <Route path='customers'>
-            <Route index element={<Customers/>} />
-            <Route path=":id" element={<Customer />} />
-          </Route>
-          <Route path="devices-manager">
-            <Route index element={<DevicesManager />} />
-            <Route path="new-user" element={<NewUser />} />
-            <Route path="new-device" element={<NewDevice />} />
-            <Route path="new-device2" element={<NewDevice2 />} />
-            <Route path="edit-device/:id" element={<NewDevice />} />
-          </Route>
-          <Route path="devices">
-            <Route index element={<Devices />} />
-            <Route path="charts" element={<DevicesChart />} />
-          </Route>
-          <Route path="apps">
-            <Route path="feed" element={<NewsFeed />} />
-            <Route path="kanban" element={<Kanban />} />
-          </Route>
-          <Route path="forms">
-            <Route path="advanced-forms" element={<AdvancedForm />} />
-          </Route>
-          <Route path="data-tables" element={<DataTables />} />
-          <Route path="charts" element={<Charts />} />
-          <Route path="maps">
-            <Route path="google-maps" element={<Google />} />
-            <Route path="leaflet-maps" element={<Leaflet />} />
-            <Route path="react-simple-maps" element={<ReactSimple />} />
-            <Route path="pigeon-maps" element={<Pigeons />} />
-          </Route>
-          <Route path="server-error" element={<ServerError />} />
-          <Route path="404" element={<Error404 />} />
-          <Route path="profile" element={<ProfileLayout />}>
-            <Route path="personal-info" element={<PersonalInfo />} />
-            <Route path="security-settings" element={<SecuritySettings />} />
-            <Route path="notifications" element={<Notifications />} />
-            <Route path="payments" element={<Payments />} />
-          </Route>
-          <Route path="ui-components">
-            <Route path="button" element={<Buttons />} />
-            <Route path="spinner" element={<Spinners />} />
-            <Route path="input" element={<Inputs />} />
-            <Route path="checkbox" element={<Checkboxes />} />
-            <Route path="radio" element={<Radios />} />
-            <Route path="select" element={<Selects />} />
-            <Route path="switch" element={<Switches />} />
-            <Route path="upload" element={<Uploads />} />
-            <Route path="rate" element={<Rates />} />
-            <Route path="auto-complete" element={<AutoCompletes />} />
-            <Route path="steps" element={<Steps />} />
-            <Route path="date-time-picker" element={<DateTimePickers />} />
-            <Route path="dropdown" element={<Dropdowns />} />
-            <Route path="breadcrumbs" element={<Breadcrumbs />} />
-            <Route path="tabs" element={<Tabs />} />
-            <Route path="avatar" element={<Avatars />} />
-            <Route path="badge" element={<Badges />} />
-            <Route path="collapse" element={<Collapse />} />
-            <Route path="pagination" element={<Pagination />} />
-            <Route path="modal" element={<Modals />} />
-            <Route path="popover" element={<Popovers />} />
-            <Route path="popconfirm" element={<Popconfirms />} />
-            <Route path="progress" element={<Progress />} />
-            <Route path="result" element={<Results />} />
-            <Route path="alert" element={<Alerts />} />
-            <Route path="notification" element={<NotificationsUI />} />
-            <Route path="skeleton" element={<Skeletons />} />
-          </Route>
-        </Route>
-        <Route path="/auth" element={<AuthLayoutFallback />}>
-          <Route path="login" element={<LoginPage />} />
-          <Route path="sign-up" element={<SignUpPage />} />
-          <Route
-            path="lock"
-            element={
-              <RequireAuth>
-                <LockPage />
-              </RequireAuth>
-            }
-          />
-          <Route path="forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="security-code" element={<SecurityCodePage />} />
-          <Route path="new-password" element={<NewPasswordPage />} />
-        </Route>
-        <Route path="/logout" element={<LogoutFallback />} />
-      </Routes>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path={DASHBOARD_PATH} element={protectedLayout}>
+                    {/* <Route index element={<Dashboard />} /> */}
+                    {_roles.includes('USER_ROLE') ? (
+                        <Route index element={<Navigate to="/devices" replace />} />
+                    ) : (
+                        <Route index element={<Navigate to="/devices-manager" replace />} />
+                    )}
+                    <Route path='customers'>
+                        <Route index element={<Customers />} />
+                        <Route path=":id"  >
+                            <Route index element={<Customer />}/>
+                            <Route path="template/:idTemplate" element={<Template />} />
+                        </Route>
+                    </Route>
+                    <Route path="devices-manager">
+                        <Route index element={<DevicesManager />} />
+                        <Route path="new-user" element={<NewUser />} />
+                        <Route path="new-device" element={<NewDevice />} />
+                        <Route path="new-device2" element={<NewDevice2 />} />
+                        <Route path="edit-device/:id" element={<NewDevice />} />
+                    </Route>
+                    <Route path="devices">
+                        <Route index element={<Devices />} />
+                        <Route path="charts" element={<DevicesChart />} />
+                    </Route>
+                    <Route path="apps">
+                        <Route path="feed" element={<NewsFeed />} />
+                        <Route path="kanban" element={<Kanban />} />
+                    </Route>
+                    <Route path="forms">
+                        <Route path="advanced-forms" element={<AdvancedForm />} />
+                    </Route>
+                    <Route path="data-tables" element={<DataTables />} />
+                    <Route path="charts" element={<Charts />} />
+                    <Route path="maps">
+                        <Route path="google-maps" element={<Google />} />
+                        <Route path="leaflet-maps" element={<Leaflet />} />
+                        <Route path="react-simple-maps" element={<ReactSimple />} />
+                        <Route path="pigeon-maps" element={<Pigeons />} />
+                    </Route>
+                    <Route path="server-error" element={<ServerError />} />
+                    <Route path="404" element={<Error404 />} />
+                    <Route path="profile" element={<ProfileLayout />}>
+                        <Route path="personal-info" element={<PersonalInfo />} />
+                        <Route path="security-settings" element={<SecuritySettings />} />
+                        <Route path="notifications" element={<Notifications />} />
+                        <Route path="payments" element={<Payments />} />
+                    </Route>
+                    <Route path="ui-components">
+                        <Route path="button" element={<Buttons />} />
+                        <Route path="spinner" element={<Spinners />} />
+                        <Route path="input" element={<Inputs />} />
+                        <Route path="checkbox" element={<Checkboxes />} />
+                        <Route path="radio" element={<Radios />} />
+                        <Route path="select" element={<Selects />} />
+                        <Route path="switch" element={<Switches />} />
+                        <Route path="upload" element={<Uploads />} />
+                        <Route path="rate" element={<Rates />} />
+                        <Route path="auto-complete" element={<AutoCompletes />} />
+                        <Route path="steps" element={<Steps />} />
+                        <Route path="date-time-picker" element={<DateTimePickers />} />
+                        <Route path="dropdown" element={<Dropdowns />} />
+                        <Route path="breadcrumbs" element={<Breadcrumbs />} />
+                        <Route path="tabs" element={<Tabs />} />
+                        <Route path="avatar" element={<Avatars />} />
+                        <Route path="badge" element={<Badges />} />
+                        <Route path="collapse" element={<Collapse />} />
+                        <Route path="pagination" element={<Pagination />} />
+                        <Route path="modal" element={<Modals />} />
+                        <Route path="popover" element={<Popovers />} />
+                        <Route path="popconfirm" element={<Popconfirms />} />
+                        <Route path="progress" element={<Progress />} />
+                        <Route path="result" element={<Results />} />
+                        <Route path="alert" element={<Alerts />} />
+                        <Route path="notification" element={<NotificationsUI />} />
+                        <Route path="skeleton" element={<Skeletons />} />
+                    </Route>
+                </Route>
+                <Route path="/auth" element={<AuthLayoutFallback />}>
+                    <Route path="login" element={<LoginPage />} />
+                    <Route path="sign-up" element={<SignUpPage />} />
+                    <Route
+                        path="lock"
+                        element={
+                            <RequireAuth>
+                                <LockPage />
+                            </RequireAuth>
+                        }
+                    />
+                    <Route path="forgot-password" element={<ForgotPasswordPage />} />
+                    <Route path="security-code" element={<SecurityCodePage />} />
+                    <Route path="new-password" element={<NewPasswordPage />} />
+                </Route>
+                <Route path="/logout" element={<LogoutFallback />} />
+            </Routes>
+        </BrowserRouter>
+    );
 };

@@ -19,6 +19,27 @@ export interface CustomerTableRow {
     _id: string;
   }
 
+  
+export interface TemplateTableRow {
+    createdAt: string;
+    updatedAt: string;
+    description: string;
+    name: string;
+    _id: string;
+  }
+
+  export interface VariableTableRow {
+    createdAt: string;
+    updatedAt: string;
+    unit: string;
+    sensorType: string;
+    virtualPin: Number;
+    customer: string;
+    name: string;
+    _id: string;
+  }
+
+
 export interface DeviceTableData {
   data: DeviceTableRow[];
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Descriptions, Space, Table } from 'antd';
 import { useAppDispatch, useAppSelector } from '@app/hooks/reduxHooks';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { retrieveCustomer } from '@app/store/slices/customerSlice';
 import { CustomerDataResponse, updateCustomer } from '@app/api/customer.api';
 import { PlusOutlined } from '@ant-design/icons';
@@ -9,7 +9,10 @@ import UserModal from '../components/userModal'
 import { doSignUp } from '@app/store/slices/authSlice';
 import { notificationController } from '@app/controllers/notificationController';
 import { useTranslation } from 'react-i18next';
-import { setUser } from '@app/store/slices/userSlice';
+import { Tabs, TabPane } from '@app/components/common/Tabs/Tabs';
+import { doCreateTemplate, retrieveTemplates } from '@app/store/slices/templateSlice';
+import TemplateModal from '../components/TemplateModal';
+
 
 const { Meta } = Card;
 
@@ -24,14 +27,17 @@ interface SignUpFormData {
 
 const UserProfile = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [customer, setCustomer] = useState<Partial<CustomerDataResponse>>({})
     const [users, setUsers] = useState([])
+    const [templates, setTemplates] = useState([])
     const [open, setOpen] = useState(false)
+    const [openTemplate, setOpenTemplate] = useState(false)
     const dispatch = useAppDispatch();
 
     const { customers } = useAppSelector((state) => state.customer)
 
-    
+
 
     let { id } = useParams();
 
@@ -44,9 +50,20 @@ const UserProfile = () => {
             })
     }
 
+    const fetchTemplates
+        = () => {
+            dispatch(retrieveTemplates())
+                .unwrap()
+                .then((res) => {
+                    setTemplates(res)
+
+                })
+        }
+
     useEffect(() => {
-        const customerExist = customers.filter(customer => customer._id === id)   
-            fetchCustomer()      
+        const customerExist = customers.filter(customer => customer._id === id)
+        fetchCustomer()
+        fetchTemplates()
 
     }, [])
 
@@ -54,16 +71,20 @@ const UserProfile = () => {
         setOpen(true);
     };
 
+    const showModalTemplate = () => {
+        setOpenTemplate(true);
+    };
+
     const createUser = (values: SignUpFormData) => {
-        dispatch(doSignUp( values ))
+        dispatch(doSignUp(values))
             .unwrap()
             .then((res) => {
-               if(res !== undefined){
-                // @ts-ignore
-                setUsers(current => [...current, res.user])
-               }
+                if (res !== undefined) {
+                    // @ts-ignore
+                    setUsers(current => [...current, res.user])
+                }
                 setOpen(false)
-                
+
                 notificationController.success({
                     message: t('auth.signUpSuccessMessage'),
                     description: t('auth.signUpSuccessDescription'),
@@ -75,12 +96,42 @@ const UserProfile = () => {
     }
 
 
-  
+
+    const createTemplate = (values: any) => {
+        dispatch(doCreateTemplate(values))
+            .unwrap()
+            .then((res) => {
+                if (res !== undefined) {
+                    // @ts-ignore
+                    setTemplates(current => [...current, res.data])
+                }
+                setOpenTemplate(false)
+
+                notificationController.success({
+                    message: t('auth.signUpSuccessMessage'),
+                    description: t('auth.signUpSuccessDescription'),
+                });
+            })
+            .catch((err) => {
+                notificationController.error({ message: err.message });
+            });
+    }
+
+
+
     const onCancel = () => {
         setOpen(false)
     }
 
+    const onCancelTemplate = () => {
+        setOpenTemplate(false)
+    }
+
     const updateUser = () => {
+
+    }
+
+    const updateTemplate = () => {
 
     }
 
@@ -100,6 +151,19 @@ const UserProfile = () => {
             title: 'Email',
             dataIndex: 'email',
             key: 'email',
+        },
+    ];
+
+    const columnsTemplates = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: 'Description',
+            dataIndex: 'description',
+            key: 'description',
         },
     ];
 
@@ -132,8 +196,27 @@ const UserProfile = () => {
                     </Descriptions.Item>
                 </Descriptions>
                 <Space />
-                <Button type="primary" icon={<PlusOutlined />} onClick={showModal}>Agregar Usuario</Button>
-                <Table dataSource={users} columns={columns} />
+                <Tabs defaultActiveKey="1">
+                    <TabPane tab={`Usuarios`} key="1">
+                        <Button type="primary" icon={<PlusOutlined />} onClick={showModal}>Agregar Usuario</Button>
+                        <Table dataSource={users} columns={columns} />
+                    </TabPane>
+                    <TabPane tab={`Plantillas`} key="2">
+                        <Button type="primary" icon={<PlusOutlined />} onClick={showModalTemplate}>Agregar Plantilla</Button>
+                        <Table dataSource={templates} columns={columnsTemplates} onRow={(record, rowIndex) => {
+                            return {
+                                onClick: event => {
+                                    // @ts-ignore
+                                    navigate(`customers/${customer._id}/template/${record._id}`)
+                                }
+                            }
+                        }
+                        } />
+                    </TabPane>
+                    <TabPane tab={`Variables`} key="3">
+                        {t('tabs.tabContent')} 3
+                    </TabPane>
+                </Tabs>
 
             </Card>
             <UserModal
@@ -142,6 +225,14 @@ const UserProfile = () => {
                 onCancel={onCancel}
                 onUpdate={updateUser}
                 user={null}
+                customer={customer._id}
+            />
+            <TemplateModal
+                visible={openTemplate}
+                onCreate={createTemplate}
+                onCancel={onCancelTemplate}
+                onUpdate={updateTemplate}
+                template={null}
                 customer={customer._id}
             />
         </div>

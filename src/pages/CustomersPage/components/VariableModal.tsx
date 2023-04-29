@@ -1,32 +1,35 @@
 import React, { useState } from 'react';
 import { Modal, Form, Input, Button } from 'antd';
-import { CustomerData } from '@app/api/customer.api';
+import { VariableData } from '@app/api/variable.api';
 
-interface ICustomerModalProps {
+interface IVariableModalProps {
   visible: boolean;
   onCreate: (values: any) => void;
-  onUpdate: (id: string | undefined, data:CustomerData) => void;
+  onUpdate: (id: string | undefined, data:VariableData) => void;
   onCancel: () => void;
-  user?: any;
+  variable?: any;
+  template: string | undefined
   customer: string | undefined
+
 }
 
 
-const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpdate, onCancel, user, customer }) => {
+const VariableModal: React.FC<IVariableModalProps> = ({ visible, onCreate, onUpdate, onCancel, template, customer, variable }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   
   
-  form.setFieldsValue(user)
+  form.setFieldsValue(template)
 
   form.setFieldsValue({
+    "template": template,
     "customer": customer
   })
 
   const handleOk = () => {
     // setLoading(true);
     form.validateFields().then(values => {
-      user ? onUpdate(user._id, values) : onCreate(values);
+      variable ? onUpdate(variable._id, values) : onCreate(values);
       form.resetFields();
     //   setLoading(false);
     }).catch(error =>{
@@ -44,12 +47,12 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
     <Modal
       visible={visible}
       destroyOnClose
-      title={user ? 'Editar Usuario' : 'Crear Usuario'}
+      title={variable ? 'Editar Variable' : 'Crear Variable'}
       onCancel={handleOnCancel}
       footer={[
         <Button key="cancel" onClick={handleOnCancel}>Cancelar</Button>,
         <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
-          {user ? 'Actualizar' : 'Crear'}
+          {variable ? 'Actualizar' : 'Crear'}
         </Button>,
       ]}
     >
@@ -61,8 +64,8 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
 
       >
         <Form.Item
-          name="firstName"
-          label="Nomber"
+          name="name"
+          label="Nombre"
           rules={[
             {
               required: true,
@@ -73,32 +76,43 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
           <Input placeholder="Ingrese el nombre" />
         </Form.Item>
         <Form.Item
-          name="lastName"
-          label="Apellido"
+          name="sensorType"
+          label="Tipo de Sensor"
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese el apellido',
+              message: 'Por favor ingrese le tipo de sensor'
             },
           ]}
         >
-          <Input placeholder="Ingrese el nombre" />
+          <Input placeholder="Ingrese el tipo de sensor" />
         </Form.Item>
+
         <Form.Item
-          name="email"
-          label="Email"
+          name="unit"
+          label="Ingrese La Unidad"
           rules={[
             {
               required: true,
-              type: 'email',
-              message: 'Por favor ingrese un correo electrónico válido',
+              message: 'Por favor ingrese la unidad',
             },
           ]}
         >
-          <Input placeholder="Ingrese el correo electrónico" />
+          <Input placeholder="Ingrese el customer" />
         </Form.Item>
 
-
+        <Form.Item
+          name="virtualPin"
+          label="Ingrese Pin"
+          rules={[
+            {
+              required: true,
+              message: 'Por favor ingrese la Pin',
+            },
+          ]}
+        >
+          <Input placeholder="Ingrese el Pin" />
+        </Form.Item>
 
         <Form.Item
           name="customer"
@@ -112,10 +126,24 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
         >
           <Input placeholder="Ingrese el customer" />
         </Form.Item>
+
+        <Form.Item
+          name="template"
+          label="Template"
+          rules={[
+            {
+              required: true,
+              message: 'Por favor ingrese un template',
+            },
+          ]}
+        >
+          <Input placeholder="Ingrese el template" />
+        </Form.Item>
+
         
       </Form>
     </Modal>
   );
 };
 
-export default CustomerModal;
+export default VariableModal;

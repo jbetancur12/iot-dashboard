@@ -5,6 +5,8 @@ import themeReducer from '@app/store/slices/themeSlice';
 import pwaReducer from '@app/store/slices/pwaSlice';
 import thingReducer from '@app/store/slices/thingSlice';
 import customerReducer from '@app/store/slices/customerSlice';
+import templateReducer from '@app/store/slices/templateSlice';
+import variableReducer from '@app/store/slices/variableSlice';
 
 export default {
   user: userReducer,
@@ -14,4 +16,6 @@ export default {
   pwa: pwaReducer,
   thing: thingReducer,
   customer: customerReducer,
+  template: templateReducer,
+  variable: variableReducer
 };
