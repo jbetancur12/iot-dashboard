@@ -18,6 +18,7 @@ import { useAppSelector } from '@app/hooks/reduxHooks';
 
 const DashboardPage = React.lazy(() => import('@app/pages/DashboardPage/DashboardPage'));
 const DevicesPage = React.lazy(() => import('@app/pages/DevicesUserPage/DevicesPage'));
+const TemplatesUserPage = React.lazy(() => import('@app/pages/TemplatesUserPage/TemplatesUserPage'));
 const CustomersPage = React.lazy(() => import('@app/pages/CustomersPage/CustomersPage'));
 const CustomerPage = React.lazy(() => import('@app/pages/CustomersPage/subpages/ProfilePage'));
 const TemplatePage = React.lazy(() => import('@app/pages/CustomersPage/subpages/TemplatePage'));
@@ -83,6 +84,7 @@ const NewUser = withLoading(NewUserPage);
 const NewDevice = withLoading(NewDevicePage);
 const NewDevice2 = withLoading(NewDevicePage2);
 const Devices = withLoading(DevicesPage);
+const TemplatesUser = withLoading(TemplatesUserPage);
 const NewsFeed = withLoading(NewsFeedPage);
 const Kanban = withLoading(KanbanPage);
 const AdvancedForm = withLoading(AdvancedFormsPage);
@@ -156,7 +158,10 @@ export const AppRouter: React.FC = () => {
                 <Route path={DASHBOARD_PATH} element={protectedLayout}>
                     {/* <Route index element={<Dashboard />} /> */}
                     {_roles.includes('USER_ROLE') ? (
+                        <>
                         <Route index element={<Navigate to="/devices" replace />} />
+                        <Route index element={<Navigate to="/templates" replace />} />
+                        </>
                     ) : (
                         <Route index element={<Navigate to="/devices-manager" replace />} />
                     )}
@@ -177,6 +182,9 @@ export const AppRouter: React.FC = () => {
                     <Route path="devices">
                         <Route index element={<Devices />} />
                         <Route path="charts" element={<DevicesChart />} />
+                    </Route>
+                    <Route path="templates">
+                        <Route index element={<TemplatesUser />} />
                     </Route>
                     <Route path="apps">
                         <Route path="feed" element={<NewsFeed />} />

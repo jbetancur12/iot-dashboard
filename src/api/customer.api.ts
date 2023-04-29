@@ -33,5 +33,7 @@ export const updateCustomer = (id: string | undefined, customerData: CustomerDat
 export const deleteCustomer = (customerId: string): Promise<CustomerDataResponse> =>
   httpApi.delete<CustomerDataResponse>(`api/customers/${customerId}`).then(({ data }) => data);
 
-export const getCustomer = (customerId: any): Promise<CustomerDataResponse> => 
+export const getCustomer = (customerId: string | any): Promise<CustomerDataResponse> => 
   httpApi.get<CustomerDataResponse>(`api/customers/${customerId}`).then(({ data }) => data)
+
+

@@ -29,3 +29,7 @@ export const deleteTemplate = (templateId: string): Promise<TemplateDataResponse
 
 export const getTemplate = (templateId: any): Promise<TemplateDataResponse> => 
   httpApi.get<TemplateDataResponse>(`api/templates/${templateId}`).then(({ data }) => data)
+
+
+export const getCustomerTemplates = (customerId: string | undefined): Promise<TemplateDataResponse[]> =>
+  httpApi.get<TemplateDataResponse[]>(`api/templates?customer=${customerId}`).then(({ data }) => data);

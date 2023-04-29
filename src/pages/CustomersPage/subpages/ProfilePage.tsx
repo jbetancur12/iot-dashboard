@@ -212,7 +212,7 @@ const UserProfile = () => {
                             return {
                                 onClick: event => {
                                     // @ts-ignore
-                                    navigate(`customers/${customer._id}/template/${record._id}`)
+                                    navigate(`/customers/${customer._id}/template/${record._id}`)
                                 }
                             }
                         }

@@ -30,6 +30,11 @@ export interface UserModel {
       createdAt?: Date;
     },
   ];
+  customer: 
+    {
+        _id: string
+    }
+  
 }
 
 //ter
