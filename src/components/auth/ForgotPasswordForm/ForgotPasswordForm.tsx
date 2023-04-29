@@ -27,7 +27,8 @@ export const ForgotPasswordForm: React.FC = () => {
     dispatch(doResetPassword(values))
       .unwrap()
       .then(() => {
-        navigate('/auth/security-code');
+        // navigate('/auth/security-code');
+        navigate('/auth/login');
       })
       .catch((err) => {
         notificationController.error({ message: err.message });

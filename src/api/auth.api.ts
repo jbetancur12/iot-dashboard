@@ -55,10 +55,10 @@ export const signUp = (signUpData: SignUpRequest2): Promise<undefined> =>
   httpApi.post<undefined>('api/users', { ...signUpData }).then(({ data }) => data);
 
 export const resetPassword = (resetPasswordPayload: ResetPasswordRequest): Promise<undefined> =>
-  httpApi.post<undefined>('forgotPassword', { ...resetPasswordPayload }).then(({ data }) => data);
+  httpApi.post<undefined>('api/auth/forgot-password', { ...resetPasswordPayload }).then(({ data }) => data);
 
 export const verifySecurityCode = (securityCodePayload: SecurityCodePayload): Promise<undefined> =>
-  httpApi.post<undefined>('verifySecurityCode', { ...securityCodePayload }).then(({ data }) => data);
+  httpApi.post<undefined>('api/auth/verify-otp', { ...securityCodePayload }).then(({ data }) => data);
 
 export const setNewPassword = (newPasswordData: NewPasswordData): Promise<undefined> =>
   httpApi.put<undefined>(`api/auth/new-password${newPasswordData.code ? `/${newPasswordData.code}` : ""}`, { ...newPasswordData }).then(({ data }) => data);
