@@ -17,8 +17,13 @@ import { Card } from '@app/components/common/Card/Card';
 interface Meas {
     variableName: string;
     variableUnit: string;
-    timestamp: Date;
+    timestamp: string;
     avgValue: Number
+}
+
+interface ISeries {
+    timestamp: string;
+    measurements: {}
 }
 
 
@@ -40,88 +45,26 @@ const Chart = () => {
     const [endDate, setEndDate] = useState<AppDate>(dayjs());
     const [range, setRange] = useState<String | undefined>('6Hours');
     const [custom, setCustom] = useState<Boolean>(false);
-    const [data, setData] = useState([]);
-    // console.log("🚀 ~ file: Chart.tsx:22 ~ Chart ~ data:", data)
-    //@ts-ignored
-    var holder = {};
+    const [data, setData] = useState<ISeries[]>([]); 
 
-    var obj = [
-        { 'name': 'P1', 'value': 150 },
-        { 'name': 'P1', 'value': 150 },
-        { 'name': 'P2', 'value': 200 },
-        { 'name': 'P3', 'value': 450 }
-    ];
+    function generateChartTypeArray(length: number) {
+        if (length <= 1) return [];
+        let chartTypeArray = new Array(length - 1).fill({ type: 'line' });
+        return chartTypeArray;
+     }
 
-    const yu = [
-        { "variableName": "Test", "variableUnit": "N", "timestamp": "2023-04-30T01:15:00.000Z", "avgValue": 28 }, 
-        { "variableName": "Humedad", "variableUnit": "ºC", "timestamp": "2023-04-30T00:15:00.000Z", "avgValue": 80 }, 
-        { "variableName": "Test", "variableUnit": "N", "timestamp": "2023-04-30T00:15:00.000Z", "avgValue": 28 }, 
-        { "variableName": "Test", "variableUnit": "N", "timestamp": "2023-04-30T00:30:00.000Z", "avgValue": 28 }, 
-        { "variableName": "Humedad", "variableUnit": "ºC", "timestamp": "2023-04-30T00:00:00.000Z", "avgValue": 80 }, 
-        { "variableName": "Humedad", "variableUnit": "ºC", "timestamp": "2023-04-30T01:45:00.000Z", "avgValue": 80 }, 
-        { "variableName": "Humedad", "variableUnit": "ºC", "timestamp": "2023-04-30T01:30:00.000Z", "avgValue": 80 }
-    ]
+    let dimensions = new Set<string>(['product']);
 
-    var holder = {};
-
-    let D = new Set<Date>([]);
     
-    data.forEach(function (d:Meas) {
-        if (holder.hasOwnProperty(d.variableName)) {
-            //@ts-ignored
-            holder[d.variableName].push({
-                variableUnit: d.variableUnit,
-                timeStamp: d.timestamp,
-                value: d.avgValue
-            });
-            D.add(d.timestamp)
-        } else {
-            //@ts-ignored
-            holder[d.variableName] = [{
-                variableUnit: d.variableUnit,
-                timeStamp: d.timestamp,
-                value: d.avgValue
-            }];
-            
-            D.add(d.timestamp)
-        }
-    });
 
-    const _variablesNames = Object.keys(holder)
-
-    var obj2 = [];
-
-    for (var prop in holder) {
-        //@ts-ignored
-        obj2.push({ name: prop, value: holder[prop] });
-    }
-    // console.log("🚀 ~ file: Chart.tsx:48 ~ y ~ y:", obj2)
-
-    const series = _variablesNames.map(dt => {
-        const name = dt
-        //@ts-ignored
-        const data: number[] = []
-         //@ts-ignored
-        holder[dt].forEach(element => {
-            data.push(element.value)
-        });
-
-        return {
-              name: name,
-              type: 'line',
-              yAxisIndex: 1,
-              smooth: true,
-              lineStyle: {
-                width: 2,
-              },
-              showSymbol: true,
-              
-              data: data,
-            }
-          
+    const source = data.map(j => {
+        const vars = Object.keys(j.measurements)
+        vars.forEach(item => dimensions.add(item))
+        return  {product: (new Date(j.timestamp).toLocaleString()), ...j.measurements }
     })
 
-    console.log(series)
+
+    const series = generateChartTypeArray(dimensions.size)
 
  
 
@@ -171,9 +114,16 @@ const Chart = () => {
     };
 
     const option = {
+
+        dataset: {
+            // Provide a set of data.
+  
+            dimensions: Array.from(dimensions),
+            source: source
+          },
+
         tooltip: {
           valueFormatter: (value: number) => {
-            console.log(value);
             return value.toFixed(1);
           },
           trigger: 'axis',
@@ -205,7 +155,6 @@ const Chart = () => {
             show: true,
             type: 'category',
             boundaryGap: false,
-            data: D,
             axisLabel: {
               fontSize: theme.commonFontSizes.xxs,
               fontWeight: theme.commonFontWeight.light,
@@ -213,57 +162,18 @@ const Chart = () => {
             },
           },
         ],
-        yAxis: [
-          {
-            type: 'value',
-            name: 'T',
-            scale: true,
-            axisLabel: {
-              fontSize: theme.commonFontSizes.xxs,
-              fontWeight: theme.commonFontWeight.light,
-              //color: theme.colors.text.main,
-              formatter: '{value} °C',
-            },
-            axisLine: {
-              show: true,
-              lineStyle: {
-                color: defaultOption.color[0],
-                width: 2,
-              },
-            },
-            axisTick: {
-              show: true,
-            },
-          },
-          {
-            type: 'value',
-            scale: true,
-            name: 'H',
-            axisLabel: {
-              fontSize: theme.commonFontSizes.xxs,
-              fontWeight: theme.commonFontWeight.light,
-              formatter: '{value} %',
-            },
-            axisLine: {
-              show: true,
-              lineStyle: {
-                color: defaultOption.color[1],
-                width: 2,
-              },
-            },
-            axisTick: {
-              show: false,
-            },
-          },
-        ],
+        yAxis: {},
     
         series: series
       };
+      
+      console.log(option)
 
     useEffect(() => {
         getTemplateMeasurements(startDate, endDate, templateId).then(({ data }) => setData(data));
     }, [endDate, startDate]);
 
+ 
     return (
         <>
             <Space size="small" wrap style={{ marginBottom: '10px' }}>
