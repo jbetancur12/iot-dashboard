@@ -33,3 +33,9 @@ export const getTemplate = (templateId: any): Promise<TemplateDataResponse> =>
 
 export const getCustomerTemplates = (customerId: string | undefined): Promise<TemplateDataResponse[]> =>
   httpApi.get<TemplateDataResponse[]>(`api/templates?customer=${customerId}`).then(({ data }) => data);
+
+  export const getTemplateMeasurements = (startDate: AppDate, endDate: AppDate, templateId: string | null): Promise<any> =>
+  httpApi.get<any[]>(
+    `api/measures/data?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}&unit=minute&period=15&template=${templateId}`,
+  );
+

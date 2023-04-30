@@ -19,7 +19,10 @@ const TemplatesPage: React.FC = () => {
     <Row gutter={[30, 30]}>
       {templates.map((template) => (
         <Col xs={24} xl={8} key={template._id}>
-          <Link to={`charts`}>
+          <Link         to={{
+              pathname: 'charts',
+              search: `?template=${template._id}`,
+            }}>
             <S.TemplateCard key={template._id}>
               <S.Title>{template.name}</S.Title>
               <S.Text>{template.description}</S.Text>

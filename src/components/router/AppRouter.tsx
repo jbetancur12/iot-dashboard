@@ -23,6 +23,7 @@ const CustomersPage = React.lazy(() => import('@app/pages/CustomersPage/Customer
 const CustomerPage = React.lazy(() => import('@app/pages/CustomersPage/subpages/ProfilePage'));
 const TemplatePage = React.lazy(() => import('@app/pages/CustomersPage/subpages/TemplatePage'));
 const DevicesChartPage = React.lazy(() => import('@app/pages/DevicesUserPage/subpages/Charts'));
+const TemplatesChartPage = React.lazy(() => import('@app/pages/TemplatesUserPage/subpages/Chart'));
 
 const DevicesManagerPage = React.lazy(() => import('@app/pages/DevicesManagerPage/DevicesManagerPage'));
 const NewDevicePage = React.lazy(() => import('@app/pages/DevicesManagerPage/subpages/DevicesManagerForm'));
@@ -80,6 +81,7 @@ const Customers = withLoading(CustomersPage);
 const Customer = withLoading(CustomerPage);
 const Template = withLoading(TemplatePage);
 const DevicesChart = withLoading(DevicesChartPage);
+const TemplatesChart = withLoading(TemplatesChartPage);
 const NewUser = withLoading(NewUserPage);
 const NewDevice = withLoading(NewDevicePage);
 const NewDevice2 = withLoading(NewDevicePage2);
@@ -185,6 +187,7 @@ export const AppRouter: React.FC = () => {
                     </Route>
                     <Route path="templates">
                         <Route index element={<TemplatesUser />} />
+                        <Route path="charts" element={<TemplatesChart />} />
                     </Route>
                     <Route path="apps">
                         <Route path="feed" element={<NewsFeed />} />
