@@ -47,20 +47,21 @@ const Chart = () => {
     const [custom, setCustom] = useState<Boolean>(false);
     const [data, setData] = useState<ISeries[]>([]); 
 
-    function generateChartTypeArray(length: number) {
-        if (length <= 1) return [];
-        let chartTypeArray = new Array(length - 1).fill({ type: 'line' });
+    function generateChartTypeArray(size: number):any[] {
+        if (size <= 1) return [];
+        let chartTypeArray = new Array(size - 1).fill({ type: 'line' });
         return chartTypeArray;
      }
 
-    let dimensions = new Set<string>(['product']);
+    let dimensions: Set<string> = new Set<string>(['product']);
 
     
 
-    const source = data.map(j => {
-        const vars = Object.keys(j.measurements)
-        vars.forEach(item => dimensions.add(item))
-        return  {product: (new Date(j.timestamp).toLocaleString()), ...j.measurements }
+    const source = data.map((d:any) => {
+        const { timestamp, measurements } = d;
+        const variables = Object.keys(measurements)
+        variables.forEach((v: string)  => dimensions.add(v))
+        return  {product: new Date(timestamp).toLocaleString(), ...measurements }
     })
 
 
