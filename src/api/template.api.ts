@@ -7,6 +7,7 @@ export interface TemplateData {
     name: string;
     description: string;
     type: string;
+    variables: []
   }
   
 
