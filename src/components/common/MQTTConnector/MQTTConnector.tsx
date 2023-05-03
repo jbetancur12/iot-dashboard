@@ -13,7 +13,9 @@ const MQTTConnector: React.FC<IMQTTConnectorProps> = ({ url, options, topics, on
   
 
   useEffect(() => {
-    const client = mqtt.connect(url, options);
+    const client = mqtt.connect(url, {...options,      clean: true,
+        reconnectPeriod: 1000, 
+        connectTimeout: 30 * 1000, });
 
     client.on('connect', () => {
       console.log('Connected to MQTT broker');

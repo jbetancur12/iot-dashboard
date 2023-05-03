@@ -247,7 +247,7 @@ const Chart = () => {
                 )}
             </Card>
 
-            <MQTTConnector url="mqtt://157.230.85.246:8080" options={{ clientId: 'mqtt-react-test-' + Math.random().toString(16).substring(2, 8), username: 'smaf', password: "smaf310" }} topics={['json']} onMessage={handleOnMessage} />
+            <MQTTConnector url="wss://mqtt.smaf.com.co:8081" options={{ clientId: 'mqtt-react-test-' + Math.random().toString(16).substring(2, 8), username: 'smaf', password: "smaf310" }} topics={['json']} onMessage={handleOnMessage} />
             
             {
                 Array.from({ length: rows }, (_, i) => (
