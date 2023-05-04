@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ConfigProvider } from 'antd';
 import deDe from 'antd/lib/locale/de_DE';
 import enUS from 'antd/lib/locale/en_US';
@@ -18,6 +18,7 @@ import { usePWA } from './hooks/usePWA';
 
 const App: React.FC = () => {
   const theme = useAppSelector((state) => state.theme.theme);
+
   const currentTheme = useMemo(() => (theme === 'dark' ? darkTheme : lightTheme), [theme]);
 
   const { language } = useLanguage();
@@ -25,6 +26,8 @@ const App: React.FC = () => {
   usePWA();
 
   useAutoNightMode();
+
+
 
   let lang = esES;
 
@@ -39,6 +42,9 @@ const App: React.FC = () => {
       break;
   }
 
+
+  
+
   return (
     <>
       <meta name="theme-color" content={currentTheme.colors.main.primary} />
@@ -46,7 +52,9 @@ const App: React.FC = () => {
         <GlobalStyle />
         <ConfigProvider locale={lang}>
           <ThemeSwitcher theme={theme}>
+         
             <AppRouter />
+       
           </ThemeSwitcher>
         </ConfigProvider>
       </ThemeProvider>

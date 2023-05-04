@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { TemplateDataResponse, getTemplate, getTemplateMeasurements } from '@app/api/template.api';
 import { AppDate } from '@app/constants/Dates';
@@ -7,14 +7,18 @@ import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'styled-components';
 import { BaseChart, getChartColors } from '@app/components/common/charts/BaseChart';
-import { Col, Empty, Row, Space } from 'antd';
+import { Col, Empty, Row, Space, message } from 'antd';
 import { Button } from '@app/components/common/buttons/Button/Button';
 import { DayjsDatePicker } from '@app/components/common/pickers/DayjsDatePicker';
 import ExcelExport from '../../../utils/ExcelExport';
 import * as ST from '../../DevicesUserPage/subpages/chartStyles';
 import { Card } from '@app/components/common/Card/Card';
-import MQTTConnector from '@app/components/common/MQTTConnector/MQTTConnector';
 import NumericDisplay from '../components/NumericDisplay'
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@app/store/store';
+import { createMqttClient } from '@app/utils/mqtt';
+import { setClient } from '@app/store/slices/mqttSlice';
+import OptionsDropdown from '../components/OptionsDropdown';
 
 interface Meas {
     variableName: string;
@@ -38,6 +42,8 @@ const Chart = () => {
 
     const theme = useTheme();
     const { t } = useTranslation();
+    const dispatch = useDispatch();
+    const { client, error } = useSelector((state: RootState) => state.mqtt);
 
     const chartColors = theme.colors.charts;
 
@@ -49,11 +55,11 @@ const Chart = () => {
     const [custom, setCustom] = useState<Boolean>(false);
     const [data, setData] = useState<ISeries[]>([]);
     const [variables, setVariables] = useState<TemplateDataResponse[]>([]);
-    console.log("🚀 ~ file: Chart.tsx:51 ~ Chart ~ variables:", variables)
     const [mqttData, setMqttData] = useState<string>('No data yet');
     const [mqttDataObj, setMqttDataObj] = useState<any>({});
     const templateId = searchParams.get('template');
 
+ 
     const handleOnMessage = (topic: string, message: Buffer) => {
         const data = message.toString().split('/')
         if (data[1] === templateId) {
@@ -63,7 +69,6 @@ const Chart = () => {
 
         setMqttData(message.toString()); // Actualizar el estado local con los datos recibidos
     };
-    console.log("🚀 ~ file: Chart.tsx:52 ~ Chart ~ mqttDataObj:", mqttDataObj)
 
     function generateChartTypeArray(size: number): any[] {
         if (size <= 1) return [];
@@ -185,16 +190,55 @@ const Chart = () => {
         series: series
     };
 
+    
+
 
 
     useEffect(() => {
         getTemplateMeasurements(startDate, endDate, templateId).then(({ data }) => setData(data));
         getTemplate(templateId).then((data) => setVariables(data.variables))
-    }, [endDate, startDate]);
+
+        if (!client) {
+            dispatch(createMqttClient('wss://mqtt.smaf.com.co:8081', ['json'], { clientId: 'mqtt-react-test-' + Math.random().toString(16).substring(2, 8), username: 'smaf', password: "smaf310" }));
+            client
+        }
+      
+          return () => {
+            if (client) {
+              client.end();
+              // @ts-ignore
+              dispatch(setClient(undefined));
+            }
+          };
+   
+    }, [endDate, startDate, client, dispatch]);
+
+    useEffect(() => {
+        // Actualizar el estado local con los datos recibidos del topic
+        const onMessage = (topic: string, message: string) => {          
+            const data = message.toString().split('/')
+            console.log(data)
+            console.log(templateId)
+            if (data[1] === templateId) {
+                const IncomingData = { ...mqttDataObj, [data[2]]: data[3] }
+                console.log("entro", IncomingData)
+                setMqttDataObj((prevData:any) =>({ ...prevData, [data[2]]: data[3] }))
+            }
+            
+            setMqttData(message.toString());
+        };
+        console.log(mqttDataObj)
+    
+        client?.on('message', onMessage);
+    
+        // Retornar una función de limpieza para remover el listener cuando se desmonte el componente
+        return () => {
+          client?.removeListener('message', onMessage);
+        };
+      }, [client]);
 
 
-    const rows = Math.ceil(variables.length / 2);
-
+    const rows = Math.ceil(variables.length / 5);
 
     return (
         <>
@@ -246,15 +290,16 @@ const Chart = () => {
                     </div>
                 )}
             </Card>
-
-            <MQTTConnector url="wss://mqtt.smaf.com.co:8081" options={{ clientId: 'mqtt-react-test-' + Math.random().toString(16).substring(2, 8), username: 'smaf', password: "smaf310" }} topics={['json']} onMessage={handleOnMessage} />
-            
+          
+          <OptionsDropdown/>
+      
+      
             {
                 Array.from({ length: rows }, (_, i) => (
-                    <Row gutter={[16, 16]} key={i} style={{ marginBottom: '16px' }}>
-                        {variables.slice(i * 2, (i + 1) * 2).map(v => (
+                    <Row gutter={[16, 16]} key={i} style={{ marginBottom: '16px', display: 'flex', justifyContent: 'center' }}>
+                        {variables.slice(i * 5, (i + 1) * 5).map(v => (
                             <Col xs={24} sm={12} md={8} lg={6} xl={4} key={v._id}>
-                                <Card>
+                                <Card style={{ textAlign: 'center' }}>
                                     {/* @ts-ignore */}
                                     <NumericDisplay value={mqttDataObj[v.virtualPin]} label={v.name} />
                                 </Card>
@@ -263,7 +308,9 @@ const Chart = () => {
                         )
                         }
                     </Row>
-                ))}
+                ))
+            }
+         
         </>
     )
 }

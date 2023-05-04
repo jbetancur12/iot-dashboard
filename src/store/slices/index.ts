@@ -7,6 +7,7 @@ import thingReducer from '@app/store/slices/thingSlice';
 import customerReducer from '@app/store/slices/customerSlice';
 import templateReducer from '@app/store/slices/templateSlice';
 import variableReducer from '@app/store/slices/variableSlice';
+import mqttSlice from './mqttSlice';
 
 export default {
   user: userReducer,
@@ -17,5 +18,6 @@ export default {
   thing: thingReducer,
   customer: customerReducer,
   template: templateReducer,
-  variable: variableReducer
+  variable: variableReducer,
+  mqtt: mqttSlice
 };

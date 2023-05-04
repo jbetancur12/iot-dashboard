@@ -11,7 +11,8 @@ interface NumericDataProps {
 const NumericData: React.FC<NumericDataProps> = ({ value, label }) => {
   return (
     <div>
-      {label && <Text strong>{label}: </Text>}
+      {label && <Text strong>{label} </Text>}
+      <br/>
       <Text>{value}</Text>
     </div>
   );
