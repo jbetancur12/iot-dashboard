@@ -335,6 +335,7 @@ const Chart = () => {
                     </Row>
                 ))
             }
+          
             <Row gutter={[16, 16]}>
                 {outputs && outputs.map((o, i) => <Col key={i} xs={24} sm={12} md={8} lg={6} xl={4}>
                     <div style={{width: "100%"}}>
@@ -342,6 +343,7 @@ const Chart = () => {
                     </div>
                     </Col>)}
             </Row>
+        
         </>
     )
 }
