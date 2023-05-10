@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "description": "Free and easy-to-use admin template based on React 17+",
+  "prettier": "prettier-config-standard",
   "repository": {
     "type": "git",
     "url": "git+github.com:altence/lightence-admin.git"
@@ -84,8 +85,7 @@
     "postinstall": "patch-package",
     "buildLightTheme": "lessc --js --clean-css=\"--s1 --advanced\" src/styles/themes/light/main-light.less public/themes/main-light.css",
     "buildDarkTheme": "lessc --js --clean-css=\"--s1 --advanced\" src/styles/themes/dark/main-dark.less public/themes/main-dark.css",
-    "buildThemes": "yarn buildLightTheme && yarn buildDarkTheme",
-    "format": "prettier --write src \"**/*.{js,jsx,ts,tsx}\""
+    "buildThemes": "yarn buildLightTheme && yarn buildDarkTheme"
   },
   "browserslist": [
     ">0.2%",
@@ -125,6 +125,7 @@
     "less-plugin-clean-css": "^1.5.1",
     "lint-staged": "^13.2.2",
     "prettier": "^2.3.1",
+    "prettier-config-standard": "^5.0.0",
     "stylelint": "^13.13.1",
     "stylelint-config-recommended": "^5.0.0",
     "stylelint-config-styled-components": "^0.1.1",
@@ -132,16 +133,8 @@
     "webpack-bundle-analyzer": "^4.4.2",
     "webpackbar": "^5.0.0-3"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "npm run format",
-      "git add"
-    ]
+    "*/**/*.{js,ts,tsx,json}": "npx prettier --write src"
   },
   "config": {
     "commitizen": {

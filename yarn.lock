@@ -11443,6 +11443,7 @@ __metadata:
     pigeon-maps: ^0.19.7
     postinstall-postinstall: ^2.1.0
     prettier: ^2.3.1
+    prettier-config-standard: ^5.0.0
     react: ^17.0.2
     react-country-flag: ^3.0.2
     react-css-theme-switcher: ^0.3.0
@@ -14639,6 +14640,15 @@ __metadata:
   version: 1.0.4
   resolution: "prepend-http@npm:1.0.4"
   checksum: 01e7baf4ad38af02257b99098543469332fc42ae50df33d97a124bf8172295907352fa6138c9b1610c10c6dd0847ca736e53fda736387cc5cf8fcffe96b47f29
+  languageName: node
+  linkType: hard
+
+"prettier-config-standard@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "prettier-config-standard@npm:5.0.0"
+  peerDependencies:
+    prettier: ^2.4.0
+  checksum: c84d2585cbe1652899585fbea49c98f90e687f2656da61d233a5a40b2125ccab0b0af173d99016175987e1db0846f225583a686439693a68a17c7ffaad2c88db
   languageName: node
   linkType: hard
 
