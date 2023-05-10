@@ -13,7 +13,7 @@ const NumericData: React.FC<NumericDataProps> = ({ value, label }) => {
     <div>
       {label && <Text strong>{label} </Text>}
       <br/>
-      <Text>{value}</Text>
+      <Text>{value ? value : 0}</Text>
     </div>
   );
 };

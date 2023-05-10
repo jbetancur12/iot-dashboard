@@ -5,10 +5,11 @@ import {  VariableTableRow } from './table.api';
 export interface VariableData {
     unit: string;
     sensorType: string;
-    virtualPin?: Number;
+    virtualPin?: number;
     customer: string;
     template: string;
     name: string;
+    typePin: string;
   }
   
 

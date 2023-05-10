@@ -1,15 +1,19 @@
 import { httpApi } from '@app/api/http.api';
 import { AppDate } from '@app/constants/Dates';
 import {  TemplateTableRow } from './table.api';
+import { VariableData } from './variable.api';
+
+
+
+
 
 
 export interface TemplateData {
     name: string;
     description: string;
     type: string;
-    variables: []
+    variables: VariableData[]
   }
-  
 
   export interface TemplateDataResponse extends TemplateData {
     _id: string ;

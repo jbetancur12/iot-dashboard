@@ -10,7 +10,7 @@ import { doSignUp } from '@app/store/slices/authSlice';
 import { notificationController } from '@app/controllers/notificationController';
 import { useTranslation } from 'react-i18next';
 import { Tabs, TabPane } from '@app/components/common/Tabs/Tabs';
-import { doCreateTemplate, retrieveTemplates } from '@app/store/slices/templateSlice';
+import { doCreateTemplate, doDeleteTemplate, retrieveTemplates } from '@app/store/slices/templateSlice';
 import TemplateModal from '../components/TemplateModal';
 
 
@@ -59,6 +59,22 @@ const UserProfile = () => {
 
                 })
         }
+
+        const handleDeleteTemplateRow = (e:React.MouseEvent<HTMLElement, MouseEvent>, rowId: string) => {
+            e.stopPropagation()
+            dispatch(doDeleteTemplate(rowId))
+              .unwrap()
+              .then((data) => {
+                notificationController.success({
+                  message: "Template eliminada",
+                  // @ts-ignored
+                  description: data.name,
+                });
+              })
+              .catch((err) => {
+                notificationController.error({ message: err.message });
+              });
+          };
 
     useEffect(() => {
         const customerExist = customers.filter(customer => customer._id === id)
@@ -169,7 +185,21 @@ const UserProfile = () => {
             title: 'Tipo',
             dataIndex: 'type',
             key: 'type', 
-        }
+        },
+        {
+            title: t('tables.actions'),
+            dataIndex: 'actions',
+            width: '15%',
+            render: (text: string, record: { name: string; _id: string }) => {
+              return (
+                <Space>
+                  <Button type="default" danger onClick={(e) => handleDeleteTemplateRow(e, record._id)}>
+                    {t('tables.delete')}
+                  </Button>
+                </Space>
+              );
+            },
+          },
     ];
 
 

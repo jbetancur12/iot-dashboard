@@ -8,7 +8,7 @@ export const Card = styled(AntCard).withConfig({
 })<CardProps>`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  padding: 16px;
 
   box-shadow: ${(props) => props.theme.boxShadow.main};
 

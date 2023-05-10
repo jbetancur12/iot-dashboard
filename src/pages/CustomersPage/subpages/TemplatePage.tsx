@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { retrieveTemplate} from '@app/store/slices/templateSlice';
 import { TemplateDataResponse } from '@app/api/template.api';
 import VariableModal from '../components/VariableModal';
-import { doCreateVariable } from '@app/store/slices/variableSlice';
+import { doCreateVariable, doDeleteVariable } from '@app/store/slices/variableSlice';
 import { VariableData } from '@app/api/variable.api';
 
 
@@ -37,6 +37,7 @@ const TemplateProfile = () => {
             .unwrap()
             .then(res => {
                 setTemplate(res)
+    
                 // @ts-ignore
                 setVariables(res.variables)                
             })
@@ -78,6 +79,21 @@ const TemplateProfile = () => {
         });
     }
 
+    const handleDeleteRow = (rowId: string) => {
+        dispatch(doDeleteVariable(rowId))
+          .unwrap()
+          .then((data) => {
+            notificationController.success({
+              message: "Variable eliminada",
+              // @ts-ignored
+              description: data.name,
+            });
+          })
+          .catch((err) => {
+            notificationController.error({ message: err.message });
+          });
+      };
+
 
 
     const onCancel = () => {
@@ -92,7 +108,7 @@ const TemplateProfile = () => {
 
     const columns = [
         {
-            title: 'Name',
+            title: 'Nombre',
             dataIndex: 'name',
             key: 'name',
         },
@@ -102,15 +118,34 @@ const TemplateProfile = () => {
             key: 'sensorType',
         },
         {
-            title: 'Unit',
+            title: 'Unidad',
             dataIndex: 'unit',
             key: 'unit',
         },
         {
-            title: 'Vistual Pin',
+            title: 'Pin Virtual',
             dataIndex: 'virtualPin',
             key: 'virtualPin',
         },
+        {
+            title: 'Tipo',
+            dataIndex: 'typePin',
+            key: 'typePin',
+        },
+        {
+            title: t('tables.actions'),
+            dataIndex: 'actions',
+            width: '15%',
+            render: (text: string, record: { name: string; _id: string }) => {
+              return (
+                <Space>
+                  <Button type="default" danger onClick={() => handleDeleteRow(record._id)}>
+                    {t('tables.delete')}
+                  </Button>
+                </Space>
+              );
+            },
+          },
     ];
 
 

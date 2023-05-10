@@ -19,6 +19,7 @@ import { RootState } from '@app/store/store';
 import { createMqttClient } from '@app/utils/mqtt';
 import { setClient } from '@app/store/slices/mqttSlice';
 import OptionsDropdown from '../components/OptionsDropdown';
+import { VariableData } from '@app/api/variable.api';
 
 interface Meas {
     variableName: string;
@@ -31,6 +32,7 @@ interface ISeries {
     timestamp: string;
     measurements: {}
 }
+
 
 
 const dt: Date = new Date();
@@ -54,12 +56,13 @@ const Chart = () => {
     const [range, setRange] = useState<String | undefined>('6Hours');
     const [custom, setCustom] = useState<Boolean>(false);
     const [data, setData] = useState<ISeries[]>([]);
-    const [variables, setVariables] = useState<TemplateDataResponse[]>([]);
+    const [variables, setVariables] = useState<VariableData[]>([]);
     const [mqttData, setMqttData] = useState<string>('No data yet');
     const [mqttDataObj, setMqttDataObj] = useState<any>({});
+    const [mqttInputObj, setMqttInputObj] = useState<any>({ 0: "0,0" });
     const templateId = searchParams.get('template');
 
- 
+
     const handleOnMessage = (topic: string, message: Buffer) => {
         const data = message.toString().split('/')
         if (data[1] === templateId) {
@@ -90,7 +93,10 @@ const Chart = () => {
 
     const series = generateChartTypeArray(dimensions.size)
 
-
+    const handleOutput = (vp?: number, msg?: string, customer?: string) => {
+        console.log(vp, msg)
+        client?.publish("input", `${customer}/${templateId}/${Date.now()}/${vp}/${msg}`)
+    }
 
 
     const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -190,7 +196,7 @@ const Chart = () => {
         series: series
     };
 
-    
+
 
 
 
@@ -199,46 +205,61 @@ const Chart = () => {
         getTemplate(templateId).then((data) => setVariables(data.variables))
 
         if (!client) {
-            dispatch(createMqttClient('wss://mqtt.smaf.com.co:8081', ['json'], { clientId: 'mqtt-react-test-' + Math.random().toString(16).substring(2, 8), username: 'smaf', password: "smaf310" }));
+            dispatch(createMqttClient('wss://mqtt.smaf.com.co:8081', ['json', 'output'], { clientId: 'mqtt-react-test-' + Math.random().toString(16).substring(2, 8), username: 'smaf', password: "smaf310" }));
             client
+        } else {
+            client?.publish("input", `12345678/${templateId}/0/0/update`)
         }
-      
-          return () => {
+
+
+
+        return () => {
             if (client) {
-              client.end();
-              // @ts-ignore
-              dispatch(setClient(undefined));
+                client.end();
+                // @ts-ignore
+                dispatch(setClient(undefined));
             }
-          };
-   
+        };
+
     }, [endDate, startDate, client, dispatch]);
 
     useEffect(() => {
         // Actualizar el estado local con los datos recibidos del topic
-        const onMessage = (topic: string, message: string) => {          
+        const onMessage = (topic: string, message: string) => {
             const data = message.toString().split('/')
-            console.log(data)
-            console.log(templateId)
-            if (data[1] === templateId) {
-                const IncomingData = { ...mqttDataObj, [data[2]]: data[3] }
-                console.log("entro", IncomingData)
-                setMqttDataObj((prevData:any) =>({ ...prevData, [data[2]]: data[3] }))
+            if (data[1] === templateId && topic === "sensor") {
+                const IncomingData = { ...mqttDataObj, [data[3]]: data[4] }
+                setMqttDataObj((prevData: any) => ({ ...prevData, [data[3]]: data[4] }))
             }
-            
+
+            if (topic === "output") {
+                console.log("XXXXXX", data)
+                const receivedData = { pinVirtual: data[3], operationStatus: data[4].split(",")[0], operation: data[4].split(",")[1] }
+
+                setMqttInputObj((prevData: any) => ({ ...prevData, [data[3]]: data[4] }))
+
+            }
+
             setMqttData(message.toString());
         };
-        console.log(mqttDataObj)
-    
+
+
         client?.on('message', onMessage);
-    
+
         // Retornar una función de limpieza para remover el listener cuando se desmonte el componente
         return () => {
-          client?.removeListener('message', onMessage);
+            client?.removeListener('message', onMessage);
         };
-      }, [client]);
+    }, [client]);
+
+
 
 
     const rows = Math.ceil(variables.length / 5);
+
+    const outputs = variables.filter((obj) => obj.typePin === 'digitalOutput')
+
+
 
     return (
         <>
@@ -275,7 +296,7 @@ const Chart = () => {
 
         <ExcelExport fileName={'Export - ' + Date.now()} excelData={newData}></ExcelExport> */}
             </Space>
-            
+
 
             <Card
                 padding="0"
@@ -290,27 +311,37 @@ const Chart = () => {
                     </div>
                 )}
             </Card>
-          
-          <OptionsDropdown/>
-      
-      
+
+
+
             {
                 Array.from({ length: rows }, (_, i) => (
                     <Row gutter={[16, 16]} key={i} style={{ marginBottom: '16px', display: 'flex', justifyContent: 'center' }}>
-                        {variables.slice(i * 5, (i + 1) * 5).map(v => (
-                            <Col xs={24} sm={12} md={8} lg={6} xl={4} key={v._id}>
-                                <Card style={{ textAlign: 'center' }}>
-                                    {/* @ts-ignore */}
-                                    <NumericDisplay value={mqttDataObj[v.virtualPin]} label={v.name} />
-                                </Card>
-                            </Col>
-                        )
+                        {variables.slice(i * 5, (i + 1) * 5).map((v, i) => {
+                            if (v.typePin !== "output" && v.typePin !== "digitalOutput") {
+                                return (
+
+                                    <Col xs={24} sm={12} md={8} lg={6} xl={4} key={i}>
+                                        <Card style={{ textAlign: 'center' }}>
+                                            {/* @ts-ignore */}
+                                            <NumericDisplay value={mqttDataObj[v.virtualPin]} label={v.name} />
+                                        </Card>
+                                    </Col>
+                                )
+                            }
+                        }
                         )
                         }
                     </Row>
                 ))
             }
-         
+            <Row gutter={[16, 16]}>
+                {outputs && outputs.map((o, i) => <Col key={i} xs={24} sm={12} md={8} lg={6} xl={4}>
+                    <div style={{width: "100%"}}>
+                    <OptionsDropdown name={o.name} handleOutput={handleOutput} virtualPin={o.virtualPin} customer={o.customer} states={mqttInputObj} />
+                    </div>
+                    </Col>)}
+            </Row>
         </>
     )
 }
