@@ -1,17 +1,19 @@
-import React from 'react';
-import { Col, Row } from 'antd';
-import { NotificationsDropdown } from '../dropdowns/notificationsDropdown/NotificationsDropdown';
-import { ProfileDropdown } from '../dropdowns/profileDropdown/ProfileDropdown/ProfileDropdown';
-import { HeaderSearch } from '../HeaderSearch/HeaderSearch';
-import { SettingsDropdown } from '../dropdowns/settingsDropdown/SettingsDropdown';
+import React from 'react'
+import { Col, Row } from 'antd'
+import { NotificationsDropdown } from '../dropdowns/notificationsDropdown/NotificationsDropdown'
+import { ProfileDropdown } from '../dropdowns/profileDropdown/ProfileDropdown/ProfileDropdown'
+import { HeaderSearch } from '../HeaderSearch/HeaderSearch'
+import { SettingsDropdown } from '../dropdowns/settingsDropdown/SettingsDropdown'
 
-import * as S from '../Header/Header.styles';
+import * as S from '../Header/Header.styles'
 
 interface DesktopHeaderProps {
-  isTwoColumnsLayout: boolean;
+  isTwoColumnsLayout: boolean
 }
 
-export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ isTwoColumnsLayout }) => {
+export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
+  isTwoColumnsLayout
+}) => {
   const leftSide = isTwoColumnsLayout ? (
     <S.SearchColumn lg={16}>
       <Row justify="space-between">
@@ -28,7 +30,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ isTwoColumnsLayout
       </Col>
       <Col>{/* <S.GHButton /> */}</Col>
     </>
-  );
+  )
 
   return (
     <Row justify="space-between" align="middle">
@@ -52,5 +54,5 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ isTwoColumnsLayout
         </Row>
       </S.ProfileColumn>
     </Row>
-  );
-};
+  )
+}

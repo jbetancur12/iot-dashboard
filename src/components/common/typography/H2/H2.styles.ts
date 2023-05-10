@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Typography } from 'antd';
+import styled from 'styled-components'
+import { Typography } from 'antd'
 
 export const Text = styled(Typography.Title)`
   &.ant-typography {
@@ -18,4 +18,4 @@ export const Text = styled(Typography.Title)`
       font-size: 1.625rem;
     }
   }
-`;
+`

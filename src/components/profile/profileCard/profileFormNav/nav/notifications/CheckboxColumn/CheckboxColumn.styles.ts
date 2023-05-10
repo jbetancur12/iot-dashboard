@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { hexToRGB } from '@app/utils/utils';
+import styled from 'styled-components'
+import { hexToRGB } from '@app/utils/utils'
 
 const colStyles = {
   height: '75px',
@@ -8,13 +8,14 @@ const colStyles = {
   padding: '0.3125rem',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center',
-};
+  justifyContent: 'center'
+}
 
 export const Col = styled.div`
   ${colStyles};
 
-  border-bottom: ${(props) => `1px solid ${hexToRGB(props.theme.colors.main.primary, 0.3)}`};
+  border-bottom: ${(props) =>
+    `1px solid ${hexToRGB(props.theme.colors.main.primary, 0.3)}`};
 
   @media only screen and ${(props) => props.theme.media.md} {
     justify-content: unset;
@@ -25,7 +26,7 @@ export const Col = styled.div`
   @media only screen and ${(props) => props.theme.media.xl} {
     padding: 0.75rem;
   }
-`;
+`
 
 export const Wrapper = styled.div`
   display: flex;
@@ -48,12 +49,13 @@ export const Wrapper = styled.div`
       justify-content: unset;
     }
   }
-`;
+`
 
 export const HeaderCol = styled(Col)`
   background: ${(props) => props.theme.colors.main.secondaryBackground};
 
-  border-top: ${(props) => `1px solid ${hexToRGB(props.theme.colors.main.primary, 0.3)}`};
+  border-top: ${(props) =>
+    `1px solid ${hexToRGB(props.theme.colors.main.primary, 0.3)}`};
 
   color: ${(props) => props.theme.colors.main.primary};
 
@@ -62,4 +64,4 @@ export const HeaderCol = styled(Col)`
     row-gap: 0.5rem;
     justify-content: center;
   }
-`;
+`

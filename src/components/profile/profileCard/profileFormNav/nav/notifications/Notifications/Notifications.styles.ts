@@ -1,5 +1,5 @@
-import { Typography } from 'antd';
-import styled from 'styled-components';
+import { Typography } from 'antd'
+import styled from 'styled-components'
 
 export const Description = styled(Typography.Text)`
   display: block;
@@ -10,4 +10,4 @@ export const Description = styled(Typography.Text)`
     font-size: 1rem;
     margin-bottom: 2rem;
   }
-`;
+`

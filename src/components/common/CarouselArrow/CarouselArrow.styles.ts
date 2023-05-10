@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { CustomArrowProps } from 'react-slick';
+import styled from 'styled-components'
+import { CustomArrowProps } from 'react-slick'
 
 export const ArrowWrapper = styled.div.withConfig({
-  shouldForwardProp: (prop) => !['currentSlide', 'slideCount'].includes(prop),
+  shouldForwardProp: (prop) => !['currentSlide', 'slideCount'].includes(prop)
 })<CustomArrowProps>`
   font-size: 1rem;
 
@@ -16,4 +16,4 @@ export const ArrowWrapper = styled.div.withConfig({
   &:focus {
     color: ${(props) => props.theme.colors.text.main};
   }
-`;
+`

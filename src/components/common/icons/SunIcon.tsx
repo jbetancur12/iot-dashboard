@@ -1,7 +1,12 @@
-import React from 'react';
+import React from 'react'
 
 export const SunIcon: React.FC = () => (
-  <svg width="1em" height="1em" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="1em"
+    height="1em"
+    viewBox="0 0 19 19"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg">
     <path
       d="M9.46756 5.14105C8.3521 5.14105 7.28233 5.58417 6.49358 6.37291C5.70483 7.16166 5.26172 8.23143 5.26172 9.34689C5.26172 10.4623 5.70483 11.5321 6.49358 12.3209C7.28233 13.1096 8.3521 13.5527 9.46756 13.5527C10.583 13.5527 11.6528 13.1096 12.4415 12.3209C13.2303 11.5321 13.6734 10.4623 13.6734 9.34689C13.6734 8.23143 13.2303 7.16166 12.4415 6.37291C11.6528 5.58417 10.583 5.14105 9.46756 5.14105Z"
       fill="currentColor"
@@ -13,4 +18,4 @@ export const SunIcon: React.FC = () => (
       fill="currentColor"
     />
   </svg>
-);
+)

@@ -1,45 +1,45 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Col, message } from 'antd';
-import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
-import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
-import { Upload, UploadDragger } from '@app/components/common/Upload/Upload';
-import { Button } from '@app/components/common/buttons/Button/Button';
-import { PageTitle } from '@app/components/common/PageTitle/PageTitle';
-import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles';
+import { Col, message } from 'antd'
+import { UploadOutlined, InboxOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
+import { Upload, UploadDragger } from '@app/components/common/Upload/Upload'
+import { Button } from '@app/components/common/buttons/Button/Button'
+import { PageTitle } from '@app/components/common/PageTitle/PageTitle'
+import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles'
 
 const DraggerIconWrapper = styled.div`
   font-size: 4rem;
   color: ${(props) => props.theme.colors.main.primary};
-`;
+`
 const DraggerTitle = styled.div`
   font-size: ${(props) => props.theme.commonFontSizes.xl}ß;
   font-weight: ${(props) => props.theme.commonFontWeight.bold};
-`;
+`
 const DraggerDescription = styled.div`
   font-size: ${(props) => props.theme.commonFontSizes.md};
   padding: 0 1rem;
-`;
+`
 
 const UploadsPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const uploadProps = {
     name: 'file',
     multiple: true,
     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
     onChange: (info: any) => {
-      const { status } = info.file;
+      const { status } = info.file
       if (status !== 'uploading') {
-        console.log(info.file, info.fileList);
+        console.log(info.file, info.fileList)
       }
       if (status === 'done') {
-        message.success(t('uploads.successUpload', { name: info.file.name }));
+        message.success(t('uploads.successUpload', { name: info.file.name }))
       } else if (status === 'error') {
-        message.error(t('uploads.failedUpload', { name: info.file.name }));
+        message.error(t('uploads.failedUpload', { name: info.file.name }))
       }
-    },
-  };
+    }
+  }
 
   return (
     <>
@@ -47,11 +47,15 @@ const UploadsPage: React.FC = () => {
       <Col>
         <S.Card title={t('uploads.basic')}>
           <Upload {...uploadProps}>
-            <Button icon={<UploadOutlined />}>{t('uploads.clickToUpload')}</Button>
+            <Button icon={<UploadOutlined />}>
+              {t('uploads.clickToUpload')}
+            </Button>
           </Upload>
         </S.Card>
         <S.Card title={t('uploads.directory')}>
-          <Upload action="https://www.mocky.io/v2/5cc8019d300000980a055e76" directory>
+          <Upload
+            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            directory>
             <Button icon={<UploadOutlined />}>{t('uploads.directory')}</Button>
           </Upload>
         </S.Card>
@@ -66,7 +70,7 @@ const UploadsPage: React.FC = () => {
         </S.Card>
       </Col>
     </>
-  );
-};
+  )
+}
 
-export default UploadsPage;
+export default UploadsPage

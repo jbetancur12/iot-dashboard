@@ -1,34 +1,37 @@
-import React from 'react';
-import { Dropdown } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { Tag as ITag } from '../../interfaces';
-import { kanbanTags } from 'constants/kanbanTags';
-import * as S from './TagDropdown.styles';
-import { Tag } from 'components/common/Tag/Tag';
-import { PlusCircleFilled } from '@ant-design/icons';
-import { useTheme } from 'styled-components';
+import React from 'react'
+import { Dropdown } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { Tag as ITag } from '../../interfaces'
+import { kanbanTags } from 'constants/kanbanTags'
+import * as S from './TagDropdown.styles'
+import { Tag } from 'components/common/Tag/Tag'
+import { PlusCircleFilled } from '@ant-design/icons'
+import { useTheme } from 'styled-components'
 
 interface TagDropdownProps {
-  selectedTags: ITag[];
-  setSelectedTags: (state: ITag[]) => void;
+  selectedTags: ITag[]
+  setSelectedTags: (state: ITag[]) => void
 }
 
-export const TagDropdown: React.FC<TagDropdownProps> = ({ selectedTags, setSelectedTags }) => {
-  const { t } = useTranslation();
-  const theme = useTheme();
+export const TagDropdown: React.FC<TagDropdownProps> = ({
+  selectedTags,
+  setSelectedTags
+}) => {
+  const { t } = useTranslation()
+  const theme = useTheme()
 
-  const kanbanTagData = Object.values(kanbanTags);
-  const selectedTagsIds = selectedTags.map((item) => item.id);
+  const kanbanTagData = Object.values(kanbanTags)
+  const selectedTagsIds = selectedTags.map((item) => item.id)
 
   const onTagClick = (tag: ITag) => {
-    const isExist = selectedTagsIds.includes(tag.id);
+    const isExist = selectedTagsIds.includes(tag.id)
 
     if (isExist) {
-      setSelectedTags(selectedTags.filter((item) => item.id !== tag.id));
+      setSelectedTags(selectedTags.filter((item) => item.id !== tag.id))
     } else {
-      setSelectedTags([...selectedTags, tag]);
+      setSelectedTags([...selectedTags, tag])
     }
-  };
+  }
 
   return (
     <Dropdown
@@ -40,24 +43,29 @@ export const TagDropdown: React.FC<TagDropdownProps> = ({ selectedTags, setSelec
             <S.EditTagPopoverLine
               key={tag.id}
               onClick={(e) => {
-                onTagClick(tag);
-                e.stopPropagation();
-              }}
-            >
+                onTagClick(tag)
+                e.stopPropagation()
+              }}>
               <S.PopoverCheckbox checked={selectedTagsIds.includes(tag.id)} />
-              <S.TagWrapper backgroundColor={tag.bgColor}>#{tag.title}</S.TagWrapper>
+              <S.TagWrapper backgroundColor={tag.bgColor}>
+                #{tag.title}
+              </S.TagWrapper>
             </S.EditTagPopoverLine>
           ))}
           <S.RemoveTagWrapper>
             <S.RemoveTag />
           </S.RemoveTagWrapper>
         </S.EditTagPopover>
-      }
-    >
+      }>
       {selectedTags && selectedTags.length > 0 ? (
         <S.TagsWrapper>
           {selectedTags.map((tag) => (
-            <Tag key={tag.id} {...tag} bgColor={theme.colors.main[tag.bgColor]} removeTag={() => onTagClick(tag)} />
+            <Tag
+              key={tag.id}
+              {...tag}
+              bgColor={theme.colors.main[tag.bgColor]}
+              removeTag={() => onTagClick(tag)}
+            />
           ))}
           <S.TagPlusWrapper>
             <PlusCircleFilled />
@@ -69,5 +77,5 @@ export const TagDropdown: React.FC<TagDropdownProps> = ({ selectedTags, setSelec
         </S.TagsWrapper>
       )}
     </Dropdown>
-  );
-};
+  )
+}

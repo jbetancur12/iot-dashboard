@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components';
-import { dashboardPaddings } from '@app/components/dashboard/DashboardCard/DashboardCard';
-import { hexToRGB } from '@app/utils/utils';
+import styled, { css } from 'styled-components'
+import { dashboardPaddings } from '@app/components/dashboard/DashboardCard/DashboardCard'
+import { hexToRGB } from '@app/utils/utils'
 
 interface WrapperProps {
-  $isVisible: boolean;
+  $isVisible: boolean
 }
 
 export const Wrapper = styled.div<WrapperProps>`
@@ -27,7 +27,8 @@ export const Wrapper = styled.div<WrapperProps>`
     margin: 0;
     z-index: 2;
 
-    background-color: ${(props) => hexToRGB(props.theme.colors.main.mainBackground, 0.9)};
+    background-color: ${(props) =>
+      hexToRGB(props.theme.colors.main.mainBackground, 0.9)};
 
     ${(props) =>
       !props.$isVisible &&
@@ -35,4 +36,4 @@ export const Wrapper = styled.div<WrapperProps>`
         width: 5rem;
       `}
   }
-`;
+`

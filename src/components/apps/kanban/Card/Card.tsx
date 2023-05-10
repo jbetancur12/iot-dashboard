@@ -1,35 +1,43 @@
-import React, { useState } from 'react';
-import { Dropdown } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { MoreOutlined } from '@ant-design/icons';
-import { Button } from '@app/components/common/buttons/Button/Button';
-import { ParticipantsDropdown } from '@app/components/apps/kanban/newCardForm/ParticipantsDropdown/ParticipantsDropdown';
-import { TagDropdown } from '@app/components/apps/kanban/newCardForm/TagDropdown/TagDropdown';
-import { CardState, Tag as ITag, Participant as IParticipant } from '@app/components/apps/kanban/interfaces';
-import * as S from './Card.styles';
+import React, { useState } from 'react'
+import { Dropdown } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { MoreOutlined } from '@ant-design/icons'
+import { Button } from '@app/components/common/buttons/Button/Button'
+import { ParticipantsDropdown } from '@app/components/apps/kanban/newCardForm/ParticipantsDropdown/ParticipantsDropdown'
+import { TagDropdown } from '@app/components/apps/kanban/newCardForm/TagDropdown/TagDropdown'
+import {
+  CardState,
+  Tag as ITag,
+  Participant as IParticipant
+} from '@app/components/apps/kanban/interfaces'
+import * as S from './Card.styles'
 
 interface CardProps {
-  style: CSSStyleSheet;
-  onClick: () => void;
-  onDelete: () => void;
-  onChange: (card: CardState) => void;
-  className: string;
-  id: string | number;
-  title: string;
-  description: string;
-  tags: ITag[];
-  participants: IParticipant[];
-  cardDraggable: boolean;
-  editable: boolean;
+  style: CSSStyleSheet
+  onClick: () => void
+  onDelete: () => void
+  onChange: (card: CardState) => void
+  className: string
+  id: string | number
+  title: string
+  description: string
+  tags: ITag[]
+  participants: IParticipant[]
+  cardDraggable: boolean
+  editable: boolean
 }
 
 interface EditPopoverProps {
-  onDelete: () => void;
-  onArchive: () => void;
+  onDelete: () => void
+  onArchive: () => void
 }
 
-const EditPopover: React.FC<EditPopoverProps> = ({ onDelete, onArchive, ...props }) => {
-  const { t } = useTranslation();
+const EditPopover: React.FC<EditPopoverProps> = ({
+  onDelete,
+  onArchive,
+  ...props
+}) => {
+  const { t } = useTranslation()
 
   return (
     <S.CardMenu selectable={false} {...props}>
@@ -41,8 +49,8 @@ const EditPopover: React.FC<EditPopoverProps> = ({ onDelete, onArchive, ...props
         {t('kanban.archive')}
       </S.MenuItem>
     </S.CardMenu>
-  );
-};
+  )
+}
 
 export const Card: React.FC<CardProps> = ({
   style,
@@ -56,34 +64,41 @@ export const Card: React.FC<CardProps> = ({
   tags = [],
   participants = [],
   cardDraggable,
-  editable,
+  editable
 }) => {
-  const { t } = useTranslation();
-  const [isExpanded, setIsExpanded] = useState(true);
+  const { t } = useTranslation()
+  const [isExpanded, setIsExpanded] = useState(true)
 
   const onArrowPress = () => {
-    setIsExpanded(!isExpanded);
-  };
+    setIsExpanded(!isExpanded)
+  }
 
   const updateCard = (card: CardState) => {
-    onChange({ ...card, id });
-  };
+    onChange({ ...card, id })
+  }
 
   const onDeleteCard = () => {
-    onDelete();
-  };
+    onDelete()
+  }
 
   const updateTags = (tags: ITag[]) => {
-    updateCard({ tags });
-  };
+    updateCard({ tags })
+  }
 
   const updateParticipants = (participants: IParticipant[]) => {
-    updateCard({ participants });
-  };
+    updateCard({ participants })
+  }
 
   return (
-    <S.CardWrapper data-id={id} onClick={onClick} style={style} className={className}>
-      <S.CollapseCard onChange={onArrowPress} bordered={false} defaultActiveKey={['1']}>
+    <S.CardWrapper
+      data-id={id}
+      onClick={onClick}
+      style={style}
+      className={className}>
+      <S.CollapseCard
+        onChange={onArrowPress}
+        bordered={false}
+        defaultActiveKey={['1']}>
         <S.CardContent
           showArrow={false}
           key="1"
@@ -92,9 +107,8 @@ export const Card: React.FC<CardProps> = ({
               <S.CardTitle
                 draggable={cardDraggable}
                 onClick={(e: MouseEvent) => {
-                  e.stopPropagation();
-                }}
-              >
+                  e.stopPropagation()
+                }}>
                 {editable ? (
                   <S.Input
                     name="title"
@@ -109,25 +123,32 @@ export const Card: React.FC<CardProps> = ({
                 )}
               </S.CardTitle>
               <S.CardRightContent>
-                <Button noStyle type="text" icon={<S.ArrowDownIcon $expanded={isExpanded} />} />
+                <Button
+                  noStyle
+                  type="text"
+                  icon={<S.ArrowDownIcon $expanded={isExpanded} />}
+                />
                 <Dropdown
-                  overlay={<EditPopover onDelete={onDeleteCard} onArchive={onDeleteCard} />}
+                  overlay={
+                    <EditPopover
+                      onDelete={onDeleteCard}
+                      onArchive={onDeleteCard}
+                    />
+                  }
                   placement="bottomRight"
-                  trigger={['click']}
-                >
+                  trigger={['click']}>
                   <Button
                     noStyle
                     type="text"
                     icon={<MoreOutlined />}
                     onClick={(e) => {
-                      e.stopPropagation();
+                      e.stopPropagation()
                     }}
                   />
                 </Dropdown>
               </S.CardRightContent>
             </S.CardHeader>
-          }
-        >
+          }>
           <S.CardDetails>
             {editable ? (
               <S.Input
@@ -146,10 +167,13 @@ export const Card: React.FC<CardProps> = ({
           </S.CardFooter>
 
           <S.ParticipantsWrapper>
-            <ParticipantsDropdown selectedParticipants={participants} setSelectedParticipants={updateParticipants} />
+            <ParticipantsDropdown
+              selectedParticipants={participants}
+              setSelectedParticipants={updateParticipants}
+            />
           </S.ParticipantsWrapper>
         </S.CardContent>
       </S.CollapseCard>
     </S.CardWrapper>
-  );
-};
+  )
+}

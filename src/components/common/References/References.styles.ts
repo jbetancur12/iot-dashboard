@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import React from 'react';
+import styled from 'styled-components'
+import React from 'react'
 
 export const ReferencesWrapper = styled.div`
   width: 100%;
@@ -17,7 +17,7 @@ export const ReferencesWrapper = styled.div`
     flex-direction: row;
     justify-content: space-between;
   }
-`;
+`
 
 export const Text = styled.span`
   display: flex;
@@ -29,21 +29,23 @@ export const Text = styled.span`
   @media only screen and ${(props) => props.theme.media.xl} {
     margin-bottom: 0;
   }
-`;
+`
 
 export const Icons = styled.div`
   margin-left: -0.5rem;
   margin-right: -0.5rem;
   display: flex;
   flex-wrap: nowrap;
-`;
+`
 
-type ReturnType<T> = (props: T) => JSX.Element;
+type ReturnType<T> = (props: T) => JSX.Element
 
-export function withStyles<T>(Component: React.ComponentType<T>): ReturnType<T> {
+export function withStyles<T>(
+  Component: React.ComponentType<T>
+): ReturnType<T> {
   return styled(Component)`
     font-size: 2rem;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
-  `;
+  `
 }

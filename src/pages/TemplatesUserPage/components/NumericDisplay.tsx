@@ -1,11 +1,11 @@
-import React from 'react';
-import { Typography } from 'antd';
+import React from 'react'
+import { Typography } from 'antd'
 
-const { Text } = Typography;
+const { Text } = Typography
 
 interface NumericDataProps {
-  value: number | string;
-  label?: string;
+  value: number | string
+  label?: string
 }
 
 const NumericData: React.FC<NumericDataProps> = ({ value, label }) => {
@@ -15,7 +15,7 @@ const NumericData: React.FC<NumericDataProps> = ({ value, label }) => {
       <br />
       <Text>{value ? value : 0}</Text>
     </div>
-  );
-};
+  )
+}
 
-export default NumericData;
+export default NumericData

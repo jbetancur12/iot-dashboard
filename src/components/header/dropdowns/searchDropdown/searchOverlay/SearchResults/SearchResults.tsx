@@ -1,17 +1,17 @@
-import React, { useMemo } from 'react';
-import { List } from 'antd';
-import { HashLink } from 'react-router-hash-link';
-import { useTranslation } from 'react-i18next';
-import { CategoryComponents } from 'components/header/HeaderSearch/HeaderSearch';
-import { camelize } from 'utils/utils';
-import * as S from './SearchResults.styles';
+import React, { useMemo } from 'react'
+import { List } from 'antd'
+import { HashLink } from 'react-router-hash-link'
+import { useTranslation } from 'react-i18next'
+import { CategoryComponents } from 'components/header/HeaderSearch/HeaderSearch'
+import { camelize } from 'utils/utils'
+import * as S from './SearchResults.styles'
 
 interface SearchResultsProps {
-  results: CategoryComponents[];
+  results: CategoryComponents[]
 }
 
 export const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const resultsList = useMemo(
     () =>
@@ -30,8 +30,8 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
           )}
         />
       )),
-    [results, t],
-  );
+    [results, t]
+  )
 
-  return <S.SearchResultsWrapper>{resultsList}</S.SearchResultsWrapper>;
-};
+  return <S.SearchResultsWrapper>{resultsList}</S.SearchResultsWrapper>
+}

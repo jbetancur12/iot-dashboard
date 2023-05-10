@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const NewsWrapper = styled.div`
   display: flex;
@@ -17,11 +17,11 @@ export const NewsWrapper = styled.div`
       margin-bottom: 2.5rem;
     }
   }
-`;
+`
 
 export const SpinnerWrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
   margin-top: 4.2rem;
-`;
+`

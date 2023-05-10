@@ -1,11 +1,11 @@
-import React from 'react';
-import { Card } from '../../../common/Card/Card';
-import notFoundImg from 'assets/images/nothing-found.png';
-import { useTranslation } from 'react-i18next';
-import * as S from './TreatmentNotFound.styles';
+import React from 'react'
+import { Card } from '../../../common/Card/Card'
+import notFoundImg from 'assets/images/nothing-found.png'
+import { useTranslation } from 'react-i18next'
+import * as S from './TreatmentNotFound.styles'
 
 export const TreatmentNotFound: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <Card padding="1rem">
@@ -14,5 +14,5 @@ export const TreatmentNotFound: React.FC = () => {
         <S.Text>{t('dashboard.treatmentPlan.noVisits')}</S.Text>
       </S.CardBody>
     </Card>
-  );
-};
+  )
+}

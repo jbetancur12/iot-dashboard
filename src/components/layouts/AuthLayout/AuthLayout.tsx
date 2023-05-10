@@ -1,6 +1,6 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import * as S from './AuthLayout.styles';
+import React from 'react'
+import { Outlet } from 'react-router-dom'
+import * as S from './AuthLayout.styles'
 
 const AuthLayout: React.FC = () => {
   return (
@@ -11,7 +11,7 @@ const AuthLayout: React.FC = () => {
         </S.LoginWrapper>
       </S.BackgroundWrapper>
     </S.Wrapper>
-  );
-};
+  )
+}
 
-export default AuthLayout;
+export default AuthLayout

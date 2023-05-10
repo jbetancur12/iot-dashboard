@@ -1,40 +1,45 @@
-import React, { useEffect } from 'react';
-import { Col, Row } from 'antd';
-import { LeftOutlined } from '@ant-design/icons';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { Outlet, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
-import { Card } from '@app/components/common/Card/Card';
-import { Button } from '@app/components/common/buttons/Button/Button';
-import { ProfileInfo } from '@app/components/profile/profileCard/ProfileInfo/ProfileInfo';
-import { PageTitle } from '@app/components/common/PageTitle/PageTitle';
-import { ProfileNav } from '@app/components/profile/profileCard/ProfileNav/ProfileNav';
-import { useResponsive } from '@app/hooks/useResponsive';
-import { useAppSelector } from '@app/hooks/reduxHooks';
+import React, { useEffect } from 'react'
+import { Col, Row } from 'antd'
+import { LeftOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
+import styled from 'styled-components'
+import { Card } from '@app/components/common/Card/Card'
+import { Button } from '@app/components/common/buttons/Button/Button'
+import { ProfileInfo } from '@app/components/profile/profileCard/ProfileInfo/ProfileInfo'
+import { PageTitle } from '@app/components/common/PageTitle/PageTitle'
+import { ProfileNav } from '@app/components/profile/profileCard/ProfileNav/ProfileNav'
+import { useResponsive } from '@app/hooks/useResponsive'
+import { useAppSelector } from '@app/hooks/reduxHooks'
 
 const ProfileLayout: React.FC = () => {
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user.user)
 
-  const { t } = useTranslation();
-  const { isTablet: isTabletOrHigher, mobileOnly } = useResponsive();
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const { isTablet: isTabletOrHigher, mobileOnly } = useResponsive()
+  const location = useLocation()
+  const navigate = useNavigate()
 
-  const { isTablet } = useResponsive();
+  const { isTablet } = useResponsive()
 
-  const isTitleShown = isTabletOrHigher || (mobileOnly && location.pathname === '/profile');
-  const isMenuShown = isTabletOrHigher || (mobileOnly && location.pathname !== '/profile');
+  const isTitleShown =
+    isTabletOrHigher || (mobileOnly && location.pathname === '/profile')
+  const isMenuShown =
+    isTabletOrHigher || (mobileOnly && location.pathname !== '/profile')
 
   useEffect(() => {
-    isTablet && location.pathname === '/profile' && navigate('personal-info');
-  }, [isTablet, location.pathname, navigate]);
+    isTablet && location.pathname === '/profile' && navigate('personal-info')
+  }, [isTablet, location.pathname, navigate])
 
   return (
     <>
       <PageTitle>{t('profile.title')}</PageTitle>
       {!isTitleShown && (
-        <Btn icon={<LeftOutlined />} type="text" onClick={() => navigate('/profile')}>
+        <Btn
+          icon={<LeftOutlined />}
+          type="text"
+          onClick={() => navigate('/profile')}>
           {t('common.back')}
         </Btn>
       )}
@@ -63,12 +68,12 @@ const ProfileLayout: React.FC = () => {
         )}
       </Row>
     </>
-  );
-};
+  )
+}
 
 const ProfileCard = styled(Card)`
   height: unset;
-`;
+`
 
 const Btn = styled(Button)`
   font-size: 1rem;
@@ -77,6 +82,6 @@ const Btn = styled(Button)`
   padding: 0;
   height: unset;
   color: ${(props) => props.theme.colors.main.secondary};
-`;
+`
 
-export default ProfileLayout;
+export default ProfileLayout

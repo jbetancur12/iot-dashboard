@@ -1,13 +1,13 @@
-import { Checkbox } from 'antd';
-import styled, { css } from 'styled-components';
+import { Checkbox } from 'antd'
+import styled, { css } from 'styled-components'
 
 interface FilterWrapperProps {
-  isVisible: boolean;
+  isVisible: boolean
 }
 
 export const CheckboxGroup = styled(Checkbox.Group)`
   display: block;
-`;
+`
 
 export const FilterWrapper = styled.div<FilterWrapperProps>`
   ${(props) =>
@@ -21,7 +21,7 @@ export const FilterWrapper = styled.div<FilterWrapperProps>`
   &:not(:last-child) {
     margin-bottom: 1rem;
   }
-`;
+`
 
 export const CheckBox = styled(Checkbox)`
   font-size: 0.75rem;
@@ -29,4 +29,4 @@ export const CheckBox = styled(Checkbox)`
   @media only screen and ${(props) => props.theme.media.md} {
     font-size: 0.875rem;
   }
-`;
+`

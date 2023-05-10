@@ -1,11 +1,11 @@
-import { Dates } from 'constants/Dates';
+import { Dates } from 'constants/Dates'
 
 export interface CalendarEvent {
-  date: number;
-  doctor: number;
+  date: number
+  doctor: number
 }
 
-const now = Dates.getToday().valueOf();
+const now = Dates.getToday().valueOf()
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getUserCalendar = (id: string): Promise<CalendarEvent[]> => {
@@ -14,45 +14,45 @@ export const getUserCalendar = (id: string): Promise<CalendarEvent[]> => {
       res([
         {
           doctor: 5,
-          date: now - 1000 * 60 * 60 * 24 * 5,
+          date: now - 1000 * 60 * 60 * 24 * 5
         },
         {
           doctor: 1,
-          date: now + 1000 * 60 * 60 * 24 * 3,
+          date: now + 1000 * 60 * 60 * 24 * 3
         },
         {
           doctor: 2,
-          date: now - 1000 * 60 * 60 * 24 * 10,
+          date: now - 1000 * 60 * 60 * 24 * 10
         },
         {
           doctor: 4,
-          date: now - 1000 * 60 * 60 * 24 * 4,
+          date: now - 1000 * 60 * 60 * 24 * 4
         },
         {
           doctor: 6,
-          date: now - 1000 * 60 * 60 * 24 * 16,
+          date: now - 1000 * 60 * 60 * 24 * 16
         },
         {
           date: now - 1000 * 60 * 60 * 24 * 2,
-          doctor: 3,
+          doctor: 3
         },
         {
           date: now + 60 * 60 * 1000,
-          doctor: 2,
+          doctor: 2
         },
         {
           date: now + 1000 * 60 * 60 * 24 * 2,
-          doctor: 1,
+          doctor: 1
         },
         {
           date: now + 1000 * 60 * 60 * 24 * 4,
-          doctor: 5,
+          doctor: 5
         },
         {
           date: now - 1000 * 60 * 60 * 24 * 3,
-          doctor: 7,
-        },
-      ]);
-    });
-  });
-};
+          doctor: 7
+        }
+      ])
+    })
+  })
+}

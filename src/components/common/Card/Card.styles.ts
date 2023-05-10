@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import { Card as AntCard } from 'antd';
-import { CardProps } from './Card';
-import { normalizeProp } from 'utils/utils';
+import styled from 'styled-components'
+import { Card as AntCard } from 'antd'
+import { CardProps } from './Card'
+import { normalizeProp } from 'utils/utils'
 
 export const Card = styled(AntCard).withConfig({
-  shouldForwardProp: (prop) => !['padding'].includes(prop),
+  shouldForwardProp: (prop) => !['padding'].includes(prop)
 })<CardProps>`
   display: flex;
   flex-direction: column;
@@ -37,4 +37,4 @@ export const Card = styled(AntCard).withConfig({
 
     padding: ${(props) => props.padding && normalizeProp(props.padding)};
   }
-`;
+`

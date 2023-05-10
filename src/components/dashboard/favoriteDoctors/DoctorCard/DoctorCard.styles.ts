@@ -1,10 +1,10 @@
-import { Rate, Typography } from 'antd';
-import styled from 'styled-components';
-import { Card } from '../../../common/Card/Card';
+import { Rate, Typography } from 'antd'
+import styled from 'styled-components'
+import { Card } from '../../../common/Card/Card'
 
 export const DoctorCard = styled(Card)`
   margin: 1rem;
-`;
+`
 
 export const Title = styled(Typography.Text)`
   font-size: ${(props) => props.theme.commonFontSizes.xxs};
@@ -20,7 +20,7 @@ export const Title = styled(Typography.Text)`
   @media only screen and ${(props) => props.theme.media.xxl} {
     font-size: ${(props) => props.theme.commonFontSizes.md};
   }
-`;
+`
 
 export const Text = styled(Typography.Text)`
   font-size: ${(props) => props.theme.commonFontSizes.xs};
@@ -34,7 +34,7 @@ export const Text = styled(Typography.Text)`
   @media only screen and ${(props) => props.theme.media.xxl} {
     font-size: ${(props) => props.theme.commonFontSizes.lg};
   }
-`;
+`
 
 export const ImgWrapper = styled.div`
   overflow: hidden;
@@ -46,7 +46,7 @@ export const ImgWrapper = styled.div`
   & > div {
     display: block;
   }
-`;
+`
 
 export const Rating = styled(Rate)`
   display: flex;
@@ -55,4 +55,4 @@ export const Rating = styled(Rate)`
   @media only screen and ${(props) => props.theme.media.md} {
     font-size: ${(props) => props.theme.commonFontSizes.lg};
   }
-`;
+`

@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { CalendarEvent } from 'api/calendar.api';
-import { getDoctorsData, Doctor } from 'api/doctors.api';
-import { TreatmentDoctor } from './TreatmentDoctor/TreatmentDoctor';
-import { specifities } from '../../../constants/specifities';
-import { TreatmentNotFound } from './TreatmentNotFound/TreatmentNotFound';
+import React, { useEffect, useState } from 'react'
+import { CalendarEvent } from 'api/calendar.api'
+import { getDoctorsData, Doctor } from 'api/doctors.api'
+import { TreatmentDoctor } from './TreatmentDoctor/TreatmentDoctor'
+import { specifities } from '../../../constants/specifities'
+import { TreatmentNotFound } from './TreatmentNotFound/TreatmentNotFound'
 
 interface TreatmentPanelProps {
-  event?: CalendarEvent;
+  event?: CalendarEvent
 }
 
 export const TreatmentPanel: React.FC<TreatmentPanelProps> = ({ event }) => {
-  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [doctors, setDoctors] = useState<Doctor[]>([])
 
   useEffect(() => {
-    getDoctorsData().then((res) => setDoctors(res));
-  }, []);
+    getDoctorsData().then((res) => setDoctors(res))
+  }, [])
 
-  const currentDoctor = doctors.find((doctor) => doctor.id === event?.doctor);
+  const currentDoctor = doctors.find((doctor) => doctor.id === event?.doctor)
 
   if (event && currentDoctor) {
     const doctor: TreatmentDoctor = {
@@ -25,11 +25,12 @@ export const TreatmentPanel: React.FC<TreatmentPanelProps> = ({ event }) => {
       date: event.date,
       imgUrl: currentDoctor.imgUrl,
       phone: currentDoctor.phone,
-      speciality: specifities.find(({ id }) => id === currentDoctor.specifity)?.name || '',
-    };
+      speciality:
+        specifities.find(({ id }) => id === currentDoctor.specifity)?.name || ''
+    }
 
-    return <TreatmentDoctor doctor={doctor} />;
+    return <TreatmentDoctor doctor={doctor} />
   } else {
-    return <TreatmentNotFound />;
+    return <TreatmentNotFound />
   }
-};
+}

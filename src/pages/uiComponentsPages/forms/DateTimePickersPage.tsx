@@ -1,11 +1,11 @@
-import { Col } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { DayjsDatePicker } from '@app/components/common/pickers/DayjsDatePicker';
-import { PageTitle } from '@app/components/common/PageTitle/PageTitle';
-import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles';
+import { Col } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { DayjsDatePicker } from '@app/components/common/pickers/DayjsDatePicker'
+import { PageTitle } from '@app/components/common/PageTitle/PageTitle'
+import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles'
 
 const DateTimePickersPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <>
@@ -35,7 +35,7 @@ const DateTimePickersPage: React.FC = () => {
         </S.Card>
       </Col>
     </>
-  );
-};
+  )
+}
 
-export default DateTimePickersPage;
+export default DateTimePickersPage

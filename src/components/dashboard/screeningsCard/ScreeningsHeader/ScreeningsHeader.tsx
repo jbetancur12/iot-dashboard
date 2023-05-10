@@ -1,17 +1,22 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Col, Row } from 'antd';
-import { CurrentStatisticsState } from '../ScreeningsCard/ScreeningsCard';
-import { MonthSelect } from 'components/common/selects/MonthSelect/MonthSelect';
-import { StatisticsSelect } from 'components/common/selects/StatisticsSelect/StatisticsSelect';
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { Col, Row } from 'antd'
+import { CurrentStatisticsState } from '../ScreeningsCard/ScreeningsCard'
+import { MonthSelect } from 'components/common/selects/MonthSelect/MonthSelect'
+import { StatisticsSelect } from 'components/common/selects/StatisticsSelect/StatisticsSelect'
 
 interface ScreeningsHeaderProps {
-  currentStatistics: CurrentStatisticsState;
-  setCurrentStatistics: (func: (state: CurrentStatisticsState) => CurrentStatisticsState) => void;
+  currentStatistics: CurrentStatisticsState
+  setCurrentStatistics: (
+    func: (state: CurrentStatisticsState) => CurrentStatisticsState
+  ) => void
 }
 
-export const ScreeningsHeader: React.FC<ScreeningsHeaderProps> = ({ currentStatistics, setCurrentStatistics }) => {
-  const { t } = useTranslation();
+export const ScreeningsHeader: React.FC<ScreeningsHeaderProps> = ({
+  currentStatistics,
+  setCurrentStatistics
+}) => {
+  const { t } = useTranslation()
 
   return (
     <Row gutter={[0, { xs: 15, sm: 15, md: 20 }]} align="middle">
@@ -23,9 +28,8 @@ export const ScreeningsHeader: React.FC<ScreeningsHeaderProps> = ({ currentStati
         <Row
           gutter={[
             { xs: 15, sm: 15, md: 20 },
-            { xs: 15, sm: 15, md: 20 },
-          ]}
-        >
+            { xs: 15, sm: 15, md: 20 }
+          ]}>
           <Col xs={12}>
             <label>
               <MonthSelect
@@ -34,7 +38,11 @@ export const ScreeningsHeader: React.FC<ScreeningsHeaderProps> = ({ currentStati
                 bordered={false}
                 shadow
                 placeholder={t('dashboard.latestScreenings.month')}
-                onChange={(month) => setCurrentStatistics((prev) => ({ ...prev, month } as CurrentStatisticsState))}
+                onChange={(month) =>
+                  setCurrentStatistics(
+                    (prev) => ({ ...prev, month } as CurrentStatisticsState)
+                  )
+                }
               />
             </label>
           </Col>
@@ -48,7 +56,9 @@ export const ScreeningsHeader: React.FC<ScreeningsHeaderProps> = ({ currentStati
                 shadow
                 placeholder={t('dashboard.latestScreenings.statistics')}
                 onChange={(statistic) =>
-                  setCurrentStatistics((prev) => ({ ...prev, statistic } as CurrentStatisticsState))
+                  setCurrentStatistics(
+                    (prev) => ({ ...prev, statistic } as CurrentStatisticsState)
+                  )
                 }
               />
             </label>
@@ -56,5 +66,5 @@ export const ScreeningsHeader: React.FC<ScreeningsHeaderProps> = ({ currentStati
         </Row>
       </Col>
     </Row>
-  );
-};
+  )
+}

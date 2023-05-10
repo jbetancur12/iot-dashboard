@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Typography, Image as AntImage } from 'antd';
+import styled from 'styled-components'
+import { Typography, Image as AntImage } from 'antd'
 
 export const Wrapper = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ export const Wrapper = styled.div`
     justify-content: center;
     padding: 12.5rem 3.5rem;
   }
-`;
+`
 
 export const Image = styled(AntImage)`
   margin-bottom: 4rem;
@@ -27,7 +27,7 @@ export const Image = styled(AntImage)`
   @media only screen and ${(props) => props.theme.media.xxl} {
     margin-bottom: 0;
   }
-`;
+`
 
 export const ContentWrapper = styled.div`
   display: flex;
@@ -37,7 +37,7 @@ export const ContentWrapper = styled.div`
   @media only screen and ${(props) => props.theme.media.xl} {
     margin-right: 7.5rem;
   }
-`;
+`
 
 export const Title = styled(Typography.Text)`
   font-size: 2.25rem;
@@ -55,7 +55,7 @@ export const Title = styled(Typography.Text)`
     font-size: 4rem;
     margin-bottom: 2.25rem;
   }
-`;
+`
 
 export const Text = styled(Title)`
   font-size: 0.875rem;
@@ -70,4 +70,4 @@ export const Text = styled(Title)`
     font-size: 1.5rem;
     margin-bottom: 1.8rem;
   }
-`;
+`

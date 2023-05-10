@@ -1,17 +1,19 @@
-import React from 'react';
-import * as S from './VerificationCodeInput.styles';
+import React from 'react'
+import * as S from './VerificationCodeInput.styles'
 
 interface VerificationCodeInputProps {
-  autoFocus?: boolean;
-  validChars?: string;
-  length?: number;
-  inputProps?: HTMLInputElement;
-  onChange?: (value: string) => void;
-  onFocus?: () => void;
-  onBlur?: () => void;
+  autoFocus?: boolean
+  validChars?: string
+  length?: number
+  inputProps?: HTMLInputElement
+  onChange?: (value: string) => void
+  onFocus?: () => void
+  onBlur?: () => void
 }
 
-export const VerificationCodeInput: React.FC<VerificationCodeInputProps> = (props) => {
+export const VerificationCodeInput: React.FC<VerificationCodeInputProps> = (
+  props
+) => {
   return (
     <S.CodeInput
       removeDefaultStyles
@@ -19,10 +21,10 @@ export const VerificationCodeInput: React.FC<VerificationCodeInputProps> = (prop
         container: 'container',
         character: 'character',
         characterInactive: 'character--inactive',
-        characterSelected: 'character--selected',
+        characterSelected: 'character--selected'
       }}
       placeholder={''}
       {...props}
     />
-  );
-};
+  )
+}

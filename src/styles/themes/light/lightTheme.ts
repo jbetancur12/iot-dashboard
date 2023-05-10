@@ -1,18 +1,18 @@
-import { DefaultTheme } from 'styled-components';
-import { graphic } from 'echarts';
+import { DefaultTheme } from 'styled-components'
+import { graphic } from 'echarts'
 
 export const mobileLayout = {
   paddingVertical: '0.75rem',
   paddingHorizontal: '1rem',
   headerHeight: '4.25rem',
-  headerPadding: '1rem',
-};
+  headerPadding: '1rem'
+}
 
 export const desktopLayout = {
   paddingVertical: '1.25rem',
   paddingHorizontal: '2.25rem',
-  headerHeight: '5.625rem',
-};
+  headerHeight: '5.625rem'
+}
 
 export const breakpoints = {
   xs: 360,
@@ -20,10 +20,10 @@ export const breakpoints = {
   md: 768,
   lg: 992,
   xl: 1280,
-  xxl: 1920,
-};
+  xxl: 1920
+}
 
-const getMedia = (breakpoint: number) => `(min-width: ${breakpoint}px)`;
+const getMedia = (breakpoint: number) => `(min-width: ${breakpoint}px)`
 
 export const media = {
   xs: getMedia(breakpoints.xs),
@@ -31,8 +31,8 @@ export const media = {
   md: getMedia(breakpoints.md),
   lg: getMedia(breakpoints.lg),
   xl: getMedia(breakpoints.xl),
-  xxl: getMedia(breakpoints.xxl),
-};
+  xxl: getMedia(breakpoints.xxl)
+}
 
 const commonColors = {
   white: '#ffffff',
@@ -46,8 +46,8 @@ const commonColors = {
   pink: '#ffc0cb',
   blue: '#0000ff',
   skyblue: '#35a0dc',
-  red: '#ff5252',
-};
+  red: '#ff5252'
+}
 
 const commonFontSizes = {
   xxs: '0.75rem',
@@ -57,8 +57,8 @@ const commonFontSizes = {
   xl: '1.25rem',
   xxl: '1.5rem',
   xxxl: '1.625rem',
-  xxxxl: '2rem',
-};
+  xxxxl: '2rem'
+}
 
 const commonFontWeight = {
   thin: '100',
@@ -69,13 +69,14 @@ const commonFontWeight = {
   semibold: '600',
   bold: '700',
   extraBold: '800',
-  black: '900',
-};
+  black: '900'
+}
 
 const colors = {
   main: {
     primary: '#01509A',
-    primaryGradient: 'linear-gradient(261.31deg, #006CCF -29.57%, #00509A 121.11%)',
+    primaryGradient:
+      'linear-gradient(261.31deg, #006CCF -29.57%, #00509A 121.11%)',
     light: '#C5D3E0',
     secondary: '#0475dd',
     error: '#ed0505',
@@ -89,43 +90,43 @@ const colors = {
     chartPrimaryGradient: new graphic.LinearGradient(0, 0, 0, 1, [
       {
         offset: 0,
-        color: 'rgba(0, 110, 211, 0.95)',
+        color: 'rgba(0, 110, 211, 0.95)'
       },
       {
         offset: 1,
-        color: 'rgba(193, 225, 255, 0.2)',
-      },
+        color: 'rgba(193, 225, 255, 0.2)'
+      }
     ]),
     chartSecondaryGradient: new graphic.LinearGradient(0, 0, 0, 1, [
       {
         offset: 0,
-        color: 'rgba(255, 82, 82, 0.5)',
+        color: 'rgba(255, 82, 82, 0.5)'
       },
       {
         offset: 1,
-        color: 'rgba(255, 255, 255, 0)',
-      },
+        color: 'rgba(255, 255, 255, 0)'
+      }
     ]),
     chartAdditionalGradient: new graphic.LinearGradient(0, 0, 0, 1, [
       {
         offset: 0,
-        color: 'rgba(11, 156, 49, 0.9)',
+        color: 'rgba(11, 156, 49, 0.9)'
       },
       {
         offset: 1,
-        color: 'rgba(255, 255, 255, 0)',
-      },
-    ]),
+        color: 'rgba(255, 255, 255, 0)'
+      }
+    ])
   },
   text: {
     main: '#404040',
     light: '#9A9B9F',
     superLight: '#BEC0C6',
     secondary: commonColors.white,
-    dark: '#404040',
+    dark: '#404040'
   },
   border: {
-    main: '#cce1f4',
+    main: '#cce1f4'
   },
   dashboardMap: {
     background:
@@ -139,7 +140,7 @@ const colors = {
     markerBorderColor: '#01509A',
     controlColor: commonColors.white,
     controlBackgroundColor: '#01509A',
-    controlDisabledBackgroundColor: '#b3cbe1',
+    controlDisabledBackgroundColor: '#b3cbe1'
   },
   charts: {
     tooltipLabel: '#6A7985',
@@ -152,29 +153,29 @@ const colors = {
     color4: '#31A652',
     color4Tint: '#89DCA0',
     color5: '#FF5252',
-    color5Tint: '#FFC1C1',
+    color5Tint: '#FFC1C1'
   },
   shadow: {
-    color: 'rgba(0, 0, 0, 0.07)',
+    color: 'rgba(0, 0, 0, 0.07)'
   },
   notifications: {
     success: '#EFFFF4',
     primary: '#D7EBFF',
     warning: '#FFF4E7',
-    error: '#FFE2E2',
-  },
-};
+    error: '#FFE2E2'
+  }
+}
 
 const boxShadow = {
   main: '0 2px 8px 0 rgba(0, 0, 0, 0.07)',
-  hover: '0 4px 16px 0 rgba(0, 0, 0, 0.2)',
-};
+  hover: '0 4px 16px 0 rgba(0, 0, 0, 0.2)'
+}
 
 const lightTheme: DefaultTheme = {
   commonColors,
   colors,
   border: {
-    radius: '7px',
+    radius: '7px'
   },
   boxShadow,
   breakpoints,
@@ -182,7 +183,7 @@ const lightTheme: DefaultTheme = {
   mobileLayout,
   desktopLayout,
   commonFontSizes,
-  commonFontWeight,
-};
+  commonFontWeight
+}
 
-export default lightTheme;
+export default lightTheme

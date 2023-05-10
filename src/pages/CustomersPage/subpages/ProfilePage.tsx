@@ -1,88 +1,95 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Card, Descriptions, Space, Table } from 'antd';
-import { useAppDispatch, useAppSelector } from '@app/hooks/reduxHooks';
-import { useNavigate, useParams } from 'react-router-dom';
-import { retrieveCustomer } from '@app/store/slices/customerSlice';
-import { CustomerDataResponse, updateCustomer } from '@app/api/customer.api';
-import { PlusOutlined } from '@ant-design/icons';
-import UserModal from '../components/userModal';
-import { doSignUp } from '@app/store/slices/authSlice';
-import { notificationController } from '@app/controllers/notificationController';
-import { useTranslation } from 'react-i18next';
-import { Tabs, TabPane } from '@app/components/common/Tabs/Tabs';
-import { doCreateTemplate, doDeleteTemplate, retrieveTemplates } from '@app/store/slices/templateSlice';
-import TemplateModal from '../components/TemplateModal';
+import React, { useEffect, useState } from 'react'
+import { Button, Card, Descriptions, Space, Table } from 'antd'
+import { useAppDispatch, useAppSelector } from '@app/hooks/reduxHooks'
+import { useNavigate, useParams } from 'react-router-dom'
+import { retrieveCustomer } from '@app/store/slices/customerSlice'
+import { CustomerDataResponse, updateCustomer } from '@app/api/customer.api'
+import { PlusOutlined } from '@ant-design/icons'
+import UserModal from '../components/userModal'
+import { doSignUp } from '@app/store/slices/authSlice'
+import { notificationController } from '@app/controllers/notificationController'
+import { useTranslation } from 'react-i18next'
+import { Tabs, TabPane } from '@app/components/common/Tabs/Tabs'
+import {
+  doCreateTemplate,
+  doDeleteTemplate,
+  retrieveTemplates
+} from '@app/store/slices/templateSlice'
+import TemplateModal from '../components/TemplateModal'
 
-const { Meta } = Card;
+const { Meta } = Card
 
 interface SignUpFormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  customer?: string;
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  customer?: string
 }
 
 const UserProfile = () => {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const [customer, setCustomer] = useState<Partial<CustomerDataResponse>>({});
-  const [users, setUsers] = useState([]);
-  const [templates, setTemplates] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [openTemplate, setOpenTemplate] = useState(false);
-  const dispatch = useAppDispatch();
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const [customer, setCustomer] = useState<Partial<CustomerDataResponse>>({})
+  const [users, setUsers] = useState([])
+  const [templates, setTemplates] = useState([])
+  const [open, setOpen] = useState(false)
+  const [openTemplate, setOpenTemplate] = useState(false)
+  const dispatch = useAppDispatch()
 
-  const { customers } = useAppSelector((state) => state.customer);
+  const { customers } = useAppSelector((state) => state.customer)
 
-  let { id } = useParams();
+  let { id } = useParams()
 
   const fetchCustomer = () => {
     dispatch(retrieveCustomer(id))
       .unwrap()
       .then((res) => {
-        setCustomer(res);
-        setUsers(res.users);
-      });
-  };
+        setCustomer(res)
+        setUsers(res.users)
+      })
+  }
 
   const fetchTemplates = () => {
     dispatch(retrieveTemplates())
       .unwrap()
       .then((res) => {
-        setTemplates(res);
-      });
-  };
+        setTemplates(res)
+      })
+  }
 
-  const handleDeleteTemplateRow = (e: React.MouseEvent<HTMLElement, MouseEvent>, rowId: string) => {
-    e.stopPropagation();
+  const handleDeleteTemplateRow = (
+    e: React.MouseEvent<HTMLElement, MouseEvent>,
+    rowId: string
+  ) => {
+    e.stopPropagation()
     dispatch(doDeleteTemplate(rowId))
       .unwrap()
       .then((data) => {
         notificationController.success({
           message: 'Template eliminada',
           // @ts-ignored
-          description: data.name,
-        });
+          description: data.name
+        })
       })
       .catch((err) => {
-        notificationController.error({ message: err.message });
-      });
-  };
+        notificationController.error({ message: err.message })
+      })
+  }
 
   useEffect(() => {
-    const customerExist = customers.filter((customer) => customer._id === id);
-    fetchCustomer();
-    fetchTemplates();
-  }, []);
+    const customerExist = customers.filter((customer) => customer._id === id)
+    fetchCustomer()
+    fetchTemplates()
+  }, [])
 
   const showModal = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const showModalTemplate = () => {
-    setOpenTemplate(true);
-  };
+    setOpenTemplate(true)
+  }
 
   const createUser = (values: SignUpFormData) => {
     dispatch(doSignUp(values))
@@ -90,19 +97,19 @@ const UserProfile = () => {
       .then((res) => {
         if (res !== undefined) {
           // @ts-ignore
-          setUsers((current) => [...current, res.user]);
+          setUsers((current) => [...current, res.user])
         }
-        setOpen(false);
+        setOpen(false)
 
         notificationController.success({
           message: t('auth.signUpSuccessMessage'),
-          description: t('auth.signUpSuccessDescription'),
-        });
+          description: t('auth.signUpSuccessDescription')
+        })
       })
       .catch((err) => {
-        notificationController.error({ message: err.message });
-      });
-  };
+        notificationController.error({ message: err.message })
+      })
+  }
 
   const createTemplate = (values: any) => {
     dispatch(doCreateTemplate(values))
@@ -110,65 +117,65 @@ const UserProfile = () => {
       .then((res) => {
         if (res !== undefined) {
           // @ts-ignore
-          setTemplates((current) => [...current, res.data]);
+          setTemplates((current) => [...current, res.data])
         }
-        setOpenTemplate(false);
+        setOpenTemplate(false)
 
         notificationController.success({
           message: t('auth.signUpSuccessMessage'),
-          description: t('auth.signUpSuccessDescription'),
-        });
+          description: t('auth.signUpSuccessDescription')
+        })
       })
       .catch((err) => {
-        notificationController.error({ message: err.message });
-      });
-  };
+        notificationController.error({ message: err.message })
+      })
+  }
 
   const onCancel = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const onCancelTemplate = () => {
-    setOpenTemplate(false);
-  };
+    setOpenTemplate(false)
+  }
 
-  const updateUser = () => {};
+  const updateUser = () => {}
 
-  const updateTemplate = () => {};
+  const updateTemplate = () => {}
 
   const columns = [
     {
       title: 'Name',
       dataIndex: 'firstName',
-      key: 'firstName',
+      key: 'firstName'
     },
     {
       title: 'LastName',
       dataIndex: 'lastName',
-      key: 'lastName',
+      key: 'lastName'
     },
     {
       title: 'Email',
       dataIndex: 'email',
-      key: 'email',
-    },
-  ];
+      key: 'email'
+    }
+  ]
 
   const columnsTemplates = [
     {
       title: 'Name',
       dataIndex: 'name',
-      key: 'name',
+      key: 'name'
     },
     {
       title: 'Description',
       dataIndex: 'description',
-      key: 'description',
+      key: 'description'
     },
     {
       title: 'Tipo',
       dataIndex: 'type',
-      key: 'type',
+      key: 'type'
     },
     {
       title: t('tables.actions'),
@@ -177,14 +184,17 @@ const UserProfile = () => {
       render: (text: string, record: { name: string; _id: string }) => {
         return (
           <Space>
-            <Button type="default" danger onClick={(e) => handleDeleteTemplateRow(e, record._id)}>
+            <Button
+              type="default"
+              danger
+              onClick={(e) => handleDeleteTemplateRow(e, record._id)}>
               {t('tables.delete')}
             </Button>
           </Space>
-        );
-      },
-    },
-  ];
+        )
+      }
+    }
+  ]
 
   return (
     <div>
@@ -196,8 +206,12 @@ const UserProfile = () => {
         <Space />
         <Descriptions size="small">
           <Descriptions.Item label="Email">{customer.email}</Descriptions.Item>
-          <Descriptions.Item label="Identificación">{customer.IdCustomer}</Descriptions.Item>
-          <Descriptions.Item label="Dirección">{customer.address1}</Descriptions.Item>
+          <Descriptions.Item label="Identificación">
+            {customer.IdCustomer}
+          </Descriptions.Item>
+          <Descriptions.Item label="Dirección">
+            {customer.address1}
+          </Descriptions.Item>
           <Descriptions.Item label="País">{customer.country}</Descriptions.Item>
           <Descriptions.Item label="Ciudad">{customer.city}</Descriptions.Item>
         </Descriptions>
@@ -210,7 +224,10 @@ const UserProfile = () => {
             <Table dataSource={users} columns={columns} />
           </TabPane>
           <TabPane tab={`Plantillas`} key="2">
-            <Button type="primary" icon={<PlusOutlined />} onClick={showModalTemplate}>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={showModalTemplate}>
               Agregar Plantilla
             </Button>
             <Table
@@ -220,9 +237,11 @@ const UserProfile = () => {
                 return {
                   onClick: (event) => {
                     // @ts-ignore
-                    navigate(`/customers/${customer._id}/template/${record._id}`);
-                  },
-                };
+                    navigate(
+                      `/customers/${customer._id}/template/${record._id}`
+                    )
+                  }
+                }
               }}
             />
           </TabPane>
@@ -248,7 +267,7 @@ const UserProfile = () => {
         customer={customer._id}
       />
     </div>
-  );
-};
+  )
+}
 
-export default UserProfile;
+export default UserProfile

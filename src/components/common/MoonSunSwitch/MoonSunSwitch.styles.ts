@@ -1,9 +1,9 @@
-import { Button } from 'components/common/buttons/Button/Button';
-import { hexToRGB } from 'utils/utils';
-import styled, { css } from 'styled-components';
+import { Button } from 'components/common/buttons/Button/Button'
+import { hexToRGB } from 'utils/utils'
+import styled, { css } from 'styled-components'
 
 interface BtnProps {
-  $isFirstActive: boolean;
+  $isFirstActive: boolean
 }
 
 export const Btn = styled(Button)`
@@ -14,7 +14,7 @@ export const Btn = styled(Button)`
   &.ant-btn-icon-only.ant-btn-sm {
     height: 1.875rem;
   }
-`;
+`
 
 export const ButtonGroup = styled.div<BtnProps>`
   display: inline-flex;
@@ -23,7 +23,8 @@ export const ButtonGroup = styled.div<BtnProps>`
 
   border-radius: ${(props) => props.theme.border.radius};
 
-  background-color: ${(props) => hexToRGB(props.theme.colors.main.primary, 0.1)};
+  background-color: ${(props) =>
+    hexToRGB(props.theme.colors.main.primary, 0.1)};
 
   ${(props) =>
     props.$isFirstActive
@@ -43,4 +44,4 @@ export const ButtonGroup = styled.div<BtnProps>`
   &:not(:last-of-type) {
     margin-bottom: 0.625rem;
   }
-`;
+`

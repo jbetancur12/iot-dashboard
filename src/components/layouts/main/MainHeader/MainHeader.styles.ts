@@ -1,8 +1,8 @@
-import { Layout } from 'antd';
-import styled, { css } from 'styled-components';
+import { Layout } from 'antd'
+import styled, { css } from 'styled-components'
 
 interface Header {
-  $isTwoColumnsLayoutHeader: boolean;
+  $isTwoColumnsLayoutHeader: boolean
 }
 
 export const Header = styled(Layout.Header)<Header>`
@@ -21,4 +21,4 @@ export const Header = styled(Layout.Header)<Header>`
         padding: 0;
       `}
   }
-`;
+`

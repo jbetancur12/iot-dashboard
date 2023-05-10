@@ -1,5 +1,5 @@
-import Board from 'react-trello';
-import styled from 'styled-components';
+import Board from 'react-trello'
+import styled from 'styled-components'
 
 export const Kanban = styled(Board)`
   background: transparent;
@@ -16,4 +16,4 @@ export const Kanban = styled(Board)`
   div:first-child {
     height: 100%;
   }
-`;
+`

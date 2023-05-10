@@ -1,24 +1,24 @@
-import React from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { ArticleCard } from '../ArticleCard/ArticleCard';
-import { ITag } from '../Tag/Tag';
-import { Spin } from 'antd';
-import * as S from './Feed.styles';
+import React from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { ArticleCard } from '../ArticleCard/ArticleCard'
+import { ITag } from '../Tag/Tag'
+import { Spin } from 'antd'
+import * as S from './Feed.styles'
 
 interface FeedCard {
-  avatarUrl: string;
-  author: string;
-  title: string;
-  date: number;
-  text: string;
-  img: string;
-  tags: ITag[];
+  avatarUrl: string
+  author: string
+  title: string
+  date: number
+  text: string
+  img: string
+  tags: ITag[]
 }
 
 export interface FeedProps {
-  cards: FeedCard[];
-  next: () => void;
-  hasMore: boolean;
+  cards: FeedCard[]
+  next: () => void
+  hasMore: boolean
 }
 
 export const Feed: React.FC<FeedProps> = ({ cards, next, hasMore }) => {
@@ -32,8 +32,7 @@ export const Feed: React.FC<FeedProps> = ({ cards, next, hasMore }) => {
           <Spin size="large" />
         </S.SpinnerWrapper>
       }
-      scrollableTarget="main-content"
-    >
+      scrollableTarget="main-content">
       <S.NewsWrapper>
         {cards.map((post, index) => (
           <ArticleCard
@@ -49,5 +48,5 @@ export const Feed: React.FC<FeedProps> = ({ cards, next, hasMore }) => {
         ))}
       </S.NewsWrapper>
     </InfiniteScroll>
-  );
-};
+  )
+}

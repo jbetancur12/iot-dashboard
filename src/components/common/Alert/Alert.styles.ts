@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Alert as AntAlert } from 'antd';
+import styled from 'styled-components'
+import { Alert as AntAlert } from 'antd'
 
 export const Alert = styled(AntAlert)`
   color: ${(props) => props.theme.commonColors.black};
@@ -7,4 +7,4 @@ export const Alert = styled(AntAlert)`
   .ant-alert-message {
     color: ${(props) => props.theme.commonColors.black};
   }
-`;
+`

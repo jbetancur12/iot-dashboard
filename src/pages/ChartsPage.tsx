@@ -1,15 +1,15 @@
-import React from 'react';
-import { Row, Col } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { GradientStackedAreaChart } from '@app/components/charts/GradientStackedAreaChart/GradientStackedAreaChart';
-import { VisitorsPieChart } from '@app/components/charts/VisitorsPieChart';
-import { BarAnimationDelayChart } from '@app/components/charts/BarAnimationDelayChart/BarAnimationDelayChart';
-import { ScatterChart } from '@app/components/charts/ScatterChart/ScatterChart';
-import { LineRaceChart } from '@app/components/charts/LineRaceChart/LineRaceChart';
-import { PageTitle } from '@app/components/common/PageTitle/PageTitle';
+import React from 'react'
+import { Row, Col } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { GradientStackedAreaChart } from '@app/components/charts/GradientStackedAreaChart/GradientStackedAreaChart'
+import { VisitorsPieChart } from '@app/components/charts/VisitorsPieChart'
+import { BarAnimationDelayChart } from '@app/components/charts/BarAnimationDelayChart/BarAnimationDelayChart'
+import { ScatterChart } from '@app/components/charts/ScatterChart/ScatterChart'
+import { LineRaceChart } from '@app/components/charts/LineRaceChart/LineRaceChart'
+import { PageTitle } from '@app/components/common/PageTitle/PageTitle'
 
 const ChartsPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <>
@@ -32,7 +32,7 @@ const ChartsPage: React.FC = () => {
         </Col>
       </Row>
     </>
-  );
-};
+  )
+}
 
-export default ChartsPage;
+export default ChartsPage

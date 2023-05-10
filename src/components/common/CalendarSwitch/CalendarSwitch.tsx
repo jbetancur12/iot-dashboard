@@ -1,18 +1,23 @@
-import React from 'react';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import * as S from './CalendarSwitch.styles';
-import { Button } from '../buttons/Button/Button';
-import { useTranslation } from 'react-i18next';
+import React from 'react'
+import { LeftOutlined, RightOutlined } from '@ant-design/icons'
+import * as S from './CalendarSwitch.styles'
+import { Button } from '../buttons/Button/Button'
+import { useTranslation } from 'react-i18next'
 
 interface CalendarSwitchProps {
-  dateFormatted: string;
-  onIncrease: () => void;
-  onDecrease: () => void;
-  onToday: () => void;
+  dateFormatted: string
+  onIncrease: () => void
+  onDecrease: () => void
+  onToday: () => void
 }
 
-export const CalendarSwitch: React.FC<CalendarSwitchProps> = ({ dateFormatted, onIncrease, onDecrease, onToday }) => {
-  const { t } = useTranslation();
+export const CalendarSwitch: React.FC<CalendarSwitchProps> = ({
+  dateFormatted,
+  onIncrease,
+  onDecrease,
+  onToday
+}) => {
+  const { t } = useTranslation()
 
   return (
     <S.CalendarSwitch>
@@ -29,5 +34,5 @@ export const CalendarSwitch: React.FC<CalendarSwitchProps> = ({ dateFormatted, o
         </Button>
       </S.ButtonGroup>
     </S.CalendarSwitch>
-  );
-};
+  )
+}

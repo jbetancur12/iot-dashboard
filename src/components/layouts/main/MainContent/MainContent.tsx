@@ -1,14 +1,15 @@
-import styled, { css } from 'styled-components';
-import { Layout } from 'antd';
+import styled, { css } from 'styled-components'
+import { Layout } from 'antd'
 
-const { Content } = Layout;
+const { Content } = Layout
 
 interface HeaderProps {
-  $isTwoColumnsLayout: boolean;
+  $isTwoColumnsLayout: boolean
 }
 
 export default styled(Content)<HeaderProps>`
-  padding: ${(props) => `${props.theme.mobileLayout.paddingVertical} ${props.theme.mobileLayout.paddingHorizontal}`};
+  padding: ${(props) =>
+    `${props.theme.mobileLayout.paddingVertical} ${props.theme.mobileLayout.paddingHorizontal}`};
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -26,4 +27,4 @@ export default styled(Content)<HeaderProps>`
         padding: 0;
       `}
   }
-`;
+`

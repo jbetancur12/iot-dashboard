@@ -1,14 +1,14 @@
-import { Button } from '@app/components/common/buttons/Button/Button';
-import { Collapse } from '@app/components/common/Collapse/Collapse';
-import styled, { css } from 'styled-components';
+import { Button } from '@app/components/common/buttons/Button/Button'
+import { Collapse } from '@app/components/common/Collapse/Collapse'
+import styled, { css } from 'styled-components'
 
 interface WrapperProps {
-  $isSelected: boolean;
+  $isSelected: boolean
 }
 
 export const CollapseWrapper = styled(Collapse)`
   margin-bottom: 20px;
-`;
+`
 
 export const containerDiv = styled.div`
   display: flex;
@@ -20,7 +20,7 @@ export const containerDiv = styled.div`
   @media (max-width: 800px) {
     flex-direction: column;
   }
-`;
+`
 
 export const divWrapper = styled.div<WrapperProps>`
   //flex-basis: 30%;
@@ -33,7 +33,7 @@ export const divWrapper = styled.div<WrapperProps>`
     css`
       background: blue;
     `}
-`;
+`
 
 export const rangeButton = styled(Button)<WrapperProps>`
   ${(props) =>
@@ -41,4 +41,4 @@ export const rangeButton = styled(Button)<WrapperProps>`
     css`
       background: ${props.theme.colors.main.mainBackground};
     `}
-`;
+`

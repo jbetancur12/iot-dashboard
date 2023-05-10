@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const CarouselWrapper = styled.div`
   margin-left: -1.25rem;
   margin-right: -1.25rem;
-`;
+`
 
 export const SliderArrow = styled.div`
   z-index: 1;
@@ -25,4 +25,4 @@ export const SliderArrow = styled.div`
     left: -6px;
     top: -6px;
   }
-`;
+`

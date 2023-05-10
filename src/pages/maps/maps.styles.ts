@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Card } from '@app/components/common/Card/Card';
+import styled from 'styled-components'
+import { Card } from '@app/components/common/Card/Card'
 
 export const MapsCard = styled(Card)`
   height: 70vh;
@@ -8,4 +8,4 @@ export const MapsCard = styled(Card)`
   .leaflet-container {
     z-index: 0;
   }
-`;
+`

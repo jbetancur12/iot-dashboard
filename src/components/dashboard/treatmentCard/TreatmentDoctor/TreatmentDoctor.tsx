@@ -1,26 +1,26 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import * as S from './TreatmentDoctor.styles';
-import { Avatar, Row } from 'antd';
-import { Dates } from '@app/constants/Dates';
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import * as S from './TreatmentDoctor.styles'
+import { Avatar, Row } from 'antd'
+import { Dates } from '@app/constants/Dates'
 
 export interface TreatmentDoctor {
-  name: string;
-  imgUrl: string;
-  speciality: string;
-  date: number;
-  address: string;
-  phone: string;
+  name: string
+  imgUrl: string
+  speciality: string
+  date: number
+  address: string
+  phone: string
 }
 
 interface TreatmentDoctorProps {
-  doctor: TreatmentDoctor;
+  doctor: TreatmentDoctor
 }
 
 export const TreatmentDoctor: React.FC<TreatmentDoctorProps> = ({ doctor }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  const { name, speciality, address, imgUrl, phone, date } = doctor;
+  const { name, speciality, address, imgUrl, phone, date } = doctor
 
   return (
     <S.DoctorCard padding={'1rem'}>
@@ -40,5 +40,5 @@ export const TreatmentDoctor: React.FC<TreatmentDoctorProps> = ({ doctor }) => {
         </Row>
       </S.DoctorCardBody>
     </S.DoctorCard>
-  );
-};
+  )
+}

@@ -1,26 +1,32 @@
-import React, { useMemo } from 'react';
-import { DayjsDatePicker } from '@app/components/common/pickers/DayjsDatePicker';
-import { AppDate, Dates } from '@app/constants/Dates';
+import React, { useMemo } from 'react'
+import { DayjsDatePicker } from '@app/components/common/pickers/DayjsDatePicker'
+import { AppDate, Dates } from '@app/constants/Dates'
 
-const clearDate = Dates.getToday().hour(0).minute(0).second(0).millisecond(0);
-const clearDateMs = +clearDate;
+const clearDate = Dates.getToday().hour(0).minute(0).second(0).millisecond(0)
+const clearDateMs = +clearDate
 
 interface TimePickerProps {
-  timeRange: number[];
-  setTimeRange: (timeRange: number[]) => void;
+  timeRange: number[]
+  setTimeRange: (timeRange: number[]) => void
 }
 
-export const TimeRangePicker: React.FC<TimePickerProps> = ({ timeRange, setTimeRange }) => {
-  const timeRangePrepared = useMemo(() => timeRange.map((time) => clearDate.add(time)), [timeRange]);
+export const TimeRangePicker: React.FC<TimePickerProps> = ({
+  timeRange,
+  setTimeRange
+}) => {
+  const timeRangePrepared = useMemo(
+    () => timeRange.map((time) => clearDate.add(time)),
+    [timeRange]
+  )
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onChange = (timeRange: any) => {
     const timeRangeSinceTodayMs = timeRange
       .map((time: AppDate) => time.subtract(clearDateMs, 'ms'))
-      .map((time: AppDate) => +time);
+      .map((time: AppDate) => +time)
 
-    setTimeRange(timeRangeSinceTodayMs);
-  };
+    setTimeRange(timeRangeSinceTodayMs)
+  }
 
   return (
     <DayjsDatePicker.RangePicker
@@ -31,5 +37,5 @@ export const TimeRangePicker: React.FC<TimePickerProps> = ({ timeRange, setTimeR
       allowClear={false}
       order={false}
     />
-  );
-};
+  )
+}

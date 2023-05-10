@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Input as AntInput } from 'antd';
+import styled from 'styled-components'
+import { Input as AntInput } from 'antd'
 
 export const Input = styled(AntInput)`
   .ant-input-group-addon:first-child,
@@ -18,4 +18,4 @@ export const Input = styled(AntInput)`
       font-size: ${(props) => `${props.theme.commonFontSizes.lg}`};
     }
   }
-`;
+`

@@ -1,15 +1,15 @@
-import styled from 'styled-components';
-import { Select as AntSelect } from 'antd';
-import { Dimension } from 'interfaces/interfaces';
-import { normalizeProp } from 'utils/utils';
+import styled from 'styled-components'
+import { Select as AntSelect } from 'antd'
+import { Dimension } from 'interfaces/interfaces'
+import { normalizeProp } from 'utils/utils'
 
 export interface SelectProps {
-  width?: Dimension;
-  shadow?: boolean;
+  width?: Dimension
+  shadow?: boolean
 }
 
 export const Select = styled(AntSelect).withConfig({
-  shouldForwardProp: (prop) => !['shadow', 'width'].includes(prop),
+  shouldForwardProp: (prop) => !['shadow', 'width'].includes(prop)
 })<SelectProps>`
   width: ${(props) => props.width && normalizeProp(props.width)};
 
@@ -40,4 +40,4 @@ export const Select = styled(AntSelect).withConfig({
     margin-top: 0.1875rem;
     margin-bottom: 0.1875rem;
   }
-`;
+`

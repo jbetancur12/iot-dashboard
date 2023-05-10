@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components'
 
 interface OverlayProps {
-  show: boolean;
+  show: boolean
 }
 
 export default styled.div<OverlayProps>`
@@ -16,4 +16,4 @@ export default styled.div<OverlayProps>`
       width: 100vw;
       height: 100vh;
     `}
-`;
+`

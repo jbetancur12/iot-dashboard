@@ -1,19 +1,19 @@
-import { getUserThings, ThingDataResponse } from '@app/api/thing.api';
-import { readUser } from '@app/services/localStorage.service';
-import { Col, Row } from 'antd';
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import * as S from './DevicesPage.styles';
+import { getUserThings, ThingDataResponse } from '@app/api/thing.api'
+import { readUser } from '@app/services/localStorage.service'
+import { Col, Row } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import * as S from './DevicesPage.styles'
 
 const DevicesPage: React.FC = () => {
-  const userId = readUser()?.id;
-  console.log('🚀 ~ file: DevicesPage.tsx:10 ~ userId:', readUser()?.customer);
+  const userId = readUser()?.id
+  console.log('🚀 ~ file: DevicesPage.tsx:10 ~ userId:', readUser()?.customer)
 
-  const [things, setThings] = useState<ThingDataResponse[]>([]);
+  const [things, setThings] = useState<ThingDataResponse[]>([])
 
   useEffect(() => {
-    getUserThings(userId).then((res) => setThings(res));
-  }, []);
+    getUserThings(userId).then((res) => setThings(res))
+  }, [])
 
   return (
     <Row gutter={[30, 30]}>
@@ -23,9 +23,8 @@ const DevicesPage: React.FC = () => {
           <Link
             to={{
               pathname: 'charts',
-              search: `?user=${userId}&mac=${thing.mac}`,
-            }}
-          >
+              search: `?user=${userId}&mac=${thing.mac}`
+            }}>
             <S.DeviceCard key={thing._id}>
               <S.Title>{thing.name}</S.Title>
               <S.Text>{thing.mac}</S.Text>
@@ -34,7 +33,7 @@ const DevicesPage: React.FC = () => {
         </Col>
       ))}
     </Row>
-  );
-};
+  )
+}
 
-export default DevicesPage;
+export default DevicesPage

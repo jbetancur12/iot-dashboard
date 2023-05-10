@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { Checkbox as AntdCheckbox } from 'antd';
+import styled from 'styled-components'
+import { Checkbox as AntdCheckbox } from 'antd'
 
-const { Group } = AntdCheckbox;
+const { Group } = AntdCheckbox
 
 export const Checkbox = styled(AntdCheckbox)`
   & .ant-checkbox-inner {
@@ -10,7 +10,7 @@ export const Checkbox = styled(AntdCheckbox)`
     width: 1.25rem;
     border: ${(props) => `1px solid ${props.theme.colors.main.primary}`};
   }
-`;
+`
 
 export const CheckboxGroup = styled(Group)`
   & .ant-checkbox-inner {
@@ -19,4 +19,4 @@ export const CheckboxGroup = styled(Group)`
     width: 1.25rem;
     border: ${(props) => `1px solid ${props.theme.colors.main.primary}`};
   }
-`;
+`

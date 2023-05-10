@@ -1,23 +1,28 @@
-import { useState } from 'react';
-import { Col, Space } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { Radio, RadioGroup, RadioButton, RadioChangeEvent } from '@app/components/common/Radio/Radio';
-import { Button } from '@app/components/common/buttons/Button/Button';
-import { PageTitle } from '@app/components/common/PageTitle/PageTitle';
-import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles';
+import { useState } from 'react'
+import { Col, Space } from 'antd'
+import { useTranslation } from 'react-i18next'
+import {
+  Radio,
+  RadioGroup,
+  RadioButton,
+  RadioChangeEvent
+} from '@app/components/common/Radio/Radio'
+import { Button } from '@app/components/common/buttons/Button/Button'
+import { PageTitle } from '@app/components/common/PageTitle/PageTitle'
+import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles'
 
 const RadiosPage: React.FC = () => {
-  const { t } = useTranslation();
-  const [value, setValue] = useState(1);
-  const [disabled, setDisabled] = useState(false);
+  const { t } = useTranslation()
+  const [value, setValue] = useState(1)
+  const [disabled, setDisabled] = useState(false)
 
   const onChange = (e: RadioChangeEvent) => {
-    setValue(e.target.value);
-  };
+    setValue(e.target.value)
+  }
 
   const toggleDisabled = () => {
-    setDisabled(!disabled);
-  };
+    setDisabled(!disabled)
+  }
 
   return (
     <>
@@ -89,7 +94,7 @@ const RadiosPage: React.FC = () => {
         </S.Card>
       </Col>
     </>
-  );
-};
+  )
+}
 
-export default RadiosPage;
+export default RadiosPage

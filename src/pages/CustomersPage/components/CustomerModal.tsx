@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { Modal, Form, Input, Button } from 'antd';
-import { CustomerData } from '@app/api/customer.api';
+import React, { useState } from 'react'
+import { Modal, Form, Input, Button } from 'antd'
+import { CustomerData } from '@app/api/customer.api'
 
 interface ICustomerModalProps {
-  visible: boolean;
-  onCreate: (values: any) => void;
-  onUpdate: (id: string | undefined, data: CustomerData) => void;
-  onCancel: () => void;
-  user?: any;
+  visible: boolean
+  onCreate: (values: any) => void
+  onUpdate: (id: string | undefined, data: CustomerData) => void
+  onCancel: () => void
+  user?: any
 }
 
 const initialValues = {
@@ -17,33 +17,39 @@ const initialValues = {
   phone: '',
   country: '',
   city: '',
-  address1: '',
-};
+  address1: ''
+}
 
-const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpdate, onCancel, user }) => {
-  const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
+const CustomerModal: React.FC<ICustomerModalProps> = ({
+  visible,
+  onCreate,
+  onUpdate,
+  onCancel,
+  user
+}) => {
+  const [form] = Form.useForm()
+  const [loading, setLoading] = useState(false)
 
-  form.setFieldsValue(user);
+  form.setFieldsValue(user)
 
   const handleOk = () => {
     // setLoading(true);
     form
       .validateFields()
       .then((values) => {
-        user ? onUpdate(user._id, values) : onCreate(values);
-        form.resetFields();
+        user ? onUpdate(user._id, values) : onCreate(values)
+        form.resetFields()
         //   setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
-      });
-  };
+        console.log(error)
+      })
+  }
 
   const handleOnCancel = () => {
-    form.resetFields();
-    onCancel();
-  };
+    form.resetFields()
+    onCancel()
+  }
 
   return (
     <Modal
@@ -55,11 +61,14 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
         <Button key="cancel" onClick={handleOnCancel}>
           Cancelar
         </Button>,
-        <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
+        <Button
+          key="submit"
+          type="primary"
+          loading={loading}
+          onClick={handleOk}>
           {user ? 'Actualizar' : 'Crear'}
-        </Button>,
-      ]}
-    >
+        </Button>
+      ]}>
       <Form form={form} layout="vertical">
         <Form.Item
           name="name"
@@ -67,10 +76,9 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese el nombre',
-            },
-          ]}
-        >
+              message: 'Por favor ingrese el nombre'
+            }
+          ]}>
           <Input placeholder="Ingrese el nombre" />
         </Form.Item>
         <Form.Item
@@ -80,10 +88,9 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
             {
               required: true,
               type: 'email',
-              message: 'Por favor ingrese un correo electrónico válido',
-            },
-          ]}
-        >
+              message: 'Por favor ingrese un correo electrónico válido'
+            }
+          ]}>
           <Input placeholder="Ingrese el correo electrónico" />
         </Form.Item>
         <Form.Item
@@ -92,10 +99,9 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
           rules={[
             {
               required: !user,
-              message: 'Por favor ingrese identificacion',
-            },
-          ]}
-        >
+              message: 'Por favor ingrese identificacion'
+            }
+          ]}>
           <Input placeholder="Ingrese identificacion" />
         </Form.Item>
         <Form.Item
@@ -104,10 +110,9 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese Telefono',
-            },
-          ]}
-        >
+              message: 'Por favor ingrese Telefono'
+            }
+          ]}>
           <Input placeholder="Ingrese Telefono" />
         </Form.Item>
         <Form.Item
@@ -116,10 +121,9 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese Pais',
-            },
-          ]}
-        >
+              message: 'Por favor ingrese Pais'
+            }
+          ]}>
           <Input placeholder="Ingrese Pais" />
         </Form.Item>
         <Form.Item
@@ -128,10 +132,9 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese Ciudad',
-            },
-          ]}
-        >
+              message: 'Por favor ingrese Ciudad'
+            }
+          ]}>
           <Input placeholder="Ingrese Ciudad" />
         </Form.Item>
         <Form.Item
@@ -140,10 +143,9 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese Direccion',
-            },
-          ]}
-        >
+              message: 'Por favor ingrese Direccion'
+            }
+          ]}>
           <Input placeholder="Ingrese Direccion" />
         </Form.Item>
         {/* <Form.Item
@@ -161,7 +163,7 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
         </Form.Item> */}
       </Form>
     </Modal>
-  );
-};
+  )
+}
 
-export default CustomerModal;
+export default CustomerModal

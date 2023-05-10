@@ -1,22 +1,28 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { specifities } from 'constants/specifities';
-import { Col, Image, Row } from 'antd';
-import { Dates } from 'constants/Dates';
-import * as S from './DoctorCard.styles';
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { specifities } from 'constants/specifities'
+import { Col, Image, Row } from 'antd'
+import { Dates } from 'constants/Dates'
+import * as S from './DoctorCard.styles'
 
 interface DoctorCardProps {
-  name?: string;
-  speciality?: number;
-  rating?: number;
-  imgUrl?: string;
-  date: number;
+  name?: string
+  speciality?: number
+  rating?: number
+  imgUrl?: string
+  date: number
 }
 
-export const DoctorCard: React.FC<DoctorCardProps> = ({ name, speciality, rating, imgUrl, date }) => {
-  const { t } = useTranslation();
+export const DoctorCard: React.FC<DoctorCardProps> = ({
+  name,
+  speciality,
+  rating,
+  imgUrl,
+  date
+}) => {
+  const { t } = useTranslation()
 
-  const specifity = specifities.find((el) => el.id === speciality)?.name;
+  const specifity = specifities.find((el) => el.id === speciality)?.name
 
   return (
     <S.DoctorCard padding="16px">
@@ -76,5 +82,5 @@ export const DoctorCard: React.FC<DoctorCardProps> = ({ name, speciality, rating
         </Col>
       </Row>
     </S.DoctorCard>
-  );
-};
+  )
+}

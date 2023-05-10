@@ -1,11 +1,16 @@
-import React from 'react';
-import * as S from './References.styles';
-import { FacebookOutlined, GithubOutlined, LinkedinOutlined, TwitterOutlined } from '@ant-design/icons';
+import React from 'react'
+import * as S from './References.styles'
+import {
+  FacebookOutlined,
+  GithubOutlined,
+  LinkedinOutlined,
+  TwitterOutlined
+} from '@ant-design/icons'
 
-const GithubIcon = S.withStyles(GithubOutlined);
-const TwitterIcon = S.withStyles(TwitterOutlined);
-const FacebookIcon = S.withStyles(FacebookOutlined);
-const LinkedinIcon = S.withStyles(LinkedinOutlined);
+const GithubIcon = S.withStyles(GithubOutlined)
+const TwitterIcon = S.withStyles(TwitterOutlined)
+const FacebookIcon = S.withStyles(FacebookOutlined)
+const LinkedinIcon = S.withStyles(LinkedinOutlined)
 
 export const References: React.FC = () => {
   return (
@@ -35,5 +40,5 @@ export const References: React.FC = () => {
         </a>
       </S.Icons> */}
     </S.ReferencesWrapper>
-  );
-};
+  )
+}

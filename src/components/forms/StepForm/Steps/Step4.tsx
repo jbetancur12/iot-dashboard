@@ -1,12 +1,12 @@
-import * as S from '../StepForm.styles';
+import * as S from '../StepForm.styles'
 
 interface Field {
-  name?: string;
-  value: string;
+  name?: string
+  value: string
 }
 
 interface Step4Props {
-  formValues: Field[];
+  formValues: Field[]
 }
 
 export const Step4: React.FC<Step4Props> = ({ formValues }) => {
@@ -20,8 +20,8 @@ export const Step4: React.FC<Step4Props> = ({ formValues }) => {
               <S.DetailsTitle>{item.name}</S.DetailsTitle>
               <S.DetailsValue>{item.value}</S.DetailsValue>
             </S.DetailsRow>
-          );
+          )
         })}
     </S.Details>
-  );
-};
+  )
+}

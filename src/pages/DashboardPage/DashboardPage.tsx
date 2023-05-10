@@ -1,26 +1,26 @@
-import React from 'react';
-import { Col, Row } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { PageTitle } from '@app/components/common/PageTitle/PageTitle';
-import { MapCard } from '@app/components/dashboard/mapCard/MapCard';
-import { ScreeningsCard } from '@app/components/dashboard/screeningsCard/ScreeningsCard/ScreeningsCard';
-import { ActivityCard } from '@app/components/dashboard/activityCard/ActivityCard';
-import { TreatmentCard } from '@app/components/dashboard/treatmentCard/TreatmentCard';
-import { CovidCard } from '@app/components/dashboard/covidCard/CovidCard';
-import { HealthCard } from '@app/components/dashboard/HealthCard/HealthCard';
-import { FavoritesDoctorsCard } from '@app/components/dashboard/favoriteDoctors/FavoriteDoctorsCard/FavoritesDoctorsCard';
-import { PatientResultsCard } from '@app/components/dashboard/PatientResultsCard/PatientResultsCard';
-import { StatisticsCards } from '@app/components/dashboard/statisticsCards/StatisticsCards';
-import { BloodScreeningCard } from '@app/components/dashboard/bloodScreeningCard/BloodScreeningCard/BloodScreeningCard';
-import { NewsCard } from '@app/components/dashboard/NewsCard/NewsCard';
-import { References } from '@app/components/common/References/References';
-import { useResponsive } from '@app/hooks/useResponsive';
-import * as S from './DashboardPage.styles';
+import React from 'react'
+import { Col, Row } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { PageTitle } from '@app/components/common/PageTitle/PageTitle'
+import { MapCard } from '@app/components/dashboard/mapCard/MapCard'
+import { ScreeningsCard } from '@app/components/dashboard/screeningsCard/ScreeningsCard/ScreeningsCard'
+import { ActivityCard } from '@app/components/dashboard/activityCard/ActivityCard'
+import { TreatmentCard } from '@app/components/dashboard/treatmentCard/TreatmentCard'
+import { CovidCard } from '@app/components/dashboard/covidCard/CovidCard'
+import { HealthCard } from '@app/components/dashboard/HealthCard/HealthCard'
+import { FavoritesDoctorsCard } from '@app/components/dashboard/favoriteDoctors/FavoriteDoctorsCard/FavoritesDoctorsCard'
+import { PatientResultsCard } from '@app/components/dashboard/PatientResultsCard/PatientResultsCard'
+import { StatisticsCards } from '@app/components/dashboard/statisticsCards/StatisticsCards'
+import { BloodScreeningCard } from '@app/components/dashboard/bloodScreeningCard/BloodScreeningCard/BloodScreeningCard'
+import { NewsCard } from '@app/components/dashboard/NewsCard/NewsCard'
+import { References } from '@app/components/common/References/References'
+import { useResponsive } from '@app/hooks/useResponsive'
+import * as S from './DashboardPage.styles'
 
 const DashboardPage: React.FC = () => {
-  const { isTablet, isDesktop } = useResponsive();
+  const { isTablet, isDesktop } = useResponsive()
 
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const desktopLayout = (
     <Row>
@@ -73,7 +73,7 @@ const DashboardPage: React.FC = () => {
         <PatientResultsCard id="patient-timeline" />
       </S.RightSideCol>
     </Row>
-  );
+  )
 
   const mobileAndTabletLayout = (
     <Row gutter={[20, 20]}>
@@ -121,14 +121,14 @@ const DashboardPage: React.FC = () => {
         <NewsCard />
       </Col>
     </Row>
-  );
+  )
 
   return (
     <>
       <PageTitle>{t('common.dashboard')}</PageTitle>
       {isDesktop ? desktopLayout : mobileAndTabletLayout}
     </>
-  );
-};
+  )
+}
 
-export default DashboardPage;
+export default DashboardPage

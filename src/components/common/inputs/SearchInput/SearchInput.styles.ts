@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { Space as AntSpace, Input } from 'antd';
+import styled from 'styled-components'
+import { Space as AntSpace, Input } from 'antd'
 
-const { Search } = Input;
+const { Search } = Input
 
 export const SearchInput = styled(Search)`
   & .ant-input-prefix {
@@ -46,7 +46,7 @@ export const SearchInput = styled(Search)`
     border: ${(props) => `1px solid ${props.theme.colors.border.main}`};
     color: ${(props) => `${props.theme.colors.main.primary}`};
   }
-`;
+`
 
 export const Space = styled(AntSpace)`
   & > .ant-space-item:last-of-type {
@@ -54,4 +54,4 @@ export const Space = styled(AntSpace)`
     align-items: center;
     justify-content: center;
   }
-`;
+`

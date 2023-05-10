@@ -1,15 +1,19 @@
-import React from 'react';
-import { Progress } from 'antd';
-import { StatisticColor } from 'constants/config/statistics';
-import * as S from './StatisticsProgress.styles';
+import React from 'react'
+import { Progress } from 'antd'
+import { StatisticColor } from 'constants/config/statistics'
+import * as S from './StatisticsProgress.styles'
 
 interface StatisticsProgressProps {
-  color: StatisticColor;
-  unit: 'kg';
-  value: number;
+  color: StatisticColor
+  unit: 'kg'
+  value: number
 }
 
-export const StatisticsProgress: React.FC<StatisticsProgressProps> = ({ color, value, unit }) => {
+export const StatisticsProgress: React.FC<StatisticsProgressProps> = ({
+  color,
+  value,
+  unit
+}) => {
   return (
     <Progress
       type="circle"
@@ -25,5 +29,5 @@ export const StatisticsProgress: React.FC<StatisticsProgressProps> = ({ color, v
         </>
       )}
     />
-  );
-};
+  )
+}

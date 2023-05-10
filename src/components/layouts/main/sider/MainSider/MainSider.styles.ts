@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
-import { Button, Layout } from 'antd';
-import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components'
+import { Button, Layout } from 'antd'
+import { Link } from 'react-router-dom'
 
 export const Sider = styled(Layout.Sider)`
   position: fixed;
@@ -20,7 +20,7 @@ export const Sider = styled(Layout.Sider)`
   @media only screen and ${(props) => props.theme.media.xl} {
     position: unset;
   }
-`;
+`
 
 export const CollapseButton = styled(Button)<{ $isCollapsed: boolean }>`
   background: ${(props) => props.theme.colors.main.primary};
@@ -45,7 +45,7 @@ export const CollapseButton = styled(Button)<{ $isCollapsed: boolean }>`
     color: ${(props) => props.theme.colors.text.secondary};
     background: ${(props) => props.theme.colors.main.primary};
   }
-`;
+`
 
 export const SiderContent = styled.div`
   overflow-y: auto;
@@ -53,16 +53,18 @@ export const SiderContent = styled.div`
   max-height: calc(100vh - ${(props) => props.theme.mobileLayout.headerHeight});
 
   @media only screen and ${(props) => props.theme.media.md} {
-    max-height: calc(100vh - ${(props) => props.theme.desktopLayout.headerHeight});
+    max-height: calc(
+      100vh - ${(props) => props.theme.desktopLayout.headerHeight}
+    );
   }
-`;
+`
 
 export const SiderLogoLink = styled(Link)`
   display: flex;
   align-items: center;
   overflow: hidden;
   position: relative;
-`;
+`
 
 export const SiderLogoDiv = styled.div`
   height: ${(props) => props.theme.mobileLayout.headerHeight};
@@ -76,11 +78,11 @@ export const SiderLogoDiv = styled.div`
     padding-top: ${(props) => props.theme.desktopLayout.paddingVertical};
     padding-bottom: ${(props) => props.theme.desktopLayout.paddingVertical};
   }
-`;
+`
 
 export const BrandSpan = styled.span`
   margin: 0 1rem;
   font-weight: 700;
   font-size: 1.125rem;
   color: ${(props) => props.theme.commonColors.white};
-`;
+`

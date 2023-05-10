@@ -1,11 +1,14 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import MaskedInput from 'antd-mask-input';
-import { BaseButtonsForm } from '@app/components/common/forms/BaseButtonsForm/BaseButtonsForm';
-import { CardInputProps } from '@app/components/profile/profileCard/profileFormNav/nav/payments/paymentMethod/paymentForm/interfaces';
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import MaskedInput from 'antd-mask-input'
+import { BaseButtonsForm } from '@app/components/common/forms/BaseButtonsForm/BaseButtonsForm'
+import { CardInputProps } from '@app/components/profile/profileCard/profileFormNav/nav/payments/paymentMethod/paymentForm/interfaces'
 
-export const CVVItem: React.FC<CardInputProps> = ({ disabled, handleInputFocus }) => {
-  const { t } = useTranslation();
+export const CVVItem: React.FC<CardInputProps> = ({
+  disabled,
+  handleInputFocus
+}) => {
+  const { t } = useTranslation()
 
   return (
     <BaseButtonsForm.Item
@@ -14,10 +17,9 @@ export const CVVItem: React.FC<CardInputProps> = ({ disabled, handleInputFocus }
       rules={[
         {
           required: true,
-          message: t('common.requiredField'),
-        },
-      ]}
-    >
+          message: t('common.requiredField')
+        }
+      ]}>
       <MaskedInput
         placeholderChar=" "
         placeholder="***"
@@ -27,5 +29,5 @@ export const CVVItem: React.FC<CardInputProps> = ({ disabled, handleInputFocus }
         disabled={disabled}
       />
     </BaseButtonsForm.Item>
-  );
-};
+  )
+}

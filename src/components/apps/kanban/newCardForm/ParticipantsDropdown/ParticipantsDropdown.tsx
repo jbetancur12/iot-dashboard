@@ -1,33 +1,35 @@
-import React from 'react';
-import { Dropdown } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { Participant as IParticipant } from '../../interfaces';
-import { kanbanPeople } from 'constants/kanbanPeople';
-import StubAvatar from '../../../../../assets/images/stub-avatar.png';
-import * as S from './ParticipantsDropdown.styles';
+import React from 'react'
+import { Dropdown } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { Participant as IParticipant } from '../../interfaces'
+import { kanbanPeople } from 'constants/kanbanPeople'
+import StubAvatar from '../../../../../assets/images/stub-avatar.png'
+import * as S from './ParticipantsDropdown.styles'
 
 interface ParticipantsDropdownProps {
-  selectedParticipants: IParticipant[];
-  setSelectedParticipants: (state: IParticipant[]) => void;
+  selectedParticipants: IParticipant[]
+  setSelectedParticipants: (state: IParticipant[]) => void
 }
 
 export const ParticipantsDropdown: React.FC<ParticipantsDropdownProps> = ({
   selectedParticipants,
-  setSelectedParticipants,
+  setSelectedParticipants
 }) => {
-  const { t } = useTranslation();
-  const kanbanPeopleData = Object.values(kanbanPeople);
-  const selectedParticipantsIds = selectedParticipants.map((item) => item.id);
+  const { t } = useTranslation()
+  const kanbanPeopleData = Object.values(kanbanPeople)
+  const selectedParticipantsIds = selectedParticipants.map((item) => item.id)
 
   const onPeopleClick = (tag: IParticipant) => {
-    const isExist = selectedParticipantsIds.includes(tag.id);
+    const isExist = selectedParticipantsIds.includes(tag.id)
 
     if (isExist) {
-      setSelectedParticipants(selectedParticipants.filter((item) => item.id !== tag.id));
+      setSelectedParticipants(
+        selectedParticipants.filter((item) => item.id !== tag.id)
+      )
     } else {
-      setSelectedParticipants([...selectedParticipants, tag]);
+      setSelectedParticipants([...selectedParticipants, tag])
     }
-  };
+  }
 
   return (
     <Dropdown
@@ -39,12 +41,15 @@ export const ParticipantsDropdown: React.FC<ParticipantsDropdownProps> = ({
             <S.ParticipantRow
               key={participant.id}
               onClick={(e) => {
-                onPeopleClick(participant);
-                e.stopPropagation();
-              }}
-            >
-              <S.PopoverCheckbox checked={selectedParticipantsIds.includes(participant.id)} />
-              <S.ParticipantAvatar src={participant.avatar ? participant.avatar : StubAvatar} />
+                onPeopleClick(participant)
+                e.stopPropagation()
+              }}>
+              <S.PopoverCheckbox
+                checked={selectedParticipantsIds.includes(participant.id)}
+              />
+              <S.ParticipantAvatar
+                src={participant.avatar ? participant.avatar : StubAvatar}
+              />
               <S.ParticipantName>{participant.name}</S.ParticipantName>
             </S.ParticipantRow>
           ))}
@@ -52,18 +57,19 @@ export const ParticipantsDropdown: React.FC<ParticipantsDropdownProps> = ({
             <S.ClosePopover />
           </S.RemoveParticipantWrapper>
         </S.EditParticipantPopover>
-      }
-    >
+      }>
       {selectedParticipants && selectedParticipants.length > 0 ? (
         <S.ParticipantsWrapper>
           {selectedParticipants.map((participant) => (
             <S.ParticipantRow key={participant.id}>
-              <S.ParticipantAvatar src={participant.avatar ? participant.avatar : StubAvatar} />
+              <S.ParticipantAvatar
+                src={participant.avatar ? participant.avatar : StubAvatar}
+              />
               <S.ParticipantName>{participant.name}</S.ParticipantName>
               <S.RemoveParticipant
                 onClick={(e) => {
-                  e.stopPropagation();
-                  onPeopleClick(participant);
+                  e.stopPropagation()
+                  onPeopleClick(participant)
                 }}
               />
             </S.ParticipantRow>
@@ -75,5 +81,5 @@ export const ParticipantsDropdown: React.FC<ParticipantsDropdownProps> = ({
         </S.ParticipantsWrapper>
       )}
     </Dropdown>
-  );
-};
+  )
+}

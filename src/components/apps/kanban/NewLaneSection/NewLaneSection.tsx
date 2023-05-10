@@ -1,14 +1,14 @@
-import React from 'react';
-import * as S from './NewLaneSection.styles';
-import NewLaneImage from '../../../../assets/images/new-lane.png';
-import { useTranslation } from 'react-i18next';
+import React from 'react'
+import * as S from './NewLaneSection.styles'
+import NewLaneImage from '../../../../assets/images/new-lane.png'
+import { useTranslation } from 'react-i18next'
 
 interface NewLaneSectionProps {
-  onClick: () => void;
+  onClick: () => void
 }
 
 export const NewLaneSection: React.FC<NewLaneSectionProps> = ({ onClick }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <S.NewLaneSection onClick={onClick}>
       <S.CreateNewColumn>
@@ -17,5 +17,5 @@ export const NewLaneSection: React.FC<NewLaneSectionProps> = ({ onClick }) => {
       </S.CreateNewColumn>
       <S.NewLaneImage src={NewLaneImage} />
     </S.NewLaneSection>
-  );
-};
+  )
+}

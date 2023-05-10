@@ -1,5 +1,5 @@
-import PhoneInput from 'react-phone-number-input/input';
-import styled from 'styled-components';
+import PhoneInput from 'react-phone-number-input/input'
+import styled from 'styled-components'
 
 export const PhoneNumberInput = styled(PhoneInput)`
   height: 50px;
@@ -21,4 +21,4 @@ export const PhoneNumberInput = styled(PhoneInput)`
     outline: 0;
     box-shadow: 0 0 0 2px rgb(0 89 171 / 20%);
   }
-`;
+`

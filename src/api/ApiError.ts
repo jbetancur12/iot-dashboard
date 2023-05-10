@@ -1,8 +1,8 @@
 export class ApiError<T> extends Error {
-  options?: T;
+  options?: T
 
   constructor(message: string, options?: T) {
-    super(message);
-    this.options = options;
+    super(message)
+    this.options = options
   }
 }

@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import { CardWrapper as Card } from 'react-trello/dist/styles/Base';
-import { BaseForm } from '@app/components/common/forms/BaseForm/BaseForm';
-import { BaseButtonsGroup } from '@app/components/common/forms/components/BaseButtonsGroup/BaseButtonsGroup';
+import styled from 'styled-components'
+import { CardWrapper as Card } from 'react-trello/dist/styles/Base'
+import { BaseForm } from '@app/components/common/forms/BaseForm/BaseForm'
+import { BaseButtonsGroup } from '@app/components/common/forms/components/BaseButtonsGroup/BaseButtonsGroup'
 
 export const FooterButtons = styled(BaseButtonsGroup)`
   margin-top: 1rem;
-`;
+`
 
 export const FormInput = styled(BaseForm.Item)`
   font-weight: ${(props) => props.theme.commonFontWeight.medium};
@@ -28,10 +28,10 @@ export const FormInput = styled(BaseForm.Item)`
   .ant-form-item-control-input {
     min-height: auto;
   }
-`;
+`
 
 export const CardWrapper = styled(Card)`
   padding: 1.25rem 1rem;
 
   background: ${(props) => props.theme.colors.main.mainBackground};
-`;
+`

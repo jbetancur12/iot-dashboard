@@ -1,40 +1,48 @@
-import { MediaQueryAllQueryable, MediaQueryMatchers, useMediaQuery } from 'react-responsive';
-import { useTheme } from 'styled-components';
+import {
+  MediaQueryAllQueryable,
+  MediaQueryMatchers,
+  useMediaQuery
+} from 'react-responsive'
+import { useTheme } from 'styled-components'
 
 interface ResponsiveReturnValues {
-  isMobile: boolean;
-  isTablet: boolean;
-  isDesktop: boolean;
-  isBigScreen: boolean;
-  mobileOnly: boolean;
-  tabletOnly: boolean;
-  desktopOnly: boolean;
+  isMobile: boolean
+  isTablet: boolean
+  isDesktop: boolean
+  isBigScreen: boolean
+  mobileOnly: boolean
+  tabletOnly: boolean
+  desktopOnly: boolean
   useMediaQuery: (
     settings: Partial<MediaQueryAllQueryable & { query?: string | undefined }>,
     device?: MediaQueryMatchers,
-    callback?: (matches: boolean) => void,
-  ) => boolean;
+    callback?: (matches: boolean) => void
+  ) => boolean
 }
 
 export const useResponsive = (): ResponsiveReturnValues => {
-  const theme = useTheme();
+  const theme = useTheme()
 
-  const isMobile = useMediaQuery({ query: theme.media.xs });
-  const isTablet = useMediaQuery({ query: theme.media.md });
-  const isDesktop = useMediaQuery({ query: theme.media.xl });
-  const isBigScreen = useMediaQuery({ query: theme.media.xxl });
+  const isMobile = useMediaQuery({ query: theme.media.xs })
+  const isTablet = useMediaQuery({ query: theme.media.md })
+  const isDesktop = useMediaQuery({ query: theme.media.xl })
+  const isBigScreen = useMediaQuery({ query: theme.media.xxl })
 
   const mobileOnly = useMediaQuery({
-    query: `(max-width: ${theme.breakpoints.md - 0.02}px)`,
-  });
+    query: `(max-width: ${theme.breakpoints.md - 0.02}px)`
+  })
 
   const tabletOnly = useMediaQuery({
-    query: `(min-width: ${theme.breakpoints.md}px) and (max-width: ${theme.breakpoints.xl - 0.02}px)`,
-  });
+    query: `(min-width: ${theme.breakpoints.md}px) and (max-width: ${
+      theme.breakpoints.xl - 0.02
+    }px)`
+  })
 
   const desktopOnly = useMediaQuery({
-    query: `(min-width: ${theme.breakpoints.xl}px) and (max-width: ${theme.breakpoints.xxl - 0.02}px)`,
-  });
+    query: `(min-width: ${theme.breakpoints.xl}px) and (max-width: ${
+      theme.breakpoints.xxl - 0.02
+    }px)`
+  })
 
   return {
     isMobile,
@@ -44,6 +52,6 @@ export const useResponsive = (): ResponsiveReturnValues => {
     mobileOnly,
     tabletOnly,
     desktopOnly,
-    useMediaQuery,
-  };
-};
+    useMediaQuery
+  }
+}

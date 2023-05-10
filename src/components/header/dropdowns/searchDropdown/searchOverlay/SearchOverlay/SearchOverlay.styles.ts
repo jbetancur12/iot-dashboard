@@ -1,5 +1,5 @@
-import { DropdownMenu } from '@app/components/header/Header/Header.styles';
-import styled from 'styled-components';
+import { DropdownMenu } from '@app/components/header/Header/Header.styles'
+import styled from 'styled-components'
 
 export const Menu = styled(DropdownMenu)`
   padding: 1rem;
@@ -9,4 +9,4 @@ export const Menu = styled(DropdownMenu)`
   @media only screen and ${(props) => props.theme.media.md} {
     padding: 1rem 2rem;
   }
-`;
+`

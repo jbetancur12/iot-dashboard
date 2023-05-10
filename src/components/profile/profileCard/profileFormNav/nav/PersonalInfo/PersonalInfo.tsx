@@ -1,44 +1,44 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Col, Row } from 'antd';
-import { BaseButtonsForm } from '@app/components/common/forms/BaseButtonsForm/BaseButtonsForm';
-import { Card } from '@app/components/common/Card/Card';
-import { FirstNameItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/FirstNameItem/FirstNameItem';
-import { LastNameItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/LastNameItem/LastNameItem';
-import { NicknameItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/NicknameItem/NicknameItem';
-import { SexItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/SexItem/SexItem';
-import { BirthdayItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/BirthdayItem/BirthdayItem';
-import { LanguageItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/LanguageItem/LanguageItem';
-import { PhoneItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/PhoneItem/PhoneItem';
-import { EmailItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/EmailItem/EmailItem';
-import { CountriesItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/CountriesItem/CountriesItem';
-import { CitiesItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/CitiesItem/CitiesItem';
-import { ZipcodeItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/ZipcodeItem/ZipcodeItem';
-import { AddressItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/AddressItem/AddressItem';
-import { WebsiteItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/WebsiteItem/WebsiteItem';
-import { SocialLinksItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/SocialLinksItem/SocialLinksItem';
-import { useAppSelector } from '@app/hooks/reduxHooks';
-import { Dates } from '@app/constants/Dates';
-import { notificationController } from '@app/controllers/notificationController';
+import React, { useCallback, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Col, Row } from 'antd'
+import { BaseButtonsForm } from '@app/components/common/forms/BaseButtonsForm/BaseButtonsForm'
+import { Card } from '@app/components/common/Card/Card'
+import { FirstNameItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/FirstNameItem/FirstNameItem'
+import { LastNameItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/LastNameItem/LastNameItem'
+import { NicknameItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/NicknameItem/NicknameItem'
+import { SexItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/SexItem/SexItem'
+import { BirthdayItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/BirthdayItem/BirthdayItem'
+import { LanguageItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/LanguageItem/LanguageItem'
+import { PhoneItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/PhoneItem/PhoneItem'
+import { EmailItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/EmailItem/EmailItem'
+import { CountriesItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/CountriesItem/CountriesItem'
+import { CitiesItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/CitiesItem/CitiesItem'
+import { ZipcodeItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/ZipcodeItem/ZipcodeItem'
+import { AddressItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/AddressItem/AddressItem'
+import { WebsiteItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/WebsiteItem/WebsiteItem'
+import { SocialLinksItem } from '@app/components/profile/profileCard/profileFormNav/nav/PersonalInfo/SocialLinksItem/SocialLinksItem'
+import { useAppSelector } from '@app/hooks/reduxHooks'
+import { Dates } from '@app/constants/Dates'
+import { notificationController } from '@app/controllers/notificationController'
 
 interface PersonalInfoFormValues {
-  birthday?: string;
-  lastName: string;
-  country?: string;
-  website: string;
-  city?: string;
-  address2: string;
-  nickName: string;
-  address1: string;
-  sex?: string;
-  facebook: string;
-  language?: string;
-  linkedin: string;
-  zipcode: string;
-  firstName: string;
-  twitter: string;
-  phone: string;
-  email: string;
+  birthday?: string
+  lastName: string
+  country?: string
+  website: string
+  city?: string
+  address2: string
+  nickName: string
+  address1: string
+  sex?: string
+  facebook: string
+  language?: string
+  linkedin: string
+  zipcode: string
+  firstName: string
+  twitter: string
+  phone: string
+  email: string
 }
 
 const initialPersonalInfoValues: PersonalInfoFormValues = {
@@ -58,14 +58,14 @@ const initialPersonalInfoValues: PersonalInfoFormValues = {
   website: '',
   twitter: '',
   linkedin: '',
-  facebook: '',
-};
+  facebook: ''
+}
 
 export const PersonalInfo: React.FC = () => {
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user.user)
 
-  const [isFieldsChanged, setFieldsChanged] = useState(false);
-  const [isLoading, setLoading] = useState(false);
+  const [isFieldsChanged, setFieldsChanged] = useState(false)
+  const [isLoading, setLoading] = useState(false)
 
   const userFormValues = useMemo(
     () =>
@@ -87,29 +87,29 @@ export const PersonalInfo: React.FC = () => {
             website: user?.website,
             twitter: user?.socials?.twitter,
             linkedin: user?.socials?.linkedin,
-            facebook: user?.socials?.facebook,
+            facebook: user?.socials?.facebook
           }
         : initialPersonalInfoValues,
-    [user],
-  );
+    [user]
+  )
 
-  const [form] = BaseButtonsForm.useForm();
+  const [form] = BaseButtonsForm.useForm()
 
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const onFinish = useCallback(
     (values) => {
       // todo dispatch an action here
-      setLoading(true);
+      setLoading(true)
       setTimeout(() => {
-        setLoading(false);
-        setFieldsChanged(false);
-        notificationController.success({ message: t('common.success') });
-        console.log(values);
-      }, 1000);
+        setLoading(false)
+        setFieldsChanged(false)
+        notificationController.success({ message: t('common.success') })
+        console.log(values)
+      }, 1000)
     },
-    [t],
-  );
+    [t]
+  )
 
   return (
     <Card>
@@ -121,12 +121,13 @@ export const PersonalInfo: React.FC = () => {
         isFieldsChanged={isFieldsChanged}
         setFieldsChanged={setFieldsChanged}
         onFieldsChange={() => setFieldsChanged(true)}
-        onFinish={onFinish}
-      >
+        onFinish={onFinish}>
         <Row gutter={{ xs: 10, md: 15, xl: 30 }}>
           <Col span={24}>
             <BaseButtonsForm.Item>
-              <BaseButtonsForm.Title>{t('profile.nav.personalInfo.title')}</BaseButtonsForm.Title>
+              <BaseButtonsForm.Title>
+                {t('profile.nav.personalInfo.title')}
+              </BaseButtonsForm.Title>
             </BaseButtonsForm.Item>
           </Col>
 
@@ -156,7 +157,9 @@ export const PersonalInfo: React.FC = () => {
 
           <Col span={24}>
             <BaseButtonsForm.Item>
-              <BaseButtonsForm.Title>{t('profile.nav.personalInfo.contactInfo')}</BaseButtonsForm.Title>
+              <BaseButtonsForm.Title>
+                {t('profile.nav.personalInfo.contactInfo')}
+              </BaseButtonsForm.Title>
             </BaseButtonsForm.Item>
           </Col>
 
@@ -170,7 +173,9 @@ export const PersonalInfo: React.FC = () => {
 
           <Col span={24}>
             <BaseButtonsForm.Item>
-              <BaseButtonsForm.Title>{t('common.address')}</BaseButtonsForm.Title>
+              <BaseButtonsForm.Title>
+                {t('common.address')}
+              </BaseButtonsForm.Title>
             </BaseButtonsForm.Item>
           </Col>
 
@@ -196,7 +201,9 @@ export const PersonalInfo: React.FC = () => {
 
           <Col span={24}>
             <BaseButtonsForm.Item>
-              <BaseButtonsForm.Title>{t('profile.nav.personalInfo.otherInfo')}</BaseButtonsForm.Title>
+              <BaseButtonsForm.Title>
+                {t('profile.nav.personalInfo.otherInfo')}
+              </BaseButtonsForm.Title>
             </BaseButtonsForm.Item>
           </Col>
 
@@ -210,5 +217,5 @@ export const PersonalInfo: React.FC = () => {
         </Row>
       </BaseButtonsForm>
     </Card>
-  );
-};
+  )
+}

@@ -1,17 +1,23 @@
-import React from 'react';
-import { CardProps as AntCardProps } from 'antd';
-import { defaultPaddings } from 'constants/defaultPaddings';
-import { useResponsive } from 'hooks/useResponsive';
-import * as S from './Card.styles';
+import React from 'react'
+import { CardProps as AntCardProps } from 'antd'
+import { defaultPaddings } from 'constants/defaultPaddings'
+import { useResponsive } from 'hooks/useResponsive'
+import * as S from './Card.styles'
 
 export interface CardProps extends AntCardProps {
-  className?: string;
-  padding?: string | number | [number, number];
-  children: React.ReactNode;
+  className?: string
+  padding?: string | number | [number, number]
+  children: React.ReactNode
 }
 
-export const Card: React.FC<CardProps> = ({ className, padding, size, children, ...props }) => {
-  const { isTablet, isDesktop } = useResponsive();
+export const Card: React.FC<CardProps> = ({
+  className,
+  padding,
+  size,
+  children,
+  ...props
+}) => {
+  const { isTablet, isDesktop } = useResponsive()
 
   return (
     <S.Card
@@ -21,11 +27,12 @@ export const Card: React.FC<CardProps> = ({ className, padding, size, children, 
       padding={
         padding || padding === 0
           ? padding
-          : (isDesktop && defaultPaddings.desktop) || (isTablet && defaultPaddings.tablet) || defaultPaddings.mobile
+          : (isDesktop && defaultPaddings.desktop) ||
+            (isTablet && defaultPaddings.tablet) ||
+            defaultPaddings.mobile
       }
-      {...props}
-    >
+      {...props}>
       {children}
     </S.Card>
-  );
-};
+  )
+}

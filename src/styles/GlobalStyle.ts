@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
 export default createGlobalStyle`
   * {
@@ -31,7 +31,9 @@ export default createGlobalStyle`
   .range-picker {
     & .ant-picker-panels {
       @media only screen and ${(props) =>
-        `${props.theme.media.xs} and (max-width: ${props.theme.breakpoints.md - 0.02}px)`} {
+        `${props.theme.media.xs} and (max-width: ${
+          props.theme.breakpoints.md - 0.02
+        }px)`} {
         display: flex;
       flex-direction: column;
       }
@@ -42,7 +44,9 @@ export default createGlobalStyle`
     box-shadow: ${(props) => props.theme.boxShadow.main};
 
     @media only screen and ${(props) =>
-      `${props.theme.media.xs} and (max-width: ${props.theme.breakpoints.md - 0.02}px)`} {
+      `${props.theme.media.xs} and (max-width: ${
+        props.theme.breakpoints.md - 0.02
+      }px)`} {
       width: calc(100vw - 16px);
     max-width: 600px;
     }
@@ -191,4 +195,4 @@ export default createGlobalStyle`
     border-right: 0;
   }
   // notifications end
-`;
+`

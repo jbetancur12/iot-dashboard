@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { Typography } from 'antd';
-import { hexToRGB } from 'utils/utils';
+import styled from 'styled-components'
+import { Typography } from 'antd'
+import { hexToRGB } from 'utils/utils'
 
 export const Header = styled.div`
   padding: 1.5rem 3.5rem;
@@ -8,16 +8,16 @@ export const Header = styled.div`
   align-items: center;
 
   background-color: ${(props) => props.theme.colors.main.secondaryBackground};
-`;
+`
 
 export const AvatarWrapper = styled.div`
   width: 2rem;
   margin-right: 1.25rem;
-`;
+`
 
 export const Text = styled(Typography.Text)`
   font-weight: 600;
-`;
+`
 
 export const ContentWrapper = styled.div`
   padding: 1rem 2rem;
@@ -31,9 +31,10 @@ export const ContentWrapper = styled.div`
     width: 100%;
     height: 1px;
 
-    background-color: ${(props) => hexToRGB(props.theme.colors.main.primary, 0.3)};
+    background-color: ${(props) =>
+      hexToRGB(props.theme.colors.main.primary, 0.3)};
   }
-`;
+`
 
 export const Item = styled.div`
   display: flex;
@@ -44,16 +45,16 @@ export const Item = styled.div`
   &:nth-last-of-type(1) {
     margin-bottom: 0;
   }
-`;
+`
 
 export const Subtitle = styled(Typography.Text)`
   font-weight: 500;
   font-size: 0.75rem;
 
   color: ${(props) => props.theme.colors.main.primary};
-`;
+`
 
 export const DetailsWrapper = styled.div`
   padding: 0.8rem;
   text-align: center;
-`;
+`

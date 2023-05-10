@@ -1,20 +1,24 @@
-import styled from 'styled-components';
-import { Input as AntInput, Button, Checkbox } from 'antd';
-import { SearchOutlined, PlusCircleFilled, CloseOutlined } from '@ant-design/icons';
-import { DayjsDatePicker } from '@app/components/common/pickers/DayjsDatePicker';
+import styled from 'styled-components'
+import { Input as AntInput, Button, Checkbox } from 'antd'
+import {
+  SearchOutlined,
+  PlusCircleFilled,
+  CloseOutlined
+} from '@ant-design/icons'
+import { DayjsDatePicker } from '@app/components/common/pickers/DayjsDatePicker'
 
 export const AddTagText = styled.span`
   color: ${(props) => props.theme.colors.text.main};
   font-size: ${(props) => props.theme.commonFontSizes.md};
   font-weight: ${(props) => props.theme.commonFontWeight.semibold};
   line-height: 1.375rem;
-`;
+`
 
 export const TitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
+`
 
 export const FilterButton = styled.div`
   height: 3.125rem;
@@ -27,51 +31,51 @@ export const FilterButton = styled.div`
   font-size: ${(props) => props.theme.commonFontSizes.xs};
   font-weight: ${(props) => props.theme.commonFontWeight.semibold};
   line-height: 1.25rem;
-`;
+`
 
 export const DateLabels = styled.div`
   display: flex;
   justify-content: space-between;
-`;
+`
 
 export const DateLabel = styled.div`
   width: 50%;
   line-height: 1.25rem;
   margin-bottom: 0.4375rem;
   font-size: ${(props) => props.theme.commonFontSizes.xs};
-`;
+`
 
 export const AddTagWrapper = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
   margin-bottom: 1rem;
-`;
+`
 
 export const TagsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 1rem;
   gap: 0.625rem;
-`;
+`
 
 export const BtnWrapper = styled.div`
   display: flex;
   gap: 1rem;
-`;
+`
 
 export const PlusIcon = styled(PlusCircleFilled)`
   color: ${(props) => props.theme.commonColors.lightgrey};
   font-size: 1.5625rem;
   margin-right: 1rem;
-`;
+`
 
 export const SearchIcon = styled(SearchOutlined)`
   position: absolute;
   z-index: 2;
   left: 1.25rem;
   top: 1.0625rem;
-`;
+`
 
 export const InputWrapper = styled.div`
   display: flex;
@@ -80,13 +84,13 @@ export const InputWrapper = styled.div`
   background: ${(props) => props.theme.colors.main.secondaryBackground};
   margin-bottom: 1.25rem;
   position: relative;
-`;
+`
 
 export const ContentWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 1.875rem;
-`;
+`
 
 export const TitleHeader = styled.div`
   display: inline-block;
@@ -96,7 +100,7 @@ export const TitleHeader = styled.div`
   cursor: pointer;
   background-color: ${(props) => props.theme.colors.main.mainBackground};
   border-radius: ${(props) => props.theme.border.radius};
-`;
+`
 
 export const Input = styled(AntInput)`
   height: 3.125rem;
@@ -108,7 +112,7 @@ export const Input = styled(AntInput)`
   font-size: ${(props) => props.theme.commonFontSizes.md};
   font-weight: ${(props) => props.theme.commonFontWeight.semibold};
   line-height: 1.375rem;
-`;
+`
 
 export const RangePicker = styled(DayjsDatePicker.RangePicker)`
   width: 100%;
@@ -119,12 +123,12 @@ export const RangePicker = styled(DayjsDatePicker.RangePicker)`
     font-size: ${(props) => props.theme.commonFontSizes.xs};
     font-weight: ${(props) => props.theme.commonFontWeight.semibold};
   }
-`;
+`
 
 export const Btn = styled(Button)`
   display: block;
   width: 100%;
-`;
+`
 
 export const NewsWrapper = styled.div`
   max-width: 35rem;
@@ -136,7 +140,7 @@ export const NewsWrapper = styled.div`
   @media only screen and ${(props) => props.theme.media.md} {
     width: calc(100% - 21.25rem);
   }
-`;
+`
 
 export const FilterWrapper = styled.div`
   position: sticky;
@@ -157,7 +161,7 @@ export const FilterWrapper = styled.div`
   @media only screen and ${(props) => props.theme.media.md} {
     position: sticky;
   }
-`;
+`
 
 export const FilterTitle = styled.div`
   display: flex;
@@ -167,7 +171,7 @@ export const FilterTitle = styled.div`
   font-weight: ${(props) => props.theme.commonFontWeight.bold};
   color: ${(props) => props.theme.colors.text.main};
   margin-bottom: 1rem;
-`;
+`
 
 export const TagPopover = styled.div`
   padding: 1.25rem 1.5625rem;
@@ -180,7 +184,7 @@ export const TagPopover = styled.div`
   border-radius: 0.625rem;
   z-index: 1;
   filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.2));
-`;
+`
 
 export const TagPopoverLine = styled.span`
   line-height: 1.25rem;
@@ -190,7 +194,7 @@ export const TagPopoverLine = styled.span`
   }
   align-items: center;
   cursor: pointer;
-`;
+`
 
 export const PopoverCheckbox = styled(Checkbox)`
   margin-right: 1rem;
@@ -203,17 +207,17 @@ export const PopoverCheckbox = styled(Checkbox)`
   & .ant-checkbox-checked .ant-checkbox-inner::after {
     left: 0.375rem;
   }
-`;
+`
 
 export const ClosePopoverWrapper = styled.div`
   position: absolute;
   right: 1rem;
   top: 1rem;
   cursor: pointer;
-`;
+`
 
 export const ClosePopover = styled(CloseOutlined)`
   color: ${(props) => props.theme.colors.main.primary};
   width: 0.875rem;
   height: 0.875rem;
-`;
+`

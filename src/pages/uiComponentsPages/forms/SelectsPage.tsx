@@ -1,58 +1,61 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
-import { Col, Space, Tag } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { Select, Option } from '@app/components/common/selects/Select/Select';
-import { RadioGroup, RadioButton, RadioChangeEvent } from '@app/components/common/Radio/Radio';
-import { PageTitle } from '@app/components/common/PageTitle/PageTitle';
-import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles';
+import { useState } from 'react'
+import { Col, Space, Tag } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { Select, Option } from '@app/components/common/selects/Select/Select'
+import {
+  RadioGroup,
+  RadioButton,
+  RadioChangeEvent
+} from '@app/components/common/Radio/Radio'
+import { PageTitle } from '@app/components/common/PageTitle/PageTitle'
+import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles'
 
 const SelectsPage: React.FC = () => {
-  const { t } = useTranslation();
-  const [size, setSize] = useState<'small' | 'middle' | 'large'>('middle');
+  const { t } = useTranslation()
+  const [size, setSize] = useState<'small' | 'middle' | 'large'>('middle')
   const options = [
     { value: t('selects.gold') },
     { value: t('selects.lime') },
     { value: t('selects.green') },
-    { value: t('selects.cyan') },
-  ];
-  const children: React.ReactNode[] = [];
+    { value: t('selects.cyan') }
+  ]
+  const children: React.ReactNode[] = []
 
   for (let i = 10; i < 36; i++) {
     children.push(
       <Option key={i.toString(36) + i} value={i.toString(36) + i}>
         {i.toString(36) + i}
-      </Option>,
-    );
+      </Option>
+    )
   }
 
   const handleSizeChange = (e: RadioChangeEvent) => {
-    setSize(e.target.value);
-  };
+    setSize(e.target.value)
+  }
 
   const tagRender = (props: {
-    label: string | React.ReactNode;
-    value: any;
-    closable: boolean;
-    onClose: () => void;
+    label: string | React.ReactNode
+    value: any
+    closable: boolean
+    onClose: () => void
   }) => {
-    const { label, value, closable, onClose } = props;
+    const { label, value, closable, onClose } = props
     const onPreventMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
-      event.preventDefault();
-      event.stopPropagation();
-    };
+      event.preventDefault()
+      event.stopPropagation()
+    }
     return (
       <Tag
         color={value}
         onMouseDown={onPreventMouseDown}
         closable={closable}
         onClose={onClose}
-        style={{ marginRight: 3 }}
-      >
+        style={{ marginRight: 3 }}>
         {label}
       </Tag>
-    );
-  };
+    )
+  }
 
   return (
     <>
@@ -84,11 +87,14 @@ const SelectsPage: React.FC = () => {
               allowClear
               width={'100%'}
               placeholder={t('selects.pleaseSelect')}
-              defaultValue={['a10', 'c12']}
-            >
+              defaultValue={['a10', 'c12']}>
               {children}
             </Select>
-            <Select mode="multiple" disabled placeholder={t('selects.pleaseSelect')} defaultValue={['a10', 'c12']}>
+            <Select
+              mode="multiple"
+              disabled
+              placeholder={t('selects.pleaseSelect')}
+              defaultValue={['a10', 'c12']}>
               {children}
             </Select>
           </Space>
@@ -108,8 +114,7 @@ const SelectsPage: React.FC = () => {
               size={size}
               placeholder={t('selects.pleaseSelect')}
               defaultValue={['a10', 'c12']}
-              width={'100%'}
-            >
+              width={'100%'}>
               {children}
             </Select>
             <Select
@@ -117,8 +122,7 @@ const SelectsPage: React.FC = () => {
               size={size}
               placeholder={t('selects.pleaseSelect')}
               defaultValue={['a10', 'c12']}
-              width={'100%'}
-            >
+              width={'100%'}>
               {children}
             </Select>
           </Space>
@@ -135,7 +139,7 @@ const SelectsPage: React.FC = () => {
         </S.Card>
       </Col>
     </>
-  );
-};
+  )
+}
 
-export default SelectsPage;
+export default SelectsPage

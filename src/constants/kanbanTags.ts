@@ -1,37 +1,37 @@
 interface Tag {
-  id: string;
-  title: string;
-  bgColor: 'error' | 'warning' | 'success' | 'primary';
+  id: string
+  title: string
+  bgColor: 'error' | 'warning' | 'success' | 'primary'
 }
 
 interface KanbanTags {
-  [key: string]: Tag;
+  [key: string]: Tag
 }
 
 export const kanbanTags: KanbanTags = {
   high: {
     id: 'high',
     title: 'high',
-    bgColor: 'error',
+    bgColor: 'error'
   },
   medium: {
     id: 'medium',
     title: 'medium',
-    bgColor: 'warning',
+    bgColor: 'warning'
   },
   low: {
     id: 'low',
     title: 'low',
-    bgColor: 'success',
+    bgColor: 'success'
   },
   ui: {
     id: 'ui',
     title: 'ui',
-    bgColor: 'primary',
+    bgColor: 'primary'
   },
   dev: {
     id: 'dev',
     title: 'dev',
-    bgColor: 'primary',
-  },
-};
+    bgColor: 'primary'
+  }
+}

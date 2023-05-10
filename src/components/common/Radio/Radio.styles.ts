@@ -1,4 +1,4 @@
-import styled from 'styled-components';
-import { Radio as AntdRadio } from 'antd';
+import styled from 'styled-components'
+import { Radio as AntdRadio } from 'antd'
 
-export const Radio = styled(AntdRadio)``;
+export const Radio = styled(AntdRadio)``

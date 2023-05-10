@@ -1,33 +1,47 @@
-import React, { ReactNode, useState, useEffect, useCallback, useMemo } from 'react';
-import { Dropdown } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { RangeValue } from 'rc-picker/lib/interface.d';
-import { Tag, ITag } from '@app/components/common/Tag/Tag';
-import { AuthorValidator, TitleValidator, DatesValidator, TagsValidator } from '../Validator';
-import { useResponsive } from '@app/hooks/useResponsive';
-import { newsTags as defaultTags } from '@app/constants/newsTags';
-import { AppDate, Dates } from '@app/constants/Dates';
-import { Post } from '@app/api/news.api';
-import * as S from './NewsFilter.styles';
-import { useTheme } from 'styled-components';
+import React, {
+  ReactNode,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo
+} from 'react'
+import { Dropdown } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { RangeValue } from 'rc-picker/lib/interface.d'
+import { Tag, ITag } from '@app/components/common/Tag/Tag'
+import {
+  AuthorValidator,
+  TitleValidator,
+  DatesValidator,
+  TagsValidator
+} from '../Validator'
+import { useResponsive } from '@app/hooks/useResponsive'
+import { newsTags as defaultTags } from '@app/constants/newsTags'
+import { AppDate, Dates } from '@app/constants/Dates'
+import { Post } from '@app/api/news.api'
+import * as S from './NewsFilter.styles'
+import { useTheme } from 'styled-components'
 
 interface NewsFilterProps {
-  news: Post[];
-  newsTags?: ITag[];
-  children: ({ filteredNews }: { filteredNews: Post[] }) => ReactNode;
+  news: Post[]
+  newsTags?: ITag[]
+  children: ({ filteredNews }: { filteredNews: Post[] }) => ReactNode
 }
 
 interface Filter {
-  author: string;
-  title: string;
-  newsTagData: ITag[];
-  onTagClick: (tag: ITag) => void;
-  selectedTagsIds: Array<string>;
-  selectedTags: ITag[];
-  dates: [AppDate | null, AppDate | null];
-  updateFilteredField: (field: string, value: [AppDate | null, AppDate | null] | string) => void;
-  onApply: () => void;
-  onReset: () => void;
+  author: string
+  title: string
+  newsTagData: ITag[]
+  onTagClick: (tag: ITag) => void
+  selectedTagsIds: Array<string>
+  selectedTags: ITag[]
+  dates: [AppDate | null, AppDate | null]
+  updateFilteredField: (
+    field: string,
+    value: [AppDate | null, AppDate | null] | string
+  ) => void
+  onApply: () => void
+  onReset: () => void
 }
 
 const Filter: React.FC<Filter> = ({
@@ -40,19 +54,19 @@ const Filter: React.FC<Filter> = ({
   dates,
   onApply,
   onReset,
-  updateFilteredField,
+  updateFilteredField
 }) => {
-  const { t } = useTranslation();
-  const { mobileOnly } = useResponsive();
-  const theme = useTheme();
+  const { t } = useTranslation()
+  const { mobileOnly } = useResponsive()
+  const theme = useTheme()
 
   const applyFilter = () => {
-    onApply();
-  };
+    onApply()
+  }
 
   const resetFilter = () => {
-    onReset();
-  };
+    onReset()
+  }
 
   return (
     <S.FilterWrapper>
@@ -63,7 +77,9 @@ const Filter: React.FC<Filter> = ({
         <S.Input
           placeholder={t('newsFeed.authorSearch')}
           value={author}
-          onChange={(event) => updateFilteredField('author', event.target.value)}
+          onChange={(event) =>
+            updateFilteredField('author', event.target.value)
+          }
         />
       </S.InputWrapper>
 
@@ -85,20 +101,21 @@ const Filter: React.FC<Filter> = ({
               <S.TagPopoverLine
                 key={tag.id}
                 onClick={(e) => {
-                  onTagClick(tag);
-                  e.stopPropagation();
-                }}
-              >
+                  onTagClick(tag)
+                  e.stopPropagation()
+                }}>
                 <S.PopoverCheckbox checked={selectedTagsIds.includes(tag.id)} />
-                <Tag title={tag.title} bgColor={theme.colors.main[tag.bgColor]} />
+                <Tag
+                  title={tag.title}
+                  bgColor={theme.colors.main[tag.bgColor]}
+                />
               </S.TagPopoverLine>
             ))}
             <S.ClosePopoverWrapper>
               <S.ClosePopover />
             </S.ClosePopoverWrapper>
           </S.TagPopover>
-        }
-      >
+        }>
         <S.AddTagWrapper>
           <S.PlusIcon />
           <S.AddTagText>{t('newsFeed.tag')}</S.AddTagText>
@@ -127,7 +144,10 @@ const Filter: React.FC<Filter> = ({
         dropdownClassName="range-picker"
         value={dates}
         onChange={(dates: RangeValue<AppDate>) =>
-          updateFilteredField('dates', [dates?.length ? dates[0] : null, dates?.length ? dates[1] : null])
+          updateFilteredField('dates', [
+            dates?.length ? dates[0] : null,
+            dates?.length ? dates[1] : null
+          ])
         }
       />
 
@@ -138,107 +158,124 @@ const Filter: React.FC<Filter> = ({
         </S.Btn>
       </S.BtnWrapper>
     </S.FilterWrapper>
-  );
-};
+  )
+}
 
-export const NewsFilter: React.FC<NewsFilterProps> = ({ news, newsTags, children }) => {
+export const NewsFilter: React.FC<NewsFilterProps> = ({
+  news,
+  newsTags,
+  children
+}) => {
   const [filterFields, setFilterFields] = useState<{
-    author: string;
-    title: string;
-    selectedTags: ITag[];
-    dates: [AppDate | null, AppDate | null];
+    author: string
+    title: string
+    selectedTags: ITag[]
+    dates: [AppDate | null, AppDate | null]
   }>({
     author: '',
     title: '',
     selectedTags: [],
-    dates: [null, null],
-  });
-  const { author, title, selectedTags, dates } = filterFields;
-  const [filteredNews, setFilteredNews] = useState<Post[]>(news);
-  const [overlayVisible, setOverlayVisible] = useState<boolean>(false);
-  const { mobileOnly } = useResponsive();
-  const { t } = useTranslation();
+    dates: [null, null]
+  })
+  const { author, title, selectedTags, dates } = filterFields
+  const [filteredNews, setFilteredNews] = useState<Post[]>(news)
+  const [overlayVisible, setOverlayVisible] = useState<boolean>(false)
+  const { mobileOnly } = useResponsive()
+  const { t } = useTranslation()
 
-  const newsTagData = Object.values(newsTags || defaultTags);
-  const selectedTagsIds = useMemo(() => selectedTags.map((item) => item.id), [selectedTags]);
+  const newsTagData = Object.values(newsTags || defaultTags)
+  const selectedTagsIds = useMemo(
+    () => selectedTags.map((item) => item.id),
+    [selectedTags]
+  )
 
   const onTagClick = useCallback(
     (tag: ITag) => {
-      const isExist = selectedTagsIds.includes(tag.id);
+      const isExist = selectedTagsIds.includes(tag.id)
 
       if (isExist) {
         setFilterFields({
           ...filterFields,
-          selectedTags: selectedTags.filter((item) => item.id !== tag.id),
-        });
+          selectedTags: selectedTags.filter((item) => item.id !== tag.id)
+        })
       } else {
         setFilterFields({
           ...filterFields,
-          selectedTags: [...selectedTags, tag],
-        });
+          selectedTags: [...selectedTags, tag]
+        })
       }
     },
-    [selectedTags, selectedTagsIds, filterFields],
-  );
+    [selectedTags, selectedTagsIds, filterFields]
+  )
 
   const filterNews = useCallback(
     (isReset = false) => {
-      let updatedNews = [...news];
+      let updatedNews = [...news]
       if ((author || title || dates[0] || selectedTags.length) && !isReset) {
         updatedNews = news.filter((post) => {
-          const postAuthor = post.author.toLowerCase();
-          const enteredAuthor = author.toLowerCase();
-          const postTitle = post.title.toLowerCase();
-          const enteredTitle = title.toLowerCase();
-          const postTags = post.tags;
-          const postDate = Dates.getDate(post.date);
+          const postAuthor = post.author.toLowerCase()
+          const enteredAuthor = author.toLowerCase()
+          const postTitle = post.title.toLowerCase()
+          const enteredTitle = title.toLowerCase()
+          const postTags = post.tags
+          const postDate = Dates.getDate(post.date)
 
           const fieldsValidators = [
             new AuthorValidator(postAuthor, enteredAuthor),
             new TitleValidator(postTitle, enteredTitle),
             new DatesValidator(postDate, dates),
-            new TagsValidator(postTags, selectedTags),
-          ];
+            new TagsValidator(postTags, selectedTags)
+          ]
 
-          return fieldsValidators.map((validator) => validator.validate()).every((i) => i);
-        });
+          return fieldsValidators
+            .map((validator) => validator.validate())
+            .every((i) => i)
+        })
       }
       setFilteredNews(
         updatedNews.sort((a, b) => {
-          return b.date - a.date;
-        }),
-      );
+          return b.date - a.date
+        })
+      )
     },
-    [news, author, title, dates, selectedTags],
-  );
+    [news, author, title, dates, selectedTags]
+  )
 
   useEffect(() => {
-    setFilteredNews(news);
-    filterNews(false);
+    setFilteredNews(news)
+    filterNews(false)
     // TODO AT-183
     // eslint-disable-next-line
-  }, [news]);
+  }, [news])
 
   const handleClickApply = useCallback(() => {
-    filterNews(false);
+    filterNews(false)
 
     if (mobileOnly) {
-      setOverlayVisible(false);
+      setOverlayVisible(false)
     }
-  }, [mobileOnly, filterNews]);
+  }, [mobileOnly, filterNews])
 
   const handleClickReset = useCallback(() => {
-    setFilterFields({ author: '', title: '', dates: [null, null], selectedTags: [] });
-    filterNews(true);
+    setFilterFields({
+      author: '',
+      title: '',
+      dates: [null, null],
+      selectedTags: []
+    })
+    filterNews(true)
 
     if (mobileOnly) {
-      setOverlayVisible(false);
+      setOverlayVisible(false)
     }
-  }, [filterNews, setFilterFields, mobileOnly]);
+  }, [filterNews, setFilterFields, mobileOnly])
 
-  const updateFilteredField = (field: string, value: string | [AppDate | null, AppDate | null]) => {
-    setFilterFields({ ...filterFields, [field]: value });
-  };
+  const updateFilteredField = (
+    field: string,
+    value: string | [AppDate | null, AppDate | null]
+  ) => {
+    setFilterFields({ ...filterFields, [field]: value })
+  }
 
   return (
     <>
@@ -262,15 +299,16 @@ export const NewsFilter: React.FC<NewsFilterProps> = ({ news, newsTags, children
                 onReset={handleClickReset}
                 updateFilteredField={updateFilteredField}
               />
-            }
-          >
+            }>
             <S.FilterButton>{t('newsFeed.filter')}</S.FilterButton>
           </Dropdown>
         )}
       </S.TitleWrapper>
 
       <S.ContentWrapper>
-        <S.NewsWrapper>{children({ filteredNews: filteredNews || news })}</S.NewsWrapper>
+        <S.NewsWrapper>
+          {children({ filteredNews: filteredNews || news })}
+        </S.NewsWrapper>
 
         {!mobileOnly && (
           <Filter
@@ -288,5 +326,5 @@ export const NewsFilter: React.FC<NewsFilterProps> = ({ news, newsTags, children
         )}
       </S.ContentWrapper>
     </>
-  );
-};
+  )
+}

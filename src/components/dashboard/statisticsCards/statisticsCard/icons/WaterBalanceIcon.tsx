@@ -1,8 +1,13 @@
-import React from 'react';
+import React from 'react'
 
 export const WaterBalanceIcon: React.FC = () => {
   return (
-    <svg width="1em" height="1em" viewBox="0 0 21 28" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 21 28"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -10,5 +15,5 @@ export const WaterBalanceIcon: React.FC = () => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}

@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import * as Auth from '@app/components/layouts/AuthLayout/AuthLayout.styles';
+import styled from 'styled-components'
+import * as Auth from '@app/components/layouts/AuthLayout/AuthLayout.styles'
 
 export const FormItem = styled(Auth.FormItem)`
   margin-bottom: 1rem;
-`;
+`
 
 export const AvatarCircle = styled.div`
   border-radius: 50%;
@@ -19,13 +19,13 @@ export const AvatarCircle = styled.div`
     height: 4.8125rem;
     width: 4.8125rem;
   }
-`;
+`
 
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
+`
 
 export const Time = styled.div`
   margin-bottom: 1rem;
@@ -44,7 +44,7 @@ export const Time = styled.div`
     font-size: ${(props) => props.theme.commonFontSizes.xxxl};
     font-weight: ${(props) => props.theme.commonFontWeight.extraBold};
   }
-`;
+`
 
 export const Date = styled.div`
   margin-bottom: 2.5rem;
@@ -63,7 +63,7 @@ export const Date = styled.div`
     font-size: ${(props) => props.theme.commonFontSizes.xxl};
     font-weight: ${(props) => props.theme.commonFontWeight.bold};
   }
-`;
+`
 
 export const Name = styled.div`
   margin-bottom: 1.5625rem;
@@ -77,4 +77,4 @@ export const Name = styled.div`
   @media only screen and ${(props) => props.theme.media.md} {
     font-size: ${(props) => props.theme.commonFontSizes.md};
   }
-`;
+`

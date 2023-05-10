@@ -1,11 +1,11 @@
-import { Col } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { Pagination } from '@app/components/common/Pagination/Pagination';
-import { PageTitle } from '@app/components/common/PageTitle/PageTitle';
-import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles';
+import { Col } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { Pagination } from '@app/components/common/Pagination/Pagination'
+import { PageTitle } from '@app/components/common/PageTitle/PageTitle'
+import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles'
 
 const PaginationPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <>
       <PageTitle>{t('common.pagination')}</PageTitle>
@@ -27,7 +27,7 @@ const PaginationPage: React.FC = () => {
         </S.Card>
       </Col>
     </>
-  );
-};
+  )
+}
 
-export default PaginationPage;
+export default PaginationPage

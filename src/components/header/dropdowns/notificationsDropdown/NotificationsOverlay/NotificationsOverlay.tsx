@@ -1,26 +1,34 @@
-import React, { useMemo } from 'react';
-import { Trans } from 'react-i18next';
-import { useTranslation } from 'react-i18next';
-import { Col, Row, Space } from 'antd';
-import { Link } from 'react-router-dom';
-import { Notification } from 'components/common/Notification/Notification';
-import { capitalize } from 'utils/utils';
-import { Mention, Notification as NotificationType } from 'api/notifications.api';
-import { notificationsSeverities } from 'constants/notificationsSeverities';
-import * as S from './NotificationsOverlay.styles';
+import React, { useMemo } from 'react'
+import { Trans } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
+import { Col, Row, Space } from 'antd'
+import { Link } from 'react-router-dom'
+import { Notification } from 'components/common/Notification/Notification'
+import { capitalize } from 'utils/utils'
+import {
+  Mention,
+  Notification as NotificationType
+} from 'api/notifications.api'
+import { notificationsSeverities } from 'constants/notificationsSeverities'
+import * as S from './NotificationsOverlay.styles'
 
 interface NotificationsOverlayProps {
-  notifications: NotificationType[];
-  setNotifications: (state: NotificationType[]) => void;
+  notifications: NotificationType[]
+  setNotifications: (state: NotificationType[]) => void
 }
 
-export const NotificationsOverlay: React.FC<NotificationsOverlayProps> = ({ notifications, setNotifications }) => {
-  const { t } = useTranslation();
+export const NotificationsOverlay: React.FC<NotificationsOverlayProps> = ({
+  notifications,
+  setNotifications
+}) => {
+  const { t } = useTranslation()
 
   const noticesList = useMemo(
     () =>
       notifications.map((notification, index) => {
-        const type = notificationsSeverities.find((dbSeverity) => dbSeverity.id === notification.id)?.name;
+        const type = notificationsSeverities.find(
+          (dbSeverity) => dbSeverity.id === notification.id
+        )?.name
 
         return (
           <Notification
@@ -37,13 +45,13 @@ export const NotificationsOverlay: React.FC<NotificationsOverlayProps> = ({ noti
                     {{ place: t((notification as Mention).place) }}
                   </S.LinkBtn>
                 </Trans>
-              ),
+              )
             })}
           />
-        );
+        )
       }),
-    [notifications, t],
-  );
+    [notifications, t]
+  )
 
   return (
     <S.NoticesOverlayMenu mode="inline">
@@ -75,5 +83,5 @@ export const NotificationsOverlay: React.FC<NotificationsOverlayProps> = ({ noti
         </Col>
       </S.MenuRow>
     </S.NoticesOverlayMenu>
-  );
-};
+  )
+}

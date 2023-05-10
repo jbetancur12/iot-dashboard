@@ -1,9 +1,9 @@
-import { Typography } from 'antd';
-import styled from 'styled-components';
-import { defaultPaddings } from '@app/constants/defaultPaddings';
+import { Typography } from 'antd'
+import styled from 'styled-components'
+import { defaultPaddings } from '@app/constants/defaultPaddings'
 
 interface ContentWrapperProps {
-  isEmptyHistory: boolean;
+  isEmptyHistory: boolean
 }
 
 export const ContentWrapper = styled.div<ContentWrapperProps>`
@@ -20,10 +20,10 @@ export const ContentWrapper = styled.div<ContentWrapperProps>`
   @media only screen and ${(props) => props.theme.media.xl} {
     margin: 0;
   }
-`;
+`
 
 export const Text = styled(Typography.Text)`
   @media only screen and ${(props) => props.theme.media.md} {
     font-size: 1rem;
   }
-`;
+`

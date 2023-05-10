@@ -1,7 +1,7 @@
-import React from 'react';
-import { Card } from 'components/common/Card/Card';
-import { BaseChart } from 'components/common/charts/BaseChart';
-import { useTranslation } from 'react-i18next';
+import React from 'react'
+import { Card } from 'components/common/Card/Card'
+import { BaseChart } from 'components/common/charts/BaseChart'
+import { useTranslation } from 'react-i18next'
 
 const data = [
   [170.0, 59.0],
@@ -28,27 +28,27 @@ const data = [
   [173.0, 59.8],
   [179.9, 67.3],
   [170.5, 67.8],
-  [160.0, 47.0],
-];
+  [160.0, 47.0]
+]
 
 const markLineOpt = {
   animation: false,
   lineStyle: {
-    width: 0,
+    width: 0
   },
   data: [
     [
       {
         coord: [0, 3],
-        symbol: 'none',
+        symbol: 'none'
       },
       {
         coord: [20, 13],
-        symbol: 'none',
-      },
-    ],
-  ],
-};
+        symbol: 'none'
+      }
+    ]
+  ]
+}
 
 const defaultOption = {
   grid: {
@@ -56,21 +56,23 @@ const defaultOption = {
     right: 30,
     bottom: 0,
     left: 15,
-    containLabel: true,
+    containLabel: true
   },
   tooltip: {
     showDelay: 0,
     // eslint-disable-next-line
     formatter: (params: any) =>
-      params.value.length > 1 ? `${params.value[0]}cm ${params.value[1]}kg ` : `${params.name}: ${params.value} 'kg `,
+      params.value.length > 1
+        ? `${params.value[0]}cm ${params.value[1]}kg `
+        : `${params.name}: ${params.value} 'kg `,
     axisPointer: {
       show: true,
       type: 'cross',
       lineStyle: {
         type: 'dashed',
-        width: 1,
-      },
-    },
+        width: 1
+      }
+    }
   },
   xAxis: {
     gridIndex: 0,
@@ -78,11 +80,11 @@ const defaultOption = {
     type: 'value',
     scale: true,
     axisLabel: {
-      formatter: '{value} kg',
+      formatter: '{value} kg'
     },
     splitLine: {
-      show: false,
-    },
+      show: false
+    }
   },
   yAxis: {
     gridIndex: 0,
@@ -90,11 +92,11 @@ const defaultOption = {
     type: 'value',
     scale: true,
     axisLabel: {
-      formatter: '{value} cm',
+      formatter: '{value} cm'
     },
     splitLine: {
-      show: false,
-    },
+      show: false
+    }
   },
   series: [
     {
@@ -102,17 +104,17 @@ const defaultOption = {
       xAxisIndex: 0,
       yAxisIndex: 0,
       data: data,
-      markLine: markLineOpt,
-    },
-  ],
-};
+      markLine: markLineOpt
+    }
+  ]
+}
 
 export const ScatterChart: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <Card padding="0 0 1.875rem" title={t('charts.scatter')}>
       <BaseChart option={defaultOption} />
     </Card>
-  );
-};
+  )
+}

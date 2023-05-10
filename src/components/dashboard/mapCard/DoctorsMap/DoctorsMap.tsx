@@ -1,41 +1,41 @@
-import React from 'react';
-import L, { IconOptions, PointExpression } from 'leaflet';
-import { Marker, Popup } from 'react-leaflet';
+import React from 'react'
+import L, { IconOptions, PointExpression } from 'leaflet'
+import { Marker, Popup } from 'react-leaflet'
 
-import { ReactComponent as MapBackgroundIcon } from 'assets/icons/map-background.svg';
+import { ReactComponent as MapBackgroundIcon } from 'assets/icons/map-background.svg'
 
-import * as S from './DoctorsMap.styles';
-import { useResponsive } from 'hooks/useResponsive';
+import * as S from './DoctorsMap.styles'
+import { useResponsive } from 'hooks/useResponsive'
 
-import { Doctor } from 'api/doctors.api';
-import { DoctorProfile } from 'components/common/DoctorProfile/DoctorProfile';
+import { Doctor } from 'api/doctors.api'
+import { DoctorProfile } from 'components/common/DoctorProfile/DoctorProfile'
 
-const LARGE_MARKER_SIZE: PointExpression = [50, 50];
-const MARKER_SIZE: PointExpression = [30, 30];
+const LARGE_MARKER_SIZE: PointExpression = [50, 50]
+const MARKER_SIZE: PointExpression = [30, 30]
 
 const defineIconSize = (isDesktop: boolean): PointExpression => {
-  return (isDesktop && LARGE_MARKER_SIZE) || MARKER_SIZE;
-};
+  return (isDesktop && LARGE_MARKER_SIZE) || MARKER_SIZE
+}
 
 class MarkerDoctor extends L.Icon {
   constructor(props: IconOptions, isDesktop: boolean) {
-    const iconSIze = defineIconSize(isDesktop);
+    const iconSIze = defineIconSize(isDesktop)
     super({
       popupAnchor: iconSIze,
       iconSize: iconSIze,
-      ...props,
-    });
+      ...props
+    })
   }
 }
 
 interface DoctorsMapProps {
-  doctors: Doctor[];
+  doctors: Doctor[]
 }
 
 export const DoctorsMap: React.FC<DoctorsMapProps> = ({ doctors }) => {
-  const { isDesktop } = useResponsive();
+  const { isDesktop } = useResponsive()
 
-  const mapDoctors = doctors.filter(({ gps }) => gps);
+  const mapDoctors = doctors.filter(({ gps }) => gps)
 
   return (
     <S.DoctorsMap>
@@ -47,13 +47,12 @@ export const DoctorsMap: React.FC<DoctorsMapProps> = ({ doctors }) => {
             new MarkerDoctor(
               {
                 iconUrl: marker.imgUrl,
-                iconRetinaUrl: marker.imgUrl,
+                iconRetinaUrl: marker.imgUrl
               },
-              isDesktop,
+              isDesktop
             )
           }
-          position={[marker.gps?.latitude || 0, marker.gps?.longitude || 0]}
-        >
+          position={[marker.gps?.latitude || 0, marker.gps?.longitude || 0]}>
           <Popup>
             <DoctorProfile
               avatar={marker.imgUrl}
@@ -65,5 +64,5 @@ export const DoctorsMap: React.FC<DoctorsMapProps> = ({ doctors }) => {
         </Marker>
       ))}
     </S.DoctorsMap>
-  );
-};
+  )
+}

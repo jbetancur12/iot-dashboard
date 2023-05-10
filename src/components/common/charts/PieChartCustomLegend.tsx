@@ -1,17 +1,17 @@
-import { PieChart } from './PieChart';
-import { Legend, LegendItem } from './Legend/Legend';
-import React, { useCallback, useState } from 'react';
-import { EChartsOption } from 'echarts-for-react';
+import { PieChart } from './PieChart'
+import { Legend, LegendItem } from './Legend/Legend'
+import React, { useCallback, useState } from 'react'
+import { EChartsOption } from 'echarts-for-react'
 
 interface PieChartCustomLegend {
-  name: string;
+  name: string
   // eslint-disable-next-line
-  chartData: any[];
+  chartData: any[]
   // eslint-disable-next-line
-  legendData: LegendItem[];
-  height?: string;
-  width?: string;
-  option?: EChartsOption;
+  legendData: LegendItem[]
+  height?: string
+  width?: string
+  option?: EChartsOption
 }
 
 export const PieChartCustomLegend: React.FC<PieChartCustomLegend> = ({
@@ -22,15 +22,21 @@ export const PieChartCustomLegend: React.FC<PieChartCustomLegend> = ({
   width,
   ...rest
 }) => {
-  const [activeItemIndex, setActiveItemIndex] = useState<number | null>(null);
+  const [activeItemIndex, setActiveItemIndex] = useState<number | null>(null)
 
-  const onMouseOver = useCallback(({ dataIndex }) => setActiveItemIndex(dataIndex), [setActiveItemIndex]);
-  const onMouseOut = useCallback(() => setActiveItemIndex(null), [setActiveItemIndex]);
+  const onMouseOver = useCallback(
+    ({ dataIndex }) => setActiveItemIndex(dataIndex),
+    [setActiveItemIndex]
+  )
+  const onMouseOut = useCallback(
+    () => setActiveItemIndex(null),
+    [setActiveItemIndex]
+  )
 
   const onEvents = {
     mouseover: onMouseOver,
-    mouseout: onMouseOut,
-  };
+    mouseout: onMouseOut
+  }
 
   return (
     <>
@@ -45,5 +51,5 @@ export const PieChartCustomLegend: React.FC<PieChartCustomLegend> = ({
       />
       <Legend legendItems={legendData} activeItemIndex={activeItemIndex} />
     </>
-  );
-};
+  )
+}

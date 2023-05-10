@@ -1,5 +1,5 @@
-import { Typography } from 'antd';
-import styled from 'styled-components';
+import { Typography } from 'antd'
+import styled from 'styled-components'
 
 export const SearchResultsWrapper = styled.div`
   & > div {
@@ -20,7 +20,7 @@ export const SearchResultsWrapper = styled.div`
       padding-left: 0.5rem;
     }
   }
-`;
+`
 
 export const Text = styled(Typography.Text)`
   color: ${(props) => props.theme.colors.text.main};
@@ -28,4 +28,4 @@ export const Text = styled(Typography.Text)`
   &:hover {
     text-decoration: underline;
   }
-`;
+`

@@ -1,12 +1,12 @@
-import { Col, Card } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { Avatar } from '@app/components/common/Avatar/Avatar';
-import { Badge, Ribbon } from '@app/components/common/Badge/Badge';
-import { PageTitle } from '@app/components/common/PageTitle/PageTitle';
-import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles';
+import { Col, Card } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { Avatar } from '@app/components/common/Avatar/Avatar'
+import { Badge, Ribbon } from '@app/components/common/Badge/Badge'
+import { PageTitle } from '@app/components/common/PageTitle/PageTitle'
+import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles'
 
 const BadgesPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <>
       <PageTitle>{t('common.badge')}</PageTitle>
@@ -46,7 +46,10 @@ const BadgesPage: React.FC = () => {
           <br />
           <Badge status="default" text={t('dataDisplay.badges.default')} />
           <br />
-          <Badge status="processing" text={t('dataDisplay.badges.processing')} />
+          <Badge
+            status="processing"
+            text={t('dataDisplay.badges.processing')}
+          />
           <br />
           <Badge status="warning" text={t('dataDisplay.badges.warning')} />
         </S.Card>
@@ -82,7 +85,7 @@ const BadgesPage: React.FC = () => {
         </S.Card>
       </Col>
     </>
-  );
-};
+  )
+}
 
-export default BadgesPage;
+export default BadgesPage

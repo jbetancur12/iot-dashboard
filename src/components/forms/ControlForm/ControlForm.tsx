@@ -1,59 +1,58 @@
-import React, { useState } from 'react';
-import { Avatar } from 'antd';
-import { SmileOutlined, UserOutlined } from '@ant-design/icons';
-import { BaseButtonsForm } from '@app/components/common/forms/BaseButtonsForm/BaseButtonsForm';
-import { AddUserFormModal } from './AddUserFormModal';
-import { Input } from '../../common/inputs/Input/Input';
-import { Button } from '../../common/buttons/Button/Button';
-import { useTranslation } from 'react-i18next';
-import * as S from './ControlForm.styles';
-import { notificationController } from '@app/controllers/notificationController';
+import React, { useState } from 'react'
+import { Avatar } from 'antd'
+import { SmileOutlined, UserOutlined } from '@ant-design/icons'
+import { BaseButtonsForm } from '@app/components/common/forms/BaseButtonsForm/BaseButtonsForm'
+import { AddUserFormModal } from './AddUserFormModal'
+import { Input } from '../../common/inputs/Input/Input'
+import { Button } from '../../common/buttons/Button/Button'
+import { useTranslation } from 'react-i18next'
+import * as S from './ControlForm.styles'
+import { notificationController } from '@app/controllers/notificationController'
 
 const layout = {
   labelCol: { span: 24 },
-  wrapperCol: { span: 24 },
-};
+  wrapperCol: { span: 24 }
+}
 
 interface UserType {
-  name: string;
-  age: string;
+  name: string
+  age: string
 }
 
 export const ControlForm: React.FC = () => {
-  const [visible, setVisible] = useState(false);
-  const [isFieldsChanged, setFieldsChanged] = useState(false);
-  const [isLoading, setLoading] = useState(false);
-  const { t } = useTranslation();
+  const [visible, setVisible] = useState(false)
+  const [isFieldsChanged, setFieldsChanged] = useState(false)
+  const [isLoading, setLoading] = useState(false)
+  const { t } = useTranslation()
 
   const showUserModal = () => {
-    setVisible(true);
-  };
+    setVisible(true)
+  }
 
   const hideUserModal = () => {
-    setVisible(false);
-  };
+    setVisible(false)
+  }
 
   const onFinish = (values = {}) => {
-    setLoading(true);
+    setLoading(true)
     setTimeout(() => {
-      setFieldsChanged(false);
-      setLoading(false);
-      notificationController.success({ message: t('common.success') });
-      console.log(values);
-    }, 1000);
-  };
+      setFieldsChanged(false)
+      setLoading(false)
+      notificationController.success({ message: t('common.success') })
+      console.log(values)
+    }, 1000)
+  }
 
   return (
     <BaseButtonsForm.Provider
       onFormFinish={(name, { values, forms }) => {
         if (name === 'userForm') {
-          const { controlForm } = forms;
-          const users = controlForm.getFieldValue('users') || [];
-          controlForm.setFieldsValue({ users: [...users, values] });
-          setVisible(false);
+          const { controlForm } = forms
+          const users = controlForm.getFieldValue('users') || []
+          controlForm.setFieldsValue({ users: [...users, values] })
+          setVisible(false)
         }
-      }}
-    >
+      }}>
       <BaseButtonsForm
         {...layout}
         name="controlForm"
@@ -63,28 +62,35 @@ export const ControlForm: React.FC = () => {
             <Button htmlType="submit" type="primary" loading={isLoading}>
               {t('common.submit')}
             </Button>
-            <S.AddUserButton type="default" htmlType="button" onClick={showUserModal}>
+            <S.AddUserButton
+              type="default"
+              htmlType="button"
+              onClick={showUserModal}>
               {t('forms.controlFormLabels.addUser')}
             </S.AddUserButton>
           </BaseButtonsForm.Item>
         }
         onFinish={onFinish}
-        onFieldsChange={() => setFieldsChanged(true)}
-      >
+        onFieldsChange={() => setFieldsChanged(true)}>
         <BaseButtonsForm.Item
           name="group"
           label={t('forms.controlFormLabels.groupName')}
-          rules={[{ required: true, message: t('forms.controlFormLabels.groupNameError') }]}
-        >
+          rules={[
+            {
+              required: true,
+              message: t('forms.controlFormLabels.groupNameError')
+            }
+          ]}>
           <Input />
         </BaseButtonsForm.Item>
         <S.UserList
           label={t('forms.controlFormLabels.userList')}
           // eslint-disable-next-line
-          shouldUpdate={(prevValues: any, curValues: any) => prevValues.users !== curValues.users}
-        >
+          shouldUpdate={(prevValues: any, curValues: any) =>
+            prevValues.users !== curValues.users
+          }>
           {({ getFieldValue }) => {
-            const users: UserType[] = getFieldValue('users') || [];
+            const users: UserType[] = getFieldValue('users') || []
             return users.length ? (
               <S.List>
                 {users.map((user, index) => (
@@ -100,11 +106,11 @@ export const ControlForm: React.FC = () => {
               <S.Text>
                 ( <SmileOutlined /> {t('forms.controlFormLabels.noUser')} )
               </S.Text>
-            );
+            )
           }}
         </S.UserList>
       </BaseButtonsForm>
       <AddUserFormModal visible={visible} onCancel={hideUserModal} />
     </BaseButtonsForm.Provider>
-  );
-};
+  )
+}

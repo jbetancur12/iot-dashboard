@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 interface PaymentCardProps {
-  $background: string;
+  $background: string
 }
 
 export const Wrapper = styled.div<PaymentCardProps>`
@@ -37,4 +37,4 @@ export const Wrapper = styled.div<PaymentCardProps>`
       }
     }
   }
-`;
+`

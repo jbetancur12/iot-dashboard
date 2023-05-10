@@ -1,5 +1,5 @@
-import { UserModel } from '@app/domain/UserModel';
-import avatarImg from '@app/assets/avatars/avatar5.png';
+import { UserModel } from '@app/domain/UserModel'
+import avatarImg from '@app/assets/avatars/avatar5.png'
 
 const testUser = {
   id: 1,
@@ -9,11 +9,11 @@ const testUser = {
   userName: '@john1989',
   email: {
     name: 'christopher.johnson@altence.com',
-    verified: true,
+    verified: true
   },
   phone: {
     number: '+18143519459',
-    verified: true,
+    verified: true
   },
   sex: 'male',
   birthday: '01/26/2022',
@@ -26,35 +26,35 @@ const testUser = {
   socials: {
     twitter: '@altence_team',
     facebook: 'https://facebook.com/groups/1076577369582221',
-    linkedin: 'https://linkedin.com/company/altence',
-  },
-};
+    linkedin: 'https://linkedin.com/company/altence'
+  }
+}
 
 export const persistToken = (token: string): void => {
-  localStorage.setItem('accessToken', token);
-};
+  localStorage.setItem('accessToken', token)
+}
 
 export const persistRefreshToken = (token: string): void => {
-  localStorage.setItem('refreshToken', token);
-};
+  localStorage.setItem('refreshToken', token)
+}
 
 export const readRefreshToken = (): string | null => {
-  return localStorage.getItem('refreshToken');
-};
+  return localStorage.getItem('refreshToken')
+}
 
 export const readToken = (): string | null => {
-  return localStorage.getItem('accessToken');
-};
+  return localStorage.getItem('accessToken')
+}
 
 export const persistUser = (user: UserModel): void => {
-  localStorage.setItem('user', JSON.stringify(user));
-};
+  localStorage.setItem('user', JSON.stringify(user))
+}
 
 export const readUser = (): UserModel | null => {
-  const userStr = localStorage.getItem('user');
+  const userStr = localStorage.getItem('user')
 
-  return userStr ? JSON.parse(userStr) : null;
-};
+  return userStr ? JSON.parse(userStr) : null
+}
 
-export const deleteToken = (): void => localStorage.removeItem('accessToken');
-export const deleteUser = (): void => localStorage.removeItem('user');
+export const deleteToken = (): void => localStorage.removeItem('accessToken')
+export const deleteUser = (): void => localStorage.removeItem('user')

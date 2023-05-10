@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { Table as CommonTable } from 'components/common/Table/Table';
+import styled from 'styled-components'
+import { Table as CommonTable } from 'components/common/Table/Table'
 
 interface TextProps {
-  $isActive?: boolean;
+  $isActive?: boolean
 }
 
 export const Table = styled(CommonTable)`
@@ -26,14 +26,19 @@ export const Table = styled(CommonTable)`
     border: 0;
     cursor: pointer;
   }
-`;
+`
 
 export const Text = styled.span<TextProps>`
   color: ${(props) => props.theme.colors.text.main};
   font-weight: ${(props) =>
-    props.$isActive ? props.theme.commonFontWeight.semibold : props.theme.commonFontWeight.regular};
-`;
+    props.$isActive
+      ? props.theme.commonFontWeight.semibold
+      : props.theme.commonFontWeight.regular};
+`
 
 export const Flag = styled(Text)<{ $isNorm: boolean }>`
-  color: ${(props) => (props.$isNorm ? props.theme.colors.main.success : props.theme.colors.main.error)};
-`;
+  color: ${(props) =>
+    props.$isNorm
+      ? props.theme.colors.main.success
+      : props.theme.colors.main.error};
+`

@@ -1,7 +1,7 @@
-import React from 'react';
-import Slider, { Settings } from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import React from 'react'
+import Slider, { Settings } from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 export const Carousel: React.FC<Settings> = ({
   slidesToShow = 1,
@@ -19,9 +19,8 @@ export const Carousel: React.FC<Settings> = ({
       dots={dots}
       infinite={infinite}
       centerMode={centerMode}
-      {...props}
-    >
+      {...props}>
       {children}
     </Slider>
-  );
-};
+  )
+}

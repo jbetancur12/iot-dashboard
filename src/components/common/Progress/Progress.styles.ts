@@ -1,4 +1,4 @@
-import styled from 'styled-components';
-import { Progress as AntProgress } from 'antd';
+import styled from 'styled-components'
+import { Progress as AntProgress } from 'antd'
 
-export const Progress = styled(AntProgress)``;
+export const Progress = styled(AntProgress)``

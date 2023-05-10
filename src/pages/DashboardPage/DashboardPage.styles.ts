@@ -1,8 +1,9 @@
-import styled from 'styled-components';
-import { Col } from 'antd';
+import styled from 'styled-components'
+import { Col } from 'antd'
 
 export const RightSideCol = styled(Col)`
-  padding: ${(props) => `${props.theme.desktopLayout.paddingVertical} ${props.theme.desktopLayout.paddingHorizontal}`};
+  padding: ${(props) =>
+    `${props.theme.desktopLayout.paddingVertical} ${props.theme.desktopLayout.paddingHorizontal}`};
   position: sticky;
   top: 0;
   display: flex;
@@ -13,7 +14,7 @@ export const RightSideCol = styled(Col)`
   #patient-timeline {
     overflow-y: auto;
   }
-`;
+`
 
 export const LeftSideCol = styled(Col)`
   @media only screen and ${(props) => props.theme.media.xl} {
@@ -22,8 +23,8 @@ export const LeftSideCol = styled(Col)`
     height: calc(100vh - ${(props) => props.theme.desktopLayout.headerHeight});
     overflow: auto;
   }
-`;
+`
 
 export const Space = styled.div`
   margin: 1rem 0;
-`;
+`

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const BtnWrapper = styled.div`
   display: flex;
@@ -14,4 +14,4 @@ export const BtnWrapper = styled.div`
 
     color: ${(props) => props.theme.colors.text.secondary};
   }
-`;
+`

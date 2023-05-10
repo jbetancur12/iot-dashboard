@@ -1,17 +1,17 @@
-import { Col } from 'antd';
-import styled from 'styled-components';
-import { useTranslation } from 'react-i18next';
-import { Button } from '@app/components/common/buttons/Button/Button';
-import { Popover } from '@app/components/common/Popover/Popover';
-import { PageTitle } from '@app/components/common/PageTitle/PageTitle';
-import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles';
+import { Col } from 'antd'
+import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
+import { Button } from '@app/components/common/buttons/Button/Button'
+import { Popover } from '@app/components/common/Popover/Popover'
+import { PageTitle } from '@app/components/common/PageTitle/PageTitle'
+import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles'
 
-const buttonWidth = 70;
+const buttonWidth = 70
 
 export const PopoverButton = styled.div`
   display: flex;
   gap: 5px;
-`;
+`
 
 export const TopButtons = styled(PopoverButton)`
   white-space: nowrap;
@@ -23,12 +23,12 @@ export const TopButtons = styled(PopoverButton)`
   @media only screen and ${(props) => props.theme.media.md} {
     margin-left: ${buttonWidth + 18}px;
   }
-`;
+`
 export const LeftButtons = styled(PopoverButton)`
   flex-direction: column;
   width: ${buttonWidth}px;
   float: left;
-`;
+`
 
 export const RightButtons = styled(PopoverButton)`
   flex-direction: column;
@@ -41,7 +41,7 @@ export const RightButtons = styled(PopoverButton)`
   @media only screen and ${(props) => props.theme.media.md} {
     margin-left: ${buttonWidth * 4}px;
   }
-`;
+`
 
 export const BottomButtons = styled(PopoverButton)`
   margin-left: ${buttonWidth}px;
@@ -54,18 +54,18 @@ export const BottomButtons = styled(PopoverButton)`
   @media only screen and ${(props) => props.theme.media.md} {
     margin-left: ${buttonWidth}px;
   }
-`;
+`
 
 const PopoversPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  const title = <span>{t('popovers.title')}</span>;
+  const title = <span>{t('popovers.title')}</span>
   const content = (
     <div>
       <p>{t('popovers.content')}</p>
       <p>{t('popovers.content')}</p>
     </div>
-  );
+  )
 
   return (
     <>
@@ -79,46 +79,94 @@ const PopoversPage: React.FC = () => {
         <S.Card title={t('popovers.positions')}>
           <div>
             <TopButtons>
-              <Popover placement="topLeft" title={title} content={content} trigger="click">
+              <Popover
+                placement="topLeft"
+                title={title}
+                content={content}
+                trigger="click">
                 <Button>{t('popovers.tl')}</Button>
               </Popover>
-              <Popover placement="top" title={title} content={content} trigger="click">
+              <Popover
+                placement="top"
+                title={title}
+                content={content}
+                trigger="click">
                 <Button>{t('popovers.top')}</Button>
               </Popover>
-              <Popover placement="topRight" title={title} content={content} trigger="click">
+              <Popover
+                placement="topRight"
+                title={title}
+                content={content}
+                trigger="click">
                 <Button>{t('popovers.tr')}</Button>
               </Popover>
             </TopButtons>
             <LeftButtons>
-              <Popover placement="leftTop" title={title} content={content} trigger="click">
+              <Popover
+                placement="leftTop"
+                title={title}
+                content={content}
+                trigger="click">
                 <Button>{t('popovers.lt')}</Button>
               </Popover>
-              <Popover placement="left" title={title} content={content} trigger="click">
+              <Popover
+                placement="left"
+                title={title}
+                content={content}
+                trigger="click">
                 <Button>{t('popovers.left')}</Button>
               </Popover>
-              <Popover placement="leftBottom" title={title} content={content} trigger="click">
+              <Popover
+                placement="leftBottom"
+                title={title}
+                content={content}
+                trigger="click">
                 <Button>{t('popovers.lb')}</Button>
               </Popover>
             </LeftButtons>
             <RightButtons>
-              <Popover placement="rightTop" title={title} content={content} trigger="click">
+              <Popover
+                placement="rightTop"
+                title={title}
+                content={content}
+                trigger="click">
                 <Button>{t('popovers.rt')}</Button>
               </Popover>
-              <Popover placement="right" title={title} content={content} trigger="click">
+              <Popover
+                placement="right"
+                title={title}
+                content={content}
+                trigger="click">
                 <Button>{t('popovers.right')}</Button>
               </Popover>
-              <Popover placement="rightBottom" title={title} content={content} trigger="click">
+              <Popover
+                placement="rightBottom"
+                title={title}
+                content={content}
+                trigger="click">
                 <Button>{t('popovers.rb')}</Button>
               </Popover>
             </RightButtons>
             <BottomButtons>
-              <Popover placement="bottomLeft" title={title} content={content} trigger="click">
+              <Popover
+                placement="bottomLeft"
+                title={title}
+                content={content}
+                trigger="click">
                 <Button>{t('popovers.bl')}</Button>
               </Popover>
-              <Popover placement="bottom" title={title} content={content} trigger="click">
+              <Popover
+                placement="bottom"
+                title={title}
+                content={content}
+                trigger="click">
                 <Button>{t('popovers.bottom')}</Button>
               </Popover>
-              <Popover placement="bottomRight" title={title} content={content} trigger="click">
+              <Popover
+                placement="bottomRight"
+                title={title}
+                content={content}
+                trigger="click">
                 <Button>{t('popovers.br')}</Button>
               </Popover>
             </BottomButtons>
@@ -137,7 +185,7 @@ const PopoversPage: React.FC = () => {
         </S.Card>
       </Col>
     </>
-  );
-};
+  )
+}
 
-export default PopoversPage;
+export default PopoversPage

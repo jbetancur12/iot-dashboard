@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { NewLaneSection as NewLane } from 'react-trello/dist/styles/Base';
-import { PlusOutlined } from '@ant-design/icons';
+import styled from 'styled-components'
+import { NewLaneSection as NewLane } from 'react-trello/dist/styles/Base'
+import { PlusOutlined } from '@ant-design/icons'
 
 export const NewLaneSection = styled(NewLane)`
   background: ${(props) => props.theme.commonColors.skyblue};
@@ -13,7 +13,7 @@ export const NewLaneSection = styled(NewLane)`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
+`
 
 export const CreateNewColumn = styled.div`
   font-size: ${(props) => props.theme.commonFontSizes.md};
@@ -22,15 +22,15 @@ export const CreateNewColumn = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-`;
+`
 
 export const NewLaneImage = styled.img`
   margin-top: 3.25rem;
   height: 12.625rem;
-`;
+`
 
 export const PlusIcon = styled(PlusOutlined)`
   font-size: ${(props) => props.theme.commonFontSizes.md};
   color: ${(props) => props.theme.colors.text.secondary};
   margin-right: 0.625rem;
-`;
+`

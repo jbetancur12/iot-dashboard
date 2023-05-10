@@ -1,5 +1,5 @@
-import { Space } from 'antd';
-import styled from 'styled-components';
+import { Space } from 'antd'
+import styled from 'styled-components'
 
 export const CountriesSpace = styled(Space)`
   width: 100%;
@@ -8,4 +8,4 @@ export const CountriesSpace = styled(Space)`
     overflow: hidden;
     text-overflow: ellipsis;
   }
-`;
+`

@@ -1,5 +1,5 @@
-import { Typography } from 'antd';
-import styled from 'styled-components';
+import { Typography } from 'antd'
+import styled from 'styled-components'
 
 export const PickerLabel = styled(Typography.Text)`
   font-size: 0.875rem;
@@ -7,4 +7,4 @@ export const PickerLabel = styled(Typography.Text)`
   @media only screen and ${(props) => props.theme.media.md} {
     font-size: 1rem;
   }
-`;
+`

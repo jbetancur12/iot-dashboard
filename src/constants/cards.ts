@@ -1,4 +1,4 @@
-import { cardThemes } from './cardThemes';
+import { cardThemes } from './cardThemes'
 
 export const cards = [
   {
@@ -8,7 +8,7 @@ export const cards = [
     number: '4255 2003 0168 9006',
     focused: '',
     background: cardThemes[0].background,
-    isEdit: false,
+    isEdit: false
   },
   {
     name: 'Walker Alan',
@@ -17,7 +17,7 @@ export const cards = [
     number: '5245 0017 2000 0164',
     focused: '',
     background: cardThemes[3].background,
-    isEdit: false,
+    isEdit: false
   },
   {
     name: 'Jackson Michael',
@@ -26,7 +26,7 @@ export const cards = [
     number: '4255 1000 2046 8006',
     focused: '',
     background: cardThemes[5].background,
-    isEdit: false,
+    isEdit: false
   },
   {
     name: 'Christopher Johnson',
@@ -35,6 +35,6 @@ export const cards = [
     number: '5205 0024 2535 5235',
     focused: '',
     background: cardThemes[4].background,
-    isEdit: false,
-  },
-];
+    isEdit: false
+  }
+]

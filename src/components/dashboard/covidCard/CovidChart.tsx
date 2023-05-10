@@ -1,26 +1,29 @@
-import React from 'react';
-import { useTheme } from 'styled-components';
-import { BaseChart, getDefaultTooltipStyles } from '@app/components/common/charts/BaseChart';
-import { getMarkAreaData, hexToRGB } from '@app/utils/utils';
-import { ChartData, xData } from '@app/interfaces/interfaces';
+import React from 'react'
+import { useTheme } from 'styled-components'
+import {
+  BaseChart,
+  getDefaultTooltipStyles
+} from '@app/components/common/charts/BaseChart'
+import { getMarkAreaData, hexToRGB } from '@app/utils/utils'
+import { ChartData, xData } from '@app/interfaces/interfaces'
 
 interface CovidData {
-  title: string;
-  data: ChartData;
+  title: string
+  data: ChartData
 }
 
 export const CovidChart: React.FC<{
-  confirmed: CovidData;
-  deaths: CovidData;
-  dateArr: xData;
+  confirmed: CovidData
+  deaths: CovidData
+  dateArr: xData
 }> = ({ confirmed, deaths, dateArr }) => {
-  const theme = useTheme();
+  const theme = useTheme()
 
   const option = {
     color: [
       theme.colors.main.chartPrimaryGradient,
       theme.colors.main.chartSecondaryGradient,
-      theme.colors.main.chartAdditionalGradient,
+      theme.colors.main.chartAdditionalGradient
     ],
     grid: [
       {
@@ -28,22 +31,22 @@ export const CovidChart: React.FC<{
         left: 10,
         right: 0,
         height: '50%',
-        containLabel: true,
+        containLabel: true
       },
       {
         left: 26.5,
         right: 0,
         top: '50%',
         height: '45%',
-        containLabel: true,
-      },
+        containLabel: true
+      }
     ],
     xAxis: [
       {
         show: false,
         type: 'category',
         boundaryGap: false,
-        data: dateArr,
+        data: dateArr
       },
       {
         gridIndex: 1,
@@ -51,19 +54,19 @@ export const CovidChart: React.FC<{
         type: 'category',
         boundaryGap: false,
         data: dateArr,
-        position: 'top',
-      },
+        position: 'top'
+      }
     ],
     yAxis: [
       {
-        type: 'value',
+        type: 'value'
       },
       {
         gridIndex: 1,
         type: 'value',
         inverse: true,
-        max: 20000,
-      },
+        max: 20000
+      }
     ],
     series: [
       {
@@ -73,16 +76,16 @@ export const CovidChart: React.FC<{
         areaStyle: {},
         markArea: {
           itemStyle: {
-            color: hexToRGB(theme.colors.charts.color1, 0.02),
+            color: hexToRGB(theme.colors.charts.color1, 0.02)
           },
-          data: dateArr && getMarkAreaData(dateArr),
+          data: dateArr && getMarkAreaData(dateArr)
         },
         showSymbol: false,
         smooth: true,
         lineStyle: {
           width: 2,
-          color: theme.colors.charts.color1,
-        },
+          color: theme.colors.charts.color1
+        }
       },
       {
         xAxisIndex: 1,
@@ -93,23 +96,23 @@ export const CovidChart: React.FC<{
         areaStyle: {},
         markArea: {
           itemStyle: {
-            color: hexToRGB(theme.colors.charts.color5, 0.02),
+            color: hexToRGB(theme.colors.charts.color5, 0.02)
           },
-          data: dateArr && getMarkAreaData(dateArr),
+          data: dateArr && getMarkAreaData(dateArr)
         },
         showSymbol: false,
         smooth: true,
         lineStyle: {
           width: 2,
-          color: theme.colors.charts.color5,
-        },
-      },
+          color: theme.colors.charts.color5
+        }
+      }
     ],
     tooltip: {
       ...getDefaultTooltipStyles(theme),
-      trigger: 'axis',
-    },
-  };
+      trigger: 'axis'
+    }
+  }
 
-  return <BaseChart option={option} height="100%" />;
-};
+  return <BaseChart option={option} height="100%" />
+}

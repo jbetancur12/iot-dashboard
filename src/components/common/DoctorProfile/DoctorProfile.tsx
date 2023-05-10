@@ -1,25 +1,35 @@
-import React from 'react';
-import { Avatar } from 'antd';
-import { useTranslation } from 'react-i18next';
-import * as S from './DoctorProfile.styles';
-import { specifities } from 'constants/specifities';
-import { UserOutlined } from '@ant-design/icons';
+import React from 'react'
+import { Avatar } from 'antd'
+import { useTranslation } from 'react-i18next'
+import * as S from './DoctorProfile.styles'
+import { specifities } from 'constants/specifities'
+import { UserOutlined } from '@ant-design/icons'
 
 interface DoctorProfileProps {
-  avatar?: string;
-  name?: string;
-  speciality?: string | number;
-  rating?: number;
+  avatar?: string
+  name?: string
+  speciality?: string | number
+  rating?: number
 }
 
-export const DoctorProfile: React.FC<DoctorProfileProps> = ({ avatar, name, speciality }) => {
-  const { t } = useTranslation();
+export const DoctorProfile: React.FC<DoctorProfileProps> = ({
+  avatar,
+  name,
+  speciality
+}) => {
+  const { t } = useTranslation()
 
-  const specifity = specifities.find((el) => el.id === speciality)?.name;
+  const specifity = specifities.find((el) => el.id === speciality)?.name
 
   return (
     <S.Profile>
-      <Avatar size="large" src={avatar} icon={<UserOutlined />} alt="Doctor avatar" shape="square" />
+      <Avatar
+        size="large"
+        src={avatar}
+        icon={<UserOutlined />}
+        alt="Doctor avatar"
+        shape="square"
+      />
       <div>
         <S.Info>
           <S.Title>{t('common.doctor')}</S.Title>
@@ -31,5 +41,5 @@ export const DoctorProfile: React.FC<DoctorProfileProps> = ({ avatar, name, spec
         </S.Info>
       </div>
     </S.Profile>
-  );
-};
+  )
+}

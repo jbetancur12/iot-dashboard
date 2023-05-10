@@ -1,1 +1,1 @@
-export const MAX_NEWS = 6;
+export const MAX_NEWS = 6

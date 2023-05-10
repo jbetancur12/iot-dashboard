@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Tag } from 'antd';
+import styled from 'styled-components'
+import { Tag } from 'antd'
 
 export const StatusTag = styled(Tag)`
   padding: 0.375rem 0;
@@ -12,4 +12,4 @@ export const StatusTag = styled(Tag)`
   @media only screen and ${(props) => props.theme.media.md} {
     min-width: 6.5rem;
   }
-`;
+`

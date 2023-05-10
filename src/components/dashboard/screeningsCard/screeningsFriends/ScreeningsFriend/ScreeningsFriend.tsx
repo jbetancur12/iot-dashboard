@@ -1,19 +1,19 @@
-import React from 'react';
-import { Row, Col, Space } from 'antd';
-import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
-import { useResponsive } from 'hooks/useResponsive';
-import { getDifference } from 'utils/utils';
-import * as S from './ScreeningsFriend.styles';
+import React from 'react'
+import { Row, Col, Space } from 'antd'
+import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons'
+import { useResponsive } from 'hooks/useResponsive'
+import { getDifference } from 'utils/utils'
+import * as S from './ScreeningsFriend.styles'
 
 interface ScreeningsFriendProps {
-  name: string;
-  src: string;
-  value: number;
-  prevValue: number;
-  isPrimary: boolean;
-  isSecondary: boolean;
-  onClick?: () => void;
-  isVisibleMenu: boolean;
+  name: string
+  src: string
+  value: number
+  prevValue: number
+  isPrimary: boolean
+  isSecondary: boolean
+  onClick?: () => void
+  isVisibleMenu: boolean
 }
 
 export const ScreeningsFriend: React.FC<ScreeningsFriendProps> = ({
@@ -24,19 +24,18 @@ export const ScreeningsFriend: React.FC<ScreeningsFriendProps> = ({
   isPrimary,
   isSecondary,
   onClick,
-  isVisibleMenu,
+  isVisibleMenu
 }) => {
-  const isDowngrade = value < prevValue;
+  const isDowngrade = value < prevValue
 
-  const { isTablet: isTabletOrHigher, mobileOnly } = useResponsive();
+  const { isTablet: isTabletOrHigher, mobileOnly } = useResponsive()
 
   return (
     <S.ScreeningsRow
       onClick={onClick}
       justify={isVisibleMenu ? 'space-between' : 'center'}
       $isActive={isPrimary || isSecondary}
-      wrap={false}
-    >
+      wrap={false}>
       <Col>
         <Row gutter={[10, 0]} align="middle" wrap={false}>
           <Col>
@@ -65,11 +64,13 @@ export const ScreeningsFriend: React.FC<ScreeningsFriendProps> = ({
           <S.Percentage $isDowngrade={isDowngrade}>
             <Space size={0}>
               {isDowngrade ? <CaretDownOutlined /> : <CaretUpOutlined />}
-              <S.Percentage $isDowngrade={isDowngrade}>{getDifference(value, prevValue)}</S.Percentage>
+              <S.Percentage $isDowngrade={isDowngrade}>
+                {getDifference(value, prevValue)}
+              </S.Percentage>
             </Space>
           </S.Percentage>
         </Col>
       )}
     </S.ScreeningsRow>
-  );
-};
+  )
+}

@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
-import { useAppDispatch } from '@app/hooks/reduxHooks';
-import { Navigate } from 'react-router-dom';
-import { doLogout } from '@app/store/slices/authSlice';
+import React, { useEffect } from 'react'
+import { useAppDispatch } from '@app/hooks/reduxHooks'
+import { Navigate } from 'react-router-dom'
+import { doLogout } from '@app/store/slices/authSlice'
 
 const Logout: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(doLogout());
-  }, [dispatch]);
+    dispatch(doLogout())
+  }, [dispatch])
 
-  return <Navigate to="/auth/login" replace />;
-};
+  return <Navigate to="/auth/login" replace />
+}
 
-export default Logout;
+export default Logout

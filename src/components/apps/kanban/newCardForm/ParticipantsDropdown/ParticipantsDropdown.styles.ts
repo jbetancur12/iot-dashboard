@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { CloseOutlined } from '@ant-design/icons';
-import { Checkbox } from 'antd';
+import styled from 'styled-components'
+import { CloseOutlined } from '@ant-design/icons'
+import { Checkbox } from 'antd'
 
 export const EditParticipantPopover = styled.div`
   padding: 1.25rem 1rem;
@@ -12,7 +12,7 @@ export const EditParticipantPopover = styled.div`
   border-radius: 0.625rem;
   z-index: 1;
   filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.2));
-`;
+`
 
 export const PopoverCheckbox = styled(Checkbox)`
   & .ant-checkbox .ant-checkbox-inner {
@@ -25,53 +25,53 @@ export const PopoverCheckbox = styled(Checkbox)`
     left: 0.375rem;
   }
   margin-right: 0.75rem;
-`;
+`
 
 export const RemoveParticipantWrapper = styled.div`
   position: absolute;
   right: 1rem;
   top: 1rem;
   cursor: pointer;
-`;
+`
 
 export const ClosePopover = styled(CloseOutlined)`
   color: ${(props) => props.theme.colors.main.primary};
   width: 0.875rem;
   height: 0.875rem;
-`;
+`
 
 export const AddParticipant = styled.span`
   font-size: ${(props) => props.theme.commonFontSizes.xs};
   line-height: 1.25rem;
   text-decoration: underline;
   color: ${(props) => props.theme.colors.text.light};
-`;
+`
 
 export const ParticipantsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-`;
+`
 
 export const ParticipantRow = styled.div`
   display: flex;
   align-items: center;
-`;
+`
 
 export const ParticipantAvatar = styled.img`
   height: 1.5625rem;
   width: 1.5625rem;
   border-radius: 50%;
-`;
+`
 
 export const ParticipantName = styled.div`
   font-size: ${(props) => props.theme.commonFontSizes.xs};
   color: ${(props) => props.theme.colors.text.main};
   margin-left: 0.625rem;
   margin-right: 0.625rem;
-`;
+`
 
 export const RemoveParticipant = styled(CloseOutlined)`
   color: ${(props) => props.theme.colors.text.light};
   font-size: ${(props) => props.theme.commonFontSizes.xxs};
-`;
+`

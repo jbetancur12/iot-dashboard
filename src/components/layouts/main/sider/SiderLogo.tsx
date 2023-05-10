@@ -1,26 +1,35 @@
-import React from 'react';
-import * as S from './MainSider/MainSider.styles';
-import { RightOutlined } from '@ant-design/icons';
-import { useResponsive } from 'hooks/useResponsive';
-import logo from 'assets/samaf.jpg';
-import logoDark from 'assets/samaf.jpg';
-import { useAppSelector } from '@app/hooks/reduxHooks';
+import React from 'react'
+import * as S from './MainSider/MainSider.styles'
+import { RightOutlined } from '@ant-design/icons'
+import { useResponsive } from 'hooks/useResponsive'
+import logo from 'assets/samaf.jpg'
+import logoDark from 'assets/samaf.jpg'
+import { useAppSelector } from '@app/hooks/reduxHooks'
 
 interface SiderLogoProps {
-  isSiderCollapsed: boolean;
-  toggleSider: () => void;
+  isSiderCollapsed: boolean
+  toggleSider: () => void
 }
-export const SiderLogo: React.FC<SiderLogoProps> = ({ isSiderCollapsed, toggleSider }) => {
-  const { tabletOnly } = useResponsive();
+export const SiderLogo: React.FC<SiderLogoProps> = ({
+  isSiderCollapsed,
+  toggleSider
+}) => {
+  const { tabletOnly } = useResponsive()
 
-  const theme = useAppSelector((state) => state.theme.theme);
+  const theme = useAppSelector((state) => state.theme.theme)
 
-  const img = theme === 'dark' ? logoDark : logo;
+  const img = theme === 'dark' ? logoDark : logo
 
   return (
     <S.SiderLogoDiv>
       <S.SiderLogoLink to="/">
-        <img src={img} alt="Lightence" width={48} height={48} style={{ borderRadius: 50 }} />
+        <img
+          src={img}
+          alt="Lightence"
+          width={48}
+          height={48}
+          style={{ borderRadius: 50 }}
+        />
         <S.BrandSpan>SMAF</S.BrandSpan>
       </S.SiderLogoLink>
       {tabletOnly && (
@@ -33,5 +42,5 @@ export const SiderLogo: React.FC<SiderLogoProps> = ({ isSiderCollapsed, toggleSi
         />
       )}
     </S.SiderLogoDiv>
-  );
-};
+  )
+}

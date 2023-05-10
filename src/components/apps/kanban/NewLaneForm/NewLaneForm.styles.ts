@@ -1,18 +1,18 @@
-import styled from 'styled-components';
-import { BaseButtonsForm } from '@app/components/common/forms/BaseButtonsForm/BaseButtonsForm';
-import { BaseButtonsGroup } from '@app/components/common/forms/components/BaseButtonsGroup/BaseButtonsGroup';
+import styled from 'styled-components'
+import { BaseButtonsForm } from '@app/components/common/forms/BaseButtonsForm/BaseButtonsForm'
+import { BaseButtonsGroup } from '@app/components/common/forms/components/BaseButtonsGroup/BaseButtonsGroup'
 
 export const Form = styled(BaseButtonsForm)`
   width: 16rem;
   border-radius: ${(props) => props.theme.border.radius};
   background-color: ${(props) => props.theme.colors.main.mainBackground};
   padding: 1.25rem 1rem;
-`;
+`
 
 export const FooterButtons = styled(BaseButtonsGroup)`
   margin-top: 1rem;
   margin-bottom: 0.625rem;
-`;
+`
 
 export const FormInput = styled(BaseButtonsForm.Item)`
   @media only screen and ${(props) => props.theme.media.xl} {
@@ -32,4 +32,4 @@ export const FormInput = styled(BaseButtonsForm.Item)`
   & .ant-form-item-control-input {
     min-height: auto;
   }
-`;
+`

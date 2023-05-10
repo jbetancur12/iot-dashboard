@@ -1,8 +1,8 @@
 export interface Statistic {
-  id: number;
-  value: number;
-  prevValue: number;
-  unit: 'kg';
+  id: number
+  value: number
+  prevValue: number
+  unit: 'kg'
 }
 
 export const getStatistics = (): Promise<Statistic[]> => {
@@ -13,27 +13,27 @@ export const getStatistics = (): Promise<Statistic[]> => {
           id: 1,
           value: 45,
           prevValue: 30,
-          unit: 'kg',
+          unit: 'kg'
         },
         {
           id: 2,
           value: 12,
           prevValue: 20,
-          unit: 'kg',
+          unit: 'kg'
         },
         {
           id: 3,
           value: 90,
           prevValue: 60,
-          unit: 'kg',
+          unit: 'kg'
         },
         {
           id: 4,
           value: 78,
           prevValue: 90,
-          unit: 'kg',
-        },
-      ]);
-    }, 0);
-  });
-};
+          unit: 'kg'
+        }
+      ])
+    }, 0)
+  })
+}

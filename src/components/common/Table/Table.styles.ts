@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Table as AntdTable } from 'antd';
+import styled from 'styled-components'
+import { Table as AntdTable } from 'antd'
 
 export const Table = styled(AntdTable)`
   & thead .ant-table-cell {
@@ -66,4 +66,4 @@ export const Table = styled(AntdTable)`
   .ant-table-column-sort {
     background-color: transparent;
   }
-`;
+`

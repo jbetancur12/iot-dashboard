@@ -1,8 +1,13 @@
-import React from 'react';
+import React from 'react'
 
 export const FatIcon: React.FC = () => {
   return (
-    <svg width="1em" height="1em" viewBox="0 0 24 28" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 28"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg">
       <path
         d="M8.2424 13.9C9.10397 13.0385 9.64963 11.8323 9.64963 10.4825C9.64963 9.99424 9.50604 9.44858 9.27628 8.8742C9.01781 8.2711 8.67318 7.66799 8.27112 7.03617C8.27112 7.00745 8.2424 7.00745 8.2424 6.97873C7.40954 5.71509 6.31821 4.48017 5.3992 3.41756L4.82482 2.75702L4.25043 3.41756C2.46985 5.48534 0 8.32853 0 10.4825C0 11.8036 0.545664 13.0098 1.40724 13.9C2.26881 14.7616 3.47502 15.3073 4.82482 15.3073C6.1459 15.3073 7.3521 14.7616 8.2424 13.9Z"
         fill="currentColor"
@@ -16,5 +21,5 @@ export const FatIcon: React.FC = () => {
         fill="currentColor"
       />
     </svg>
-  );
-};
+  )
+}

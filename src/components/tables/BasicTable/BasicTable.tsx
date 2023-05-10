@@ -1,51 +1,64 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { Col, Row, Space, TablePaginationConfig } from 'antd';
-import { BasicTableRow, getBasicTableData, Pagination, Tag } from 'api/table.api';
-import { Table } from 'components/common/Table/Table';
-import { ColumnsType } from 'antd/es/table';
-import { Button } from 'components/common/buttons/Button/Button';
-import { useTranslation } from 'react-i18next';
-import { defineColorByPriority } from '@app/utils/utils';
-import { notificationController } from 'controllers/notificationController';
-import { Status } from '@app/components/profile/profileCard/profileFormNav/nav/payments/paymentHistory/Status/Status';
-import { useMounted } from '@app/hooks/useMounted';
-import { useTheme } from 'styled-components';
+import React, { useEffect, useState, useCallback } from 'react'
+import { Col, Row, Space, TablePaginationConfig } from 'antd'
+import {
+  BasicTableRow,
+  getBasicTableData,
+  Pagination,
+  Tag
+} from 'api/table.api'
+import { Table } from 'components/common/Table/Table'
+import { ColumnsType } from 'antd/es/table'
+import { Button } from 'components/common/buttons/Button/Button'
+import { useTranslation } from 'react-i18next'
+import { defineColorByPriority } from '@app/utils/utils'
+import { notificationController } from 'controllers/notificationController'
+import { Status } from '@app/components/profile/profileCard/profileFormNav/nav/payments/paymentHistory/Status/Status'
+import { useMounted } from '@app/hooks/useMounted'
+import { useTheme } from 'styled-components'
 
 const initialPagination: Pagination = {
   current: 1,
-  pageSize: 5,
-};
+  pageSize: 5
+}
 
 export const BasicTable: React.FC = () => {
-  const [tableData, setTableData] = useState<{ data: BasicTableRow[]; pagination: Pagination; loading: boolean }>({
+  const [tableData, setTableData] = useState<{
+    data: BasicTableRow[]
+    pagination: Pagination
+    loading: boolean
+  }>({
     data: [],
     pagination: initialPagination,
-    loading: false,
-  });
-  const { t } = useTranslation();
-  const { isMounted } = useMounted();
+    loading: false
+  })
+  const { t } = useTranslation()
+  const { isMounted } = useMounted()
 
-  const theme = useTheme();
+  const theme = useTheme()
 
   const fetch = useCallback(
     (pagination: Pagination) => {
-      setTableData((tableData) => ({ ...tableData, loading: true }));
+      setTableData((tableData) => ({ ...tableData, loading: true }))
       getBasicTableData(pagination).then((res) => {
         if (isMounted.current) {
-          setTableData({ data: res.data, pagination: res.pagination, loading: false });
+          setTableData({
+            data: res.data,
+            pagination: res.pagination,
+            loading: false
+          })
         }
-      });
+      })
     },
-    [isMounted],
-  );
+    [isMounted]
+  )
 
   useEffect(() => {
-    fetch(initialPagination);
-  }, [fetch]);
+    fetch(initialPagination)
+  }, [fetch])
 
   const handleTableChange = (pagination: TablePaginationConfig) => {
-    fetch(pagination);
-  };
+    fetch(pagination)
+  }
 
   const handleDeleteRow = (rowId: number) => {
     setTableData({
@@ -53,10 +66,12 @@ export const BasicTable: React.FC = () => {
       data: tableData.data.filter((item) => item.key !== rowId),
       pagination: {
         ...tableData.pagination,
-        total: tableData.pagination.total ? tableData.pagination.total - 1 : tableData.pagination.total,
-      },
-    });
-  };
+        total: tableData.pagination.total
+          ? tableData.pagination.total - 1
+          : tableData.pagination.total
+      }
+    })
+  }
 
   const columns: ColumnsType<BasicTableRow> = [
     {
@@ -72,21 +87,21 @@ export const BasicTable: React.FC = () => {
           children: [
             {
               text: 'Joe',
-              value: 'Joe',
+              value: 'Joe'
             },
             {
               text: 'Pavel',
-              value: 'Pavel',
+              value: 'Pavel'
             },
             {
               text: 'Jim',
-              value: 'Jim',
+              value: 'Jim'
             },
             {
               text: 'Josh',
-              value: 'Josh',
-            },
-          ],
+              value: 'Josh'
+            }
+          ]
         },
         {
           text: t('common.lastName'),
@@ -94,30 +109,31 @@ export const BasicTable: React.FC = () => {
           children: [
             {
               text: 'Green',
-              value: 'Green',
+              value: 'Green'
             },
             {
               text: 'Black',
-              value: 'Black',
+              value: 'Black'
             },
             {
               text: 'Brown',
-              value: 'Brown',
-            },
-          ],
-        },
+              value: 'Brown'
+            }
+          ]
+        }
       ],
-      onFilter: (value: string | number | boolean, record: BasicTableRow) => record.name.includes(value.toString()),
+      onFilter: (value: string | number | boolean, record: BasicTableRow) =>
+        record.name.includes(value.toString())
     },
     {
       title: t('common.age'),
       dataIndex: 'age',
       sorter: (a: BasicTableRow, b: BasicTableRow) => a.age - b.age,
-      showSorterTooltip: false,
+      showSorterTooltip: false
     },
     {
       title: t('common.address'),
-      dataIndex: 'address',
+      dataIndex: 'address'
     },
     {
       title: t('common.tags'),
@@ -128,12 +144,15 @@ export const BasicTable: React.FC = () => {
           {tags.map((tag: Tag) => {
             return (
               <Col key={tag.value}>
-                <Status color={defineColorByPriority(tag.priority, theme)} text={tag.value.toUpperCase()} />
+                <Status
+                  color={defineColorByPriority(tag.priority, theme)}
+                  text={tag.value.toUpperCase()}
+                />
               </Col>
-            );
+            )
           })}
         </Row>
-      ),
+      )
     },
     {
       title: t('tables.actions'),
@@ -145,19 +164,23 @@ export const BasicTable: React.FC = () => {
             <Button
               type="ghost"
               onClick={() => {
-                notificationController.info({ message: t('tables.inviteMessage', { name: record.name }) });
-              }}
-            >
+                notificationController.info({
+                  message: t('tables.inviteMessage', { name: record.name })
+                })
+              }}>
               {t('tables.invite')}
             </Button>
-            <Button type="default" danger onClick={() => handleDeleteRow(record.key)}>
+            <Button
+              type="default"
+              danger
+              onClick={() => handleDeleteRow(record.key)}>
               {t('tables.delete')}
             </Button>
           </Space>
-        );
-      },
-    },
-  ];
+        )
+      }
+    }
+  ]
 
   return (
     <Table
@@ -169,5 +192,5 @@ export const BasicTable: React.FC = () => {
       scroll={{ x: 800 }}
       bordered
     />
-  );
-};
+  )
+}

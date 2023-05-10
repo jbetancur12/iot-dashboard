@@ -1,29 +1,39 @@
-import React, { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Avatar } from 'antd';
-import { defineColorByPriority, getCurrencyPrice } from 'utils/utils';
-import { paymentStatuses } from 'constants/paymentStatuses';
-import { Dates } from 'constants/Dates';
-import { Status } from '../Status/Status';
-import * as S from './Payment.styles';
-import { Button } from 'components/common/buttons/Button/Button';
-import { useTheme } from 'styled-components';
+import React, { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Avatar } from 'antd'
+import { defineColorByPriority, getCurrencyPrice } from 'utils/utils'
+import { paymentStatuses } from 'constants/paymentStatuses'
+import { Dates } from 'constants/Dates'
+import { Status } from '../Status/Status'
+import * as S from './Payment.styles'
+import { Button } from 'components/common/buttons/Button/Button'
+import { useTheme } from 'styled-components'
 
 interface PaymentProps {
-  src: string;
-  recipient: string;
-  date: number;
-  status: number;
-  price: number;
-  currency: string;
+  src: string
+  recipient: string
+  date: number
+  status: number
+  price: number
+  currency: string
 }
 
-export const Payment: React.FC<PaymentProps> = ({ src, recipient, date, status, price, currency }) => {
-  const { t } = useTranslation();
+export const Payment: React.FC<PaymentProps> = ({
+  src,
+  recipient,
+  date,
+  status,
+  price,
+  currency
+}) => {
+  const { t } = useTranslation()
 
-  const theme = useTheme();
+  const theme = useTheme()
 
-  const paymentStatus = useMemo(() => paymentStatuses.find((item) => item.id === status), [status]);
+  const paymentStatus = useMemo(
+    () => paymentStatuses.find((item) => item.id === status),
+    [status]
+  )
 
   return paymentStatus ? (
     <>
@@ -40,7 +50,10 @@ export const Payment: React.FC<PaymentProps> = ({ src, recipient, date, status, 
         </S.Item>
         <S.Item>
           <S.Subtitle>{t('profile.nav.payments.status.title')}</S.Subtitle>
-          <Status color={defineColorByPriority(paymentStatus.priority, theme)} text={t(paymentStatus.name)} />
+          <Status
+            color={defineColorByPriority(paymentStatus.priority, theme)}
+            text={t(paymentStatus.name)}
+          />
         </S.Item>
         <S.Item>
           <S.Subtitle>{t('profile.nav.payments.date')}</S.Subtitle>
@@ -51,5 +64,5 @@ export const Payment: React.FC<PaymentProps> = ({ src, recipient, date, status, 
         <Button type="link">{t('profile.nav.payments.details')}</Button>
       </S.DetailsWrapper>
     </>
-  ) : null;
-};
+  ) : null
+}

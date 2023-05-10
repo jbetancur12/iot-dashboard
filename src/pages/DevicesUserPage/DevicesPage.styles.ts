@@ -1,6 +1,6 @@
-import { DashboardCard } from '@app/components/dashboard/DashboardCard/DashboardCard';
-import { Typography } from 'antd';
-import styled from 'styled-components';
+import { DashboardCard } from '@app/components/dashboard/DashboardCard/DashboardCard'
+import { Typography } from 'antd'
+import styled from 'styled-components'
 
 export const Title = styled(Typography.Text)`
   font-size: ${(props) => props.theme.commonFontSizes.xs};
@@ -13,12 +13,12 @@ export const Title = styled(Typography.Text)`
   @media only screen and ${(props) => props.theme.media.xl} {
     font-size: ${(props) => props.theme.commonFontSizes.lg};
   }
-`;
+`
 
 export const Text = styled(Typography.Text)`
   font-size: ${(props) => props.theme.commonFontSizes.xs};
   font-weight: ${(props) => props.theme.commonFontWeight.medium};
-`;
+`
 
 export const DeviceCard = styled(DashboardCard)`
   .ant-card-body {
@@ -31,4 +31,4 @@ export const DeviceCard = styled(DashboardCard)`
     opacity: 0.9;
     transform: scale(1.01);
   }
-`;
+`

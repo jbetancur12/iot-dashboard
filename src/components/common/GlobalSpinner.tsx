@@ -1,27 +1,33 @@
-import React, { useMemo } from 'react';
-import styled from 'styled-components';
-import { hexToHSL } from '@app/utils/utils';
+import React, { useMemo } from 'react'
+import styled from 'styled-components'
+import { hexToHSL } from '@app/utils/utils'
 
 interface SpinnerOriginalProps {
-  className?: string;
-  color: string;
+  className?: string
+  color: string
 }
 
-const SpinnerOriginal: React.FC<SpinnerOriginalProps> = ({ className, color }) => {
+const SpinnerOriginal: React.FC<SpinnerOriginalProps> = ({
+  className,
+  color
+}) => {
   const colors = useMemo(
     () =>
       new Array(6).fill(color).map((color, index) => {
-        const { h, s, l } = hexToHSL(color);
-        const newH = Math.min(360, h * 360 + 10 * index);
-        const rounded = [newH, s * 100, l * 100].map(Math.round);
+        const { h, s, l } = hexToHSL(color)
+        const newH = Math.min(360, h * 360 + 10 * index)
+        const rounded = [newH, s * 100, l * 100].map(Math.round)
 
-        return `hsl(${rounded[0]}, ${rounded[1]}%, ${rounded[2]}%)`;
+        return `hsl(${rounded[0]}, ${rounded[1]}%, ${rounded[2]}%)`
       }),
-    [color],
-  );
+    [color]
+  )
 
   return (
-    <svg className={className} viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      className={className}
+      viewBox="0 0 128 128"
+      xmlns="http://www.w3.org/2000/svg">
       <circle
         className="pl__ring1"
         cx="64"
@@ -101,11 +107,11 @@ const SpinnerOriginal: React.FC<SpinnerOriginalProps> = ({ className, color }) =
         strokeDashoffset="-203.9"
       />
     </svg>
-  );
-};
+  )
+}
 
 interface GlobalSpinnerProps {
-  size?: string;
+  size?: string
 }
 
 export const GlobalSpinner = styled(SpinnerOriginal)<GlobalSpinnerProps>`
@@ -304,4 +310,4 @@ export const GlobalSpinner = styled(SpinnerOriginal)<GlobalSpinnerProps>`
       transform: rotate(4.75turn);
     }
   }
-`;
+`

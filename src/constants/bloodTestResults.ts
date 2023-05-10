@@ -1,12 +1,12 @@
 export interface BloodTestResult {
-  key: number;
-  test: string;
-  result: number;
-  min?: number;
-  max?: number;
-  units: string;
-  yearData: number[];
-  flag: number;
+  key: number
+  test: string
+  result: number
+  min?: number
+  max?: number
+  units: string
+  yearData: number[]
+  flag: number
 }
 
 export const results: BloodTestResult[] = [
@@ -30,7 +30,7 @@ export const results: BloodTestResult[] = [
   { test: 'Eos (asb)', result: 0.1, min: 0, max: 0.4, units: 'K/uL' },
   { test: 'Baso (abs)', result: 0.0, min: 0, max: 0.2, units: 'K/uL' },
   { test: 'Immature Granulocytes', result: 0, units: '%' },
-  { test: 'Immature Gran (abs)', result: 0.0, min: 0, max: 0.1, units: 'K/uL' },
+  { test: 'Immature Gran (abs)', result: 0.0, min: 0, max: 0.1, units: 'K/uL' }
 ]
   .map((result, index) => ({ ...result, key: index }))
   .map(({ result, ...rest }) => ({
@@ -38,18 +38,22 @@ export const results: BloodTestResult[] = [
     result,
     yearData: Array(12)
       .fill(null)
-      .map(() => result * Math.abs(Math.sin(Math.random() * result))),
+      .map(() => result * Math.abs(Math.sin(Math.random() * result)))
   }))
   .map(({ result, min, max, ...rest }) => {
-    let flag = 0;
+    let flag = 0
     if (min !== undefined && max !== undefined) {
       if (result < min) {
-        flag = 1;
+        flag = 1
       } else if (result > max) {
-        flag = 2;
+        flag = 2
       }
     }
-    return { ...rest, result, min, max, flag };
-  });
+    return { ...rest, result, min, max, flag }
+  })
 
-export const flags = ['dashboard.bloodScreening.norm', 'dashboard.bloodScreening.low', 'dashboard.bloodScreening.high'];
+export const flags = [
+  'dashboard.bloodScreening.norm',
+  'dashboard.bloodScreening.low',
+  'dashboard.bloodScreening.high'
+]

@@ -1,1 +1,1 @@
-declare module 'elt-react-credit-cards';
+declare module 'elt-react-credit-cards'

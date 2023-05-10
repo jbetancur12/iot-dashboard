@@ -1,15 +1,15 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import * as S from './Error.styles';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import * as S from './Error.styles'
+import { Link } from 'react-router-dom'
 
 interface ErrorProps {
-  img: string;
-  msg: string;
+  img: string
+  msg: string
 }
 
 export const Error: React.FC<ErrorProps> = ({ img, msg }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <S.Wrapper>
@@ -23,5 +23,5 @@ export const Error: React.FC<ErrorProps> = ({ img, msg }) => {
         </Link>
       </S.ContentWrapper>
     </S.Wrapper>
-  );
-};
+  )
+}

@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { Col, Row, Space, TablePaginationConfig } from 'antd';
+import React, { useEffect, useState, useCallback } from 'react'
+import { Col, Row, Space, TablePaginationConfig } from 'antd'
 import {
   BasicTableRow,
   DeviceTableData,
@@ -7,43 +7,46 @@ import {
   getBasicTableData,
   getDevicesData,
   Pagination,
-  Tag,
-} from 'api/table.api';
-import { Table } from 'components/common/Table/Table';
-import { ColumnsType, TableProps } from 'antd/es/table';
-import { Button } from 'components/common/buttons/Button/Button';
-import { useTranslation } from 'react-i18next';
-import { defineColorByPriority } from '@app/utils/utils';
-import { notificationController } from 'controllers/notificationController';
-import { Status } from '@app/components/profile/profileCard/profileFormNav/nav/payments/paymentHistory/Status/Status';
-import { useMounted } from '@app/hooks/useMounted';
-import { useTheme } from 'styled-components';
+  Tag
+} from 'api/table.api'
+import { Table } from 'components/common/Table/Table'
+import { ColumnsType, TableProps } from 'antd/es/table'
+import { Button } from 'components/common/buttons/Button/Button'
+import { useTranslation } from 'react-i18next'
+import { defineColorByPriority } from '@app/utils/utils'
+import { notificationController } from 'controllers/notificationController'
+import { Status } from '@app/components/profile/profileCard/profileFormNav/nav/payments/paymentHistory/Status/Status'
+import { useMounted } from '@app/hooks/useMounted'
+import { useTheme } from 'styled-components'
 
-import { doDeleteThing, retrieveThings } from '@app/store/slices/thingSlice';
-import { useAppDispatch, useAppSelector } from '@app/hooks/reduxHooks';
-import { useNavigate } from 'react-router-dom';
+import { doDeleteThing, retrieveThings } from '@app/store/slices/thingSlice'
+import { useAppDispatch, useAppSelector } from '@app/hooks/reduxHooks'
+import { useNavigate } from 'react-router-dom'
 
 export const DevicesManagerTable: React.FC = () => {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const { things } = useAppSelector((state) => state.thing);
-  const [tableData, setTableData] = useState<{ data: DeviceTableRow[]; loading: boolean }>({
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const { things } = useAppSelector((state) => state.thing)
+  const [tableData, setTableData] = useState<{
+    data: DeviceTableRow[]
+    loading: boolean
+  }>({
     data: [],
-    loading: false,
-  });
+    loading: false
+  })
 
   const initFetch = useCallback(() => {
-    dispatch(retrieveThings());
-  }, [dispatch]);
+    dispatch(retrieveThings())
+  }, [dispatch])
 
   useEffect(() => {
-    initFetch();
-  }, [initFetch]);
+    initFetch()
+  }, [initFetch])
 
-  const { t } = useTranslation();
-  const { isMounted } = useMounted();
+  const { t } = useTranslation()
+  const { isMounted } = useMounted()
 
-  const theme = useTheme();
+  const theme = useTheme()
 
   // const fetch = useCallback(() => {
   //   setTableData((tableData) => ({ ...tableData, loading: true }));
@@ -58,9 +61,14 @@ export const DevicesManagerTable: React.FC = () => {
   //   fetch();
   // }, [fetch]);
 
-  const handleTableChange: TableProps<DeviceTableRow>['onChange'] = (pagination, filters, sorter, extra) => {
-    console.log('params', pagination, filters, sorter, extra);
-  };
+  const handleTableChange: TableProps<DeviceTableRow>['onChange'] = (
+    pagination,
+    filters,
+    sorter,
+    extra
+  ) => {
+    console.log('params', pagination, filters, sorter, extra)
+  }
 
   const handleDeleteRow = (rowId: string) => {
     dispatch(doDeleteThing(rowId))
@@ -69,13 +77,13 @@ export const DevicesManagerTable: React.FC = () => {
         notificationController.success({
           message: t('device.deviceDeletedSuccesfullly'),
           // @ts-ignored
-          description: data.name,
-        });
+          description: data.name
+        })
       })
       .catch((err) => {
-        notificationController.error({ message: err.message });
-      });
-  };
+        notificationController.error({ message: err.message })
+      })
+  }
 
   const columns: ColumnsType<DeviceTableRow> = [
     {
@@ -84,7 +92,7 @@ export const DevicesManagerTable: React.FC = () => {
       render: (text: string) => <span>{text}</span>,
       sorter: (a, b) => a.name.length - b.name.length,
       // sortOrder: sortedInfo.columnKey === 'name' ? sortedInfo.order : null,
-      ellipsis: true,
+      ellipsis: true
       // sorter: (a: BasicTableRow, b: BasicTableRow) => a.age - b.age,
       // filters: [
       //   {
@@ -134,11 +142,11 @@ export const DevicesManagerTable: React.FC = () => {
       title: 'Mac',
       dataIndex: 'mac',
       // sorter: (a: BasicTableRow, b: BasicTableRow) => a.age - b.age,
-      showSorterTooltip: false,
+      showSorterTooltip: false
     },
     {
       title: 'Date',
-      dataIndex: 'createdAt',
+      dataIndex: 'createdAt'
     },
     {
       title: t('tables.actions'),
@@ -147,17 +155,22 @@ export const DevicesManagerTable: React.FC = () => {
       render: (text: string, record: { name: string; _id: string }) => {
         return (
           <Space>
-            <Button type="ghost" onClick={() => navigate(`edit-device/${record._id}`)}>
+            <Button
+              type="ghost"
+              onClick={() => navigate(`edit-device/${record._id}`)}>
               {t('tables.edit')}
             </Button>
-            <Button type="default" danger onClick={() => handleDeleteRow(record._id)}>
+            <Button
+              type="default"
+              danger
+              onClick={() => handleDeleteRow(record._id)}>
               {t('tables.delete')}
             </Button>
           </Space>
-        );
-      },
-    },
-  ];
+        )
+      }
+    }
+  ]
 
   return (
     <Table
@@ -168,5 +181,5 @@ export const DevicesManagerTable: React.FC = () => {
       scroll={{ x: 800 }}
       bordered
     />
-  );
-};
+  )
+}

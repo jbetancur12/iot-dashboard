@@ -1,59 +1,70 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useTheme } from 'styled-components';
-import { useTranslation } from 'react-i18next';
-import { Card } from '@app/components/common/Card/Card';
-import { BaseChart } from '@app/components/common/charts/BaseChart';
-import Data from './data.json';
+import React, { useState, useEffect, useCallback } from 'react'
+import { useTheme } from 'styled-components'
+import { useTranslation } from 'react-i18next'
+import { Card } from '@app/components/common/Card/Card'
+import { BaseChart } from '@app/components/common/charts/BaseChart'
+import Data from './data.json'
 
 interface DataRow {
-  id: string;
-  fromDatasetId: string;
+  id: string
+  fromDatasetId: string
   transform: {
-    type: string;
-    config: { and: [{ dimension: string; gte: number }, { dimension: string; '=': string }] };
-  };
+    type: string
+    config: {
+      and: [
+        { dimension: string; gte: number },
+        { dimension: string; '=': string }
+      ]
+    }
+  }
 }
 
 interface SeriesRow {
-  type: string;
-  datasetId: string;
-  showSymbol: boolean;
-  name: string;
+  type: string
+  datasetId: string
+  showSymbol: boolean
+  name: string
   endLabel: {
-    show: boolean;
-    formatter: (params: { value: string }) => string;
-    color?: string;
-  };
+    show: boolean
+    formatter: (params: { value: string }) => string
+    color?: string
+  }
   labelLayout: {
-    moveOverlap: string;
-  };
+    moveOverlap: string
+  }
   emphasis: {
-    focus: string;
-  };
+    focus: string
+  }
   encode: {
-    x: string;
-    y: string;
-    label: [string, string];
-    itemName: string;
-    tooltip: [string];
-  };
+    x: string
+    y: string
+    label: [string, string]
+    itemName: string
+    tooltip: [string]
+  }
 }
 
 export const LineRaceChart: React.FC = () => {
-  const [data, setData] = useState<DataRow[]>([]);
-  const [series, setSeries] = useState<SeriesRow[]>([]);
-  const rawData = JSON.parse(JSON.stringify(Data));
-  const { t } = useTranslation();
+  const [data, setData] = useState<DataRow[]>([])
+  const [series, setSeries] = useState<SeriesRow[]>([])
+  const rawData = JSON.parse(JSON.stringify(Data))
+  const { t } = useTranslation()
 
-  const theme = useTheme();
+  const theme = useTheme()
 
   const runAnimation = useCallback(() => {
-    const countries = ['Finland', 'Germany', 'Iceland', 'Norway', 'United Kingdom'];
-    const datasetWithFilters: DataRow[] = [];
-    const seriesList: SeriesRow[] = [];
+    const countries = [
+      'Finland',
+      'Germany',
+      'Iceland',
+      'Norway',
+      'United Kingdom'
+    ]
+    const datasetWithFilters: DataRow[] = []
+    const seriesList: SeriesRow[] = []
 
     countries.forEach((country) => {
-      const datasetId = `dataset_${country}`;
+      const datasetId = `dataset_${country}`
       datasetWithFilters.push({
         id: datasetId,
         fromDatasetId: 'dataset_raw',
@@ -62,11 +73,11 @@ export const LineRaceChart: React.FC = () => {
           config: {
             and: [
               { dimension: 'Year', gte: 1950 },
-              { dimension: 'Country', '=': country },
-            ],
-          },
-        },
-      });
+              { dimension: 'Country', '=': country }
+            ]
+          }
+        }
+      })
       seriesList.push({
         type: 'line',
         datasetId: datasetId,
@@ -75,65 +86,65 @@ export const LineRaceChart: React.FC = () => {
         endLabel: {
           show: true,
           formatter: (params) => `${params.value[3]}: ${params.value[0]}`,
-          color: theme.colors.text.main,
+          color: theme.colors.text.main
         },
         labelLayout: {
-          moveOverlap: 'shiftY',
+          moveOverlap: 'shiftY'
         },
         emphasis: {
-          focus: 'series',
+          focus: 'series'
         },
         encode: {
           x: 'Year',
           y: 'Income',
           label: ['Country', 'Income'],
           itemName: 'Year',
-          tooltip: ['Income'],
-        },
-      });
-    });
-    setData(datasetWithFilters);
-    setSeries(seriesList);
-  }, [theme]);
+          tooltip: ['Income']
+        }
+      })
+    })
+    setData(datasetWithFilters)
+    setSeries(seriesList)
+  }, [theme])
 
   useEffect(() => {
     setTimeout(() => {
-      runAnimation();
-    }, 200);
-  }, [runAnimation]);
+      runAnimation()
+    }, 200)
+  }, [runAnimation])
 
   const option = {
     animationDuration: 10000,
     dataset: [
       {
         id: 'dataset_raw',
-        source: rawData,
+        source: rawData
       },
-      ...data,
+      ...data
     ],
     tooltip: {
       order: 'valueDesc',
-      trigger: 'axis',
+      trigger: 'axis'
     },
     xAxis: {
       type: 'category',
-      nameLocation: 'middle',
+      nameLocation: 'middle'
     },
     yAxis: {
-      name: '',
+      name: ''
     },
     grid: {
       left: 65,
       right: 150,
       top: 20,
-      bottom: 30,
+      bottom: 30
     },
-    series: series,
-  };
+    series: series
+  }
 
   return (
     <Card padding="0 0 1.875rem" title={t('charts.lineRace')}>
       <BaseChart option={option} height="24rem" />
     </Card>
-  );
-};
+  )
+}

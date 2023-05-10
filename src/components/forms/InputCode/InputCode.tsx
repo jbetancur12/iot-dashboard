@@ -1,5 +1,5 @@
-import React from 'react';
+import React from 'react'
 
 export const InputCode: React.FC = () => {
-  return <div></div>;
-};
+  return <div></div>
+}

@@ -1,38 +1,40 @@
-import { shadeColor } from '@app/utils/utils';
-import styled from 'styled-components';
-import { InfoCircleOutlined } from '@ant-design/icons/lib';
+import { shadeColor } from '@app/utils/utils'
+import styled from 'styled-components'
+import { InfoCircleOutlined } from '@ant-design/icons/lib'
 
 interface LegendWrapperProps {
-  isSelected: boolean;
+  isSelected: boolean
 }
 
 export const LegendWrapper = styled.div<LegendWrapperProps>`
   display: flex;
   padding: 0.5rem;
   background: ${(props) =>
-    props.isSelected ? shadeColor(props.theme.colors.main.secondaryBackground, -5) : 'transparent'};
+    props.isSelected
+      ? shadeColor(props.theme.colors.main.secondaryBackground, -5)
+      : 'transparent'};
   border-radius: ${(props) => props.theme.border.radius};
-`;
+`
 
 export const LegendInfo = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
   color: ${(props) => props.theme.colors.text.superLight};
-`;
+`
 
 export const LegendDescription = styled.div`
   display: flex;
   margin-left: 1.25rem;
   width: 100%;
-`;
+`
 
 export const LegendColor = styled.span`
   height: 1rem;
   width: 1rem;
   min-width: 1rem;
   border-radius: 50%;
-`;
+`
 
 export const LegendTitle = styled.div`
   line-height: 1rem;
@@ -48,18 +50,18 @@ export const LegendTitle = styled.div`
   @media only screen and ${(props) => props.theme.media.md} {
     font-size: ${(props) => props.theme.commonFontSizes.md};
   }
-`;
+`
 
 export const InfoStyled = styled(InfoCircleOutlined)`
   cursor: pointer;
   margin-left: 0.5rem;
 
   color: ${(props) => props.theme.colors.text.main};
-`;
+`
 
 export const PopoverContent = styled.div`
   max-width: 15rem;
-`;
+`
 
 export const Values = styled.div`
   display: flex;
@@ -70,4 +72,4 @@ export const Values = styled.div`
   @media only screen and ${(props) => props.theme.media.md} {
     margin-left: 1.5rem;
   }
-`;
+`

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import VerificationInput from 'react-verification-input';
+import styled from 'styled-components'
+import VerificationInput from 'react-verification-input'
 
 export const CodeInput = styled(VerificationInput)`
   display: flex;
@@ -47,4 +47,4 @@ export const CodeInput = styled(VerificationInput)`
       height: 5rem;
     }
   }
-`;
+`

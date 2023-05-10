@@ -1,16 +1,16 @@
-import styled from 'styled-components';
-import { Typography } from 'antd';
-import { hexToRGB } from 'utils/utils';
+import styled from 'styled-components'
+import { Typography } from 'antd'
+import { hexToRGB } from 'utils/utils'
 
 interface FullnessLineProps {
-  width: number;
+  width: number
 }
 
 export const Wrapper = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
-`;
+`
 
 export const ImgWrapper = styled.div`
   width: 6.9375rem;
@@ -35,7 +35,7 @@ export const ImgWrapper = styled.div`
       margin: 7px;
     }
   }
-`;
+`
 
 export const Title = styled(Typography.Text)`
   font-size: 1.125rem;
@@ -46,7 +46,7 @@ export const Title = styled(Typography.Text)`
     font-size: 1.5rem;
     margin-bottom: 1rem;
   }
-`;
+`
 
 export const Subtitle = styled(Typography.Text)`
   margin-bottom: 2rem;
@@ -56,20 +56,21 @@ export const Subtitle = styled(Typography.Text)`
     font-size: 1rem;
     margin-bottom: 2.5rem;
   }
-`;
+`
 
 export const FullnessWrapper = styled.div`
   border-radius: 50px;
   height: 1.875rem;
   margin-bottom: 0.625rem;
 
-  background-color: ${(props) => hexToRGB(props.theme.colors.main.warning, 0.5)};
+  background-color: ${(props) =>
+    hexToRGB(props.theme.colors.main.warning, 0.5)};
 
   @media only screen and ${(props) => props.theme.media.xl} {
     height: 2.5rem;
     margin-bottom: 1rem;
   }
-`;
+`
 
 export const FullnessLine = styled.div<FullnessLineProps>`
   display: flex;
@@ -94,7 +95,7 @@ export const FullnessLine = styled.div<FullnessLineProps>`
     font-weight: 600;
     padding-right: 0.875rem;
   }
-`;
+`
 
 export const Text = styled(Typography.Text)`
   font-size: 0.75rem;
@@ -110,4 +111,4 @@ export const Text = styled(Typography.Text)`
     font-size: 0.875rem;
     text-align: left;
   }
-`;
+`

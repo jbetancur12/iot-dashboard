@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 interface BackgroundWrapperProps {
-  isActive: boolean;
-  background: string;
+  isActive: boolean
+  background: string
 }
 
 export const BackgroundWrapper = styled.div<BackgroundWrapperProps>`
@@ -31,7 +31,7 @@ export const BackgroundWrapper = styled.div<BackgroundWrapperProps>`
     ${(props) => `background: url(${props.background})`};
     background-size: cover;
   }
-`;
+`
 
 export const Theme = styled.div`
   width: calc(100% - 0.4rem);
@@ -41,4 +41,4 @@ export const Theme = styled.div`
   border: 5px solid ${(props) => props.theme.colors.main.mainBackground};
 
   border-radius: ${(props) => props.theme.border.radius};
-`;
+`

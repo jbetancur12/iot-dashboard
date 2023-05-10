@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { CountryMap } from '../../../common/CountryMap/CountryMap';
+import styled from 'styled-components'
+import { CountryMap } from '../../../common/CountryMap/CountryMap'
 
 export const DoctorsMap = styled(CountryMap)`
   // Leaflet uses z-index inside. Create a new stacking context for avoiding overlapping
@@ -37,7 +37,8 @@ export const DoctorsMap = styled(CountryMap)`
 
   .leaflet-marker-icon {
     border-radius: 50%;
-    border: 2px solid ${(props) => props.theme.colors.dashboardMap.markerBorderColor};
+    border: 2px solid
+      ${(props) => props.theme.colors.dashboardMap.markerBorderColor};
   }
 
   .leaflet-control-zoom {
@@ -52,16 +53,19 @@ export const DoctorsMap = styled(CountryMap)`
 
   .leaflet-control-zoom-out,
   .leaflet-control-zoom-in {
-    background-color: ${(props) => props.theme.colors.dashboardMap.controlBackgroundColor};
+    background-color: ${(props) =>
+      props.theme.colors.dashboardMap.controlBackgroundColor};
     color: ${(props) => props.theme.colors.dashboardMap.controlColor};
 
     &:hover {
-      background-color: ${(props) => props.theme.colors.dashboardMap.controlBackgroundColor};
+      background-color: ${(props) =>
+        props.theme.colors.dashboardMap.controlBackgroundColor};
       color: ${(props) => props.theme.colors.dashboardMap.dotsHoveredColor};
     }
 
     &.leaflet-disabled {
-      background-color: ${(props) => props.theme.colors.dashboardMap.controlDisabledBackgroundColor};
+      background-color: ${(props) =>
+        props.theme.colors.dashboardMap.controlDisabledBackgroundColor};
       color: ${(props) => props.theme.colors.dashboardMap.controlColor};
     }
   }
@@ -69,4 +73,4 @@ export const DoctorsMap = styled(CountryMap)`
   .leaflet-control-zoom-in {
     margin-bottom: 0.5rem;
   }
-`;
+`

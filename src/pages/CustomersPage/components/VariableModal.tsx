@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { Modal, Form, Input, Button } from 'antd';
-import { Select, Option } from '@app/components/common/selects/Select/Select';
-import { VariableData } from '@app/api/variable.api';
+import React, { useState } from 'react'
+import { Modal, Form, Input, Button } from 'antd'
+import { Select, Option } from '@app/components/common/selects/Select/Select'
+import { VariableData } from '@app/api/variable.api'
 
 interface IVariableModalProps {
-  visible: boolean;
-  onCreate: (values: any) => void;
-  onUpdate: (id: string | undefined, data: VariableData) => void;
-  onCancel: () => void;
-  variable?: any;
-  template: string | undefined;
-  customer: string | undefined;
+  visible: boolean
+  onCreate: (values: any) => void
+  onUpdate: (id: string | undefined, data: VariableData) => void
+  onCancel: () => void
+  variable?: any
+  template: string | undefined
+  customer: string | undefined
 }
 
 const VariableModal: React.FC<IVariableModalProps> = ({
@@ -20,37 +20,37 @@ const VariableModal: React.FC<IVariableModalProps> = ({
   onCancel,
   template,
   customer,
-  variable,
+  variable
 }) => {
-  const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
-  const [typePinValue, setTypePinValue] = useState('');
+  const [form] = Form.useForm()
+  const [loading, setLoading] = useState(false)
+  const [typePinValue, setTypePinValue] = useState('')
 
-  form.setFieldsValue(template);
+  form.setFieldsValue(template)
 
   form.setFieldsValue({
     template: template,
-    customer: customer,
-  });
+    customer: customer
+  })
 
   const handleOk = () => {
     // setLoading(true);
     form
       .validateFields()
       .then((values) => {
-        variable ? onUpdate(variable._id, values) : onCreate(values);
-        form.resetFields();
+        variable ? onUpdate(variable._id, values) : onCreate(values)
+        form.resetFields()
         //   setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
-      });
-  };
+        console.log(error)
+      })
+  }
 
   const handleOnCancel = () => {
-    form.resetFields();
-    onCancel();
-  };
+    form.resetFields()
+    onCancel()
+  }
 
   return (
     <Modal
@@ -62,11 +62,14 @@ const VariableModal: React.FC<IVariableModalProps> = ({
         <Button key="cancel" onClick={handleOnCancel}>
           Cancelar
         </Button>,
-        <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
+        <Button
+          key="submit"
+          type="primary"
+          loading={loading}
+          onClick={handleOk}>
           {variable ? 'Actualizar' : 'Crear'}
-        </Button>,
-      ]}
-    >
+        </Button>
+      ]}>
       <Form form={form} layout="vertical">
         <Form.Item
           name="name"
@@ -74,10 +77,9 @@ const VariableModal: React.FC<IVariableModalProps> = ({
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese el nombre',
-            },
-          ]}
-        >
+              message: 'Por favor ingrese el nombre'
+            }
+          ]}>
           <Input placeholder="Ingrese el nombre" />
         </Form.Item>
         <Form.Item
@@ -86,10 +88,9 @@ const VariableModal: React.FC<IVariableModalProps> = ({
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese le tipo de sensor',
-            },
-          ]}
-        >
+              message: 'Por favor ingrese le tipo de sensor'
+            }
+          ]}>
           <Input placeholder="Ingrese el tipo de sensor" />
         </Form.Item>
 
@@ -99,10 +100,9 @@ const VariableModal: React.FC<IVariableModalProps> = ({
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese la unidad',
-            },
-          ]}
-        >
+              message: 'Por favor ingrese la unidad'
+            }
+          ]}>
           <Input placeholder="Ingrese el customer" />
         </Form.Item>
 
@@ -112,10 +112,9 @@ const VariableModal: React.FC<IVariableModalProps> = ({
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese la Pin',
-            },
-          ]}
-        >
+              message: 'Por favor ingrese la Pin'
+            }
+          ]}>
           <Input placeholder="Ingrese el Pin" />
         </Form.Item>
 
@@ -125,11 +124,12 @@ const VariableModal: React.FC<IVariableModalProps> = ({
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese El Tipo de Pin',
-            },
-          ]}
-        >
-          <Select placeholder="Seleccione algo" onChange={() => setTypePinValue(form.getFieldValue('typePin'))}>
+              message: 'Por favor ingrese El Tipo de Pin'
+            }
+          ]}>
+          <Select
+            placeholder="Seleccione algo"
+            onChange={() => setTypePinValue(form.getFieldValue('typePin'))}>
             <Option value="digitalOutput">Salida Digital</Option>
             <Option value="digitalInput">Entrada Digital</Option>
             <Option value="analogInput">Entrada Analoga</Option>
@@ -157,10 +157,9 @@ const VariableModal: React.FC<IVariableModalProps> = ({
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese un customer',
-            },
-          ]}
-        >
+              message: 'Por favor ingrese un customer'
+            }
+          ]}>
           <Input placeholder="Ingrese el customer" />
         </Form.Item>
 
@@ -170,15 +169,14 @@ const VariableModal: React.FC<IVariableModalProps> = ({
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese un template',
-            },
-          ]}
-        >
+              message: 'Por favor ingrese un template'
+            }
+          ]}>
           <Input placeholder="Ingrese el template" />
         </Form.Item>
       </Form>
     </Modal>
-  );
-};
+  )
+}
 
-export default VariableModal;
+export default VariableModal

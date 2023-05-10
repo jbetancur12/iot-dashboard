@@ -1,9 +1,9 @@
-import avatar1 from 'assets/avatars/avatar1.png';
-import avatar2 from 'assets/avatars/avatar2.png';
-import { Post } from '../api/news.api';
-import { newsTags } from './newsTags';
+import avatar1 from 'assets/avatars/avatar1.png'
+import avatar2 from 'assets/avatars/avatar2.png'
+import { Post } from '../api/news.api'
+import { newsTags } from './newsTags'
 
-const { health, covid } = newsTags;
+const { health, covid } = newsTags
 
 export const dashboardNews: Array<Post> = [
   {
@@ -13,7 +13,7 @@ export const dashboardNews: Array<Post> = [
     img: 'https://res.cloudinary.com/lapkinthegod/image/upload/v1628873611/Rectangle_440_2_yussyc.jpg',
     avatarUrl: avatar1,
     author: 'Dr. Dan Reed',
-    tags: [health, covid],
+    tags: [health, covid]
   },
   {
     title: 'Advancing our understanding of T cells to improve cancer therapies',
@@ -22,6 +22,6 @@ export const dashboardNews: Array<Post> = [
     img: 'https://res.cloudinary.com/lapkinthegod/image/upload/v1628873607/Rectangle_742_azba4d.jpg',
     avatarUrl: avatar2,
     author: 'Jordan Howard',
-    tags: [health],
-  },
-];
+    tags: [health]
+  }
+]

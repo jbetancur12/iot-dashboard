@@ -1,16 +1,19 @@
-import { Space } from 'antd';
-import React from 'react';
-import { TimeRangePicker } from 'components/common/pickers/TimeRangePicker';
-import * as S from './NightTimePicker.styles';
-import { useTranslation } from 'react-i18next';
+import { Space } from 'antd'
+import React from 'react'
+import { TimeRangePicker } from 'components/common/pickers/TimeRangePicker'
+import * as S from './NightTimePicker.styles'
+import { useTranslation } from 'react-i18next'
 
 interface NightTimePickerProps {
-  nightTime: number[];
-  setNightTime: (nightTime: number[]) => void;
+  nightTime: number[]
+  setNightTime: (nightTime: number[]) => void
 }
 
-export const NightTimePicker: React.FC<NightTimePickerProps> = ({ nightTime, setNightTime }) => {
-  const { t } = useTranslation();
+export const NightTimePicker: React.FC<NightTimePickerProps> = ({
+  nightTime,
+  setNightTime
+}) => {
+  const { t } = useTranslation()
 
   return (
     <>
@@ -20,5 +23,5 @@ export const NightTimePicker: React.FC<NightTimePickerProps> = ({ nightTime, set
       </Space>
       <TimeRangePicker timeRange={nightTime} setTimeRange={setNightTime} />
     </>
-  );
-};
+  )
+}

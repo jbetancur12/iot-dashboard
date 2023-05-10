@@ -1,19 +1,19 @@
-import React from 'react';
-import { Dates } from '../../../constants/Dates';
-import { Avatar } from 'antd';
-import { Tag, ITag } from '../Tag/Tag';
-import * as S from './ArticleCard.styles';
-import { useTheme } from 'styled-components';
+import React from 'react'
+import { Dates } from '../../../constants/Dates'
+import { Avatar } from 'antd'
+import { Tag, ITag } from '../Tag/Tag'
+import * as S from './ArticleCard.styles'
+import { useTheme } from 'styled-components'
 
 interface ArticleCardProps {
-  author?: React.ReactNode;
-  imgUrl: string;
-  title: string;
-  date: number;
-  description: string;
-  avatar?: string;
-  tags?: ITag[];
-  className?: string;
+  author?: React.ReactNode
+  imgUrl: string
+  title: string
+  date: number
+  description: string
+  avatar?: string
+  tags?: ITag[]
+  className?: string
 }
 
 export const ArticleCard: React.FC<ArticleCardProps> = ({
@@ -24,9 +24,9 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
   author,
   avatar,
   tags,
-  className = 'article-card',
+  className = 'article-card'
 }) => {
-  const theme = useTheme();
+  const theme = useTheme()
 
   return (
     <S.Wrapper className={className}>
@@ -48,10 +48,14 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
       {!!tags?.length && (
         <S.TagsWrapper>
           {tags.map((tag) => (
-            <Tag key={tag.bgColor} title={tag.title} bgColor={theme.colors.main[tag.bgColor]} />
+            <Tag
+              key={tag.bgColor}
+              title={tag.title}
+              bgColor={theme.colors.main[tag.bgColor]}
+            />
           ))}
         </S.TagsWrapper>
       )}
     </S.Wrapper>
-  );
-};
+  )
+}

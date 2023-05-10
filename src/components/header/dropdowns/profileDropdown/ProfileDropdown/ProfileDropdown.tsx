@@ -1,15 +1,15 @@
-import React from 'react';
-import { Avatar, Col, Dropdown, Row } from 'antd';
-import { H6 } from '@app/components/common/typography/H6/H6';
-import { ProfileOverlay } from '../ProfileOverlay/ProfileOverlay';
-import { useAppSelector } from '@app/hooks/reduxHooks';
-import { useResponsive } from '@app/hooks/useResponsive';
-import * as S from './ProfileDropdown.styles';
+import React from 'react'
+import { Avatar, Col, Dropdown, Row } from 'antd'
+import { H6 } from '@app/components/common/typography/H6/H6'
+import { ProfileOverlay } from '../ProfileOverlay/ProfileOverlay'
+import { useAppSelector } from '@app/hooks/reduxHooks'
+import { useResponsive } from '@app/hooks/useResponsive'
+import * as S from './ProfileDropdown.styles'
 
 export const ProfileDropdown: React.FC = () => {
-  const { isTablet } = useResponsive();
+  const { isTablet } = useResponsive()
 
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user.user)
 
   return user ? (
     <Dropdown overlay={<ProfileOverlay />} trigger={['click']}>
@@ -24,5 +24,5 @@ export const ProfileDropdown: React.FC = () => {
         )}
       </S.ProfileDropdownHeader>
     </Dropdown>
-  ) : null;
-};
+  ) : null
+}

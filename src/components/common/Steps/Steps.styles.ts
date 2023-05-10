@@ -1,10 +1,14 @@
-import styled from 'styled-components';
-import { Steps as AntdSteps } from 'antd';
+import styled from 'styled-components'
+import { Steps as AntdSteps } from 'antd'
 
 export const Steps = styled(AntdSteps)`
   font-size: unset;
 
-  & .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title {
+  &
+    .ant-steps-item-process
+    > .ant-steps-item-container
+    > .ant-steps-item-content
+    > .ant-steps-item-title {
     color: ${(props) => props.theme.colors.main.primary};
     font-weight: ${(props) => props.theme.commonFontWeight.semibold};
     font-size: ${(props) => props.theme.commonFontSizes.xs};
@@ -15,7 +19,10 @@ export const Steps = styled(AntdSteps)`
     }
   }
 
-  .ant-steps-item-wait > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title {
+  .ant-steps-item-wait
+    > .ant-steps-item-container
+    > .ant-steps-item-content
+    > .ant-steps-item-title {
     color: ${(props) => props.theme.colors.text.main};
     font-weight: ${(props) => props.theme.commonFontWeight.semibold};
     font-size: ${(props) => props.theme.commonFontSizes.xs};
@@ -41,4 +48,4 @@ export const Steps = styled(AntdSteps)`
       padding: 1.625rem 0 0.375rem;
     }
   }
-`;
+`

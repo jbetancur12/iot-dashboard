@@ -1,6 +1,6 @@
-import { DownOutlined } from '@ant-design/icons';
-import styled from 'styled-components';
-import { DropdownHeader } from '../../../Header/Header.styles';
+import { DownOutlined } from '@ant-design/icons'
+import styled from 'styled-components'
+import { DropdownHeader } from '../../../Header/Header.styles'
 
 export const ProfileDropdownHeader = styled(DropdownHeader)`
   cursor: pointer;
@@ -11,7 +11,7 @@ export const ProfileDropdownHeader = styled(DropdownHeader)`
 
     background-color: ${(props) => props.theme.colors.main.secondaryBackground};
   }
-`;
+`
 
 export const DownArrow = styled(DownOutlined)`
   color: ${(props) => props.theme.colors.text.secondary};
@@ -19,4 +19,4 @@ export const DownArrow = styled(DownOutlined)`
   @media only screen and ${(props) => props.theme.media.md} {
     color: ${(props) => props.theme.colors.text.main};
   }
-`;
+`

@@ -1,12 +1,17 @@
-import { useState } from 'react';
-import { Col, message } from 'antd';
-import styled from 'styled-components';
-import { useTranslation } from 'react-i18next';
-import { Button } from '@app/components/common/buttons/Button/Button';
-import { Popconfirm } from '@app/components/common/Popconfirm/Popconfirm';
-import { TopButtons, LeftButtons, RightButtons, BottomButtons } from '@app/pages/uiComponentsPages/modals/PopoversPage';
-import { PageTitle } from '@app/components/common/PageTitle/PageTitle';
-import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles';
+import { useState } from 'react'
+import { Col, message } from 'antd'
+import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
+import { Button } from '@app/components/common/buttons/Button/Button'
+import { Popconfirm } from '@app/components/common/Popconfirm/Popconfirm'
+import {
+  TopButtons,
+  LeftButtons,
+  RightButtons,
+  BottomButtons
+} from '@app/pages/uiComponentsPages/modals/PopoversPage'
+import { PageTitle } from '@app/components/common/PageTitle/PageTitle'
+import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles'
 
 const AsyncButton = styled(Button)`
   @media only screen and ${(props) => props.theme.media.xs} {
@@ -15,26 +20,26 @@ const AsyncButton = styled(Button)`
   @media only screen and ${(props) => props.theme.media.md} {
     font-size: ${(props) => props.theme.commonFontSizes.md};
   }
-`;
+`
 
 const PopconfirmsPage: React.FC = () => {
-  const { t } = useTranslation();
-  const [visible, setVisible] = useState<boolean>(false);
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const { t } = useTranslation()
+  const [visible, setVisible] = useState<boolean>(false)
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
 
-  const text = t('popconfirm.content');
+  const text = t('popconfirm.content')
 
   const confirm = () => {
-    message.info(t('popconfirm.yesClick'));
-  };
+    message.info(t('popconfirm.yesClick'))
+  }
 
   const handleOk = () => {
-    setConfirmLoading(true);
+    setConfirmLoading(true)
     setTimeout(() => {
-      setVisible(false);
-      setConfirmLoading(false);
-    }, 2000);
-  };
+      setVisible(false)
+      setConfirmLoading(false)
+    }, 2000)
+  }
 
   return (
     <>
@@ -53,8 +58,7 @@ const PopconfirmsPage: React.FC = () => {
                 title={text}
                 onConfirm={confirm}
                 okText={t('popconfirm.yes')}
-                cancelText={t('popconfirm.no')}
-              >
+                cancelText={t('popconfirm.no')}>
                 <Button>{t('popovers.tl')}</Button>
               </Popconfirm>
               <Popconfirm
@@ -62,8 +66,7 @@ const PopconfirmsPage: React.FC = () => {
                 title={text}
                 onConfirm={confirm}
                 okText={t('popconfirm.yes')}
-                cancelText={t('popconfirm.no')}
-              >
+                cancelText={t('popconfirm.no')}>
                 <Button>{t('popovers.top')}</Button>
               </Popconfirm>
               <Popconfirm
@@ -71,8 +74,7 @@ const PopconfirmsPage: React.FC = () => {
                 title={text}
                 onConfirm={confirm}
                 okText={t('popconfirm.yes')}
-                cancelText={t('popconfirm.no')}
-              >
+                cancelText={t('popconfirm.no')}>
                 <Button>{t('popovers.tr')}</Button>
               </Popconfirm>
             </TopButtons>
@@ -82,8 +84,7 @@ const PopconfirmsPage: React.FC = () => {
                 title={text}
                 onConfirm={confirm}
                 okText={t('popconfirm.yes')}
-                cancelText={t('popconfirm.no')}
-              >
+                cancelText={t('popconfirm.no')}>
                 <Button>{t('popovers.lt')}</Button>
               </Popconfirm>
               <Popconfirm
@@ -91,8 +92,7 @@ const PopconfirmsPage: React.FC = () => {
                 title={text}
                 onConfirm={confirm}
                 okText={t('popconfirm.yes')}
-                cancelText={t('popconfirm.no')}
-              >
+                cancelText={t('popconfirm.no')}>
                 <Button>{t('popovers.left')}</Button>
               </Popconfirm>
               <Popconfirm
@@ -100,8 +100,7 @@ const PopconfirmsPage: React.FC = () => {
                 title={text}
                 onConfirm={confirm}
                 okText={t('popconfirm.yes')}
-                cancelText={t('popconfirm.no')}
-              >
+                cancelText={t('popconfirm.no')}>
                 <Button>{t('popovers.lb')}</Button>
               </Popconfirm>
             </LeftButtons>
@@ -111,8 +110,7 @@ const PopconfirmsPage: React.FC = () => {
                 title={text}
                 onConfirm={confirm}
                 okText={t('popconfirm.yes')}
-                cancelText={t('popconfirm.no')}
-              >
+                cancelText={t('popconfirm.no')}>
                 <Button>{t('popovers.rt')}</Button>
               </Popconfirm>
               <Popconfirm
@@ -120,8 +118,7 @@ const PopconfirmsPage: React.FC = () => {
                 title={text}
                 onConfirm={confirm}
                 okText={t('popconfirm.yes')}
-                cancelText={t('popconfirm.no')}
-              >
+                cancelText={t('popconfirm.no')}>
                 <Button>{t('popovers.right')}</Button>
               </Popconfirm>
               <Popconfirm
@@ -129,8 +126,7 @@ const PopconfirmsPage: React.FC = () => {
                 title={text}
                 onConfirm={confirm}
                 okText={t('popconfirm.yes')}
-                cancelText={t('popconfirm.no')}
-              >
+                cancelText={t('popconfirm.no')}>
                 <Button>{t('popovers.rb')}</Button>
               </Popconfirm>
             </RightButtons>
@@ -140,8 +136,7 @@ const PopconfirmsPage: React.FC = () => {
                 title={text}
                 onConfirm={confirm}
                 okText={t('popconfirm.yes')}
-                cancelText={t('popconfirm.no')}
-              >
+                cancelText={t('popconfirm.no')}>
                 <Button>{t('popovers.bl')}</Button>
               </Popconfirm>
               <Popconfirm
@@ -149,8 +144,7 @@ const PopconfirmsPage: React.FC = () => {
                 title={text}
                 onConfirm={confirm}
                 okText={t('popconfirm.yes')}
-                cancelText={t('popconfirm.no')}
-              >
+                cancelText={t('popconfirm.no')}>
                 <Button>{t('popovers.bottom')}</Button>
               </Popconfirm>
               <Popconfirm
@@ -158,8 +152,7 @@ const PopconfirmsPage: React.FC = () => {
                 title={text}
                 onConfirm={confirm}
                 okText={t('popconfirm.yes')}
-                cancelText={t('popconfirm.no')}
-              >
+                cancelText={t('popconfirm.no')}>
                 <Button>{t('popovers.br')}</Button>
               </Popconfirm>
             </BottomButtons>
@@ -171,8 +164,7 @@ const PopconfirmsPage: React.FC = () => {
             visible={visible}
             onConfirm={handleOk}
             okButtonProps={{ loading: confirmLoading }}
-            onCancel={() => setVisible(false)}
-          >
+            onCancel={() => setVisible(false)}>
             <AsyncButton type="primary" onClick={() => setVisible(true)}>
               {t('popconfirm.openAsync')}
             </AsyncButton>
@@ -180,7 +172,7 @@ const PopconfirmsPage: React.FC = () => {
         </S.Card>
       </Col>
     </>
-  );
-};
+  )
+}
 
-export default PopconfirmsPage;
+export default PopconfirmsPage

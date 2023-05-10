@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
+import { ReactNode } from 'react'
 
-type ScreeningItems = ReactNode[];
+type ScreeningItems = ReactNode[]
 
 export interface ScreeningsProps {
-  screeningsItems: ScreeningItems;
+  screeningsItems: ScreeningItems
 }

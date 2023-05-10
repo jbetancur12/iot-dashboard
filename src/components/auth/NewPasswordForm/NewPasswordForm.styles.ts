@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Button } from 'antd';
+import styled from 'styled-components'
+import { Button } from 'antd'
 
 export const Description = styled.div`
   margin-bottom: 1.875rem;
@@ -14,7 +14,7 @@ export const Description = styled.div`
   @media only screen and ${(props) => props.theme.media.md} {
     font-size: ${(props) => props.theme.commonFontSizes.xs};
   }
-`;
+`
 
 export const SubmitButton = styled(Button)`
   font-size: ${(props) => props.theme.commonFontSizes.md};
@@ -22,4 +22,4 @@ export const SubmitButton = styled(Button)`
   width: 100%;
   margin-top: 1.125rem;
   margin-bottom: 1rem;
-`;
+`

@@ -1,16 +1,16 @@
-import { Col } from 'antd';
-import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
-import { Result } from '@app/components/common/Result/Result';
-import { Button } from '@app/components/common/buttons/Button/Button';
-import { PageTitle } from '@app/components/common/PageTitle/PageTitle';
-import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles';
+import { Col } from 'antd'
+import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
+import { Result } from '@app/components/common/Result/Result'
+import { Button } from '@app/components/common/buttons/Button/Button'
+import { PageTitle } from '@app/components/common/PageTitle/PageTitle'
+import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles'
 
 const Card = styled(S.Card)`
   .ant-card-body {
     justify-content: center;
   }
-`;
+`
 
 const BuyButton = styled(Button)`
   @media only screen and ${(props) => props.theme.media.xs} {
@@ -20,10 +20,10 @@ const BuyButton = styled(Button)`
   @media only screen and ${(props) => props.theme.media.md} {
     margin-top: 0;
   }
-`;
+`
 
 const ProgressPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <>
@@ -38,7 +38,7 @@ const ProgressPage: React.FC = () => {
               <Button type="primary" key="console">
                 {t('results.goConsole')}
               </Button>,
-              <BuyButton key="buy">{t('results.buyAgain')}</BuyButton>,
+              <BuyButton key="buy">{t('results.buyAgain')}</BuyButton>
             ]}
           />
         </Card>
@@ -72,13 +72,13 @@ const ProgressPage: React.FC = () => {
               <Button type="primary" key="console">
                 {t('results.goConsole')}
               </Button>,
-              <BuyButton key="buy">{t('results.buyAgain')}</BuyButton>,
+              <BuyButton key="buy">{t('results.buyAgain')}</BuyButton>
             ]}
           />
         </Card>
       </Col>
     </>
-  );
-};
+  )
+}
 
-export default ProgressPage;
+export default ProgressPage

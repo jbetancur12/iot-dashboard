@@ -1,12 +1,12 @@
-import { PlusOutlined } from '@ant-design/icons';
-import { Button } from '@app/components/common/buttons/Button/Button';
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { DevicesManagerTable } from './components/DevicesManagerTable';
-import * as S from './DevicesManagerPage.styles';
+import { PlusOutlined } from '@ant-design/icons'
+import { Button } from '@app/components/common/buttons/Button/Button'
+import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
+import { DevicesManagerTable } from './components/DevicesManagerTable'
+import * as S from './DevicesManagerPage.styles'
 
 const DevicesManagerPage = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <>
       <Link to="new-user">
@@ -28,7 +28,7 @@ const DevicesManagerPage = () => {
         <DevicesManagerTable />
       </S.TablesWrapper>
     </>
-  );
-};
+  )
+}
 
-export default DevicesManagerPage;
+export default DevicesManagerPage

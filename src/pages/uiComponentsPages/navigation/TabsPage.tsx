@@ -1,19 +1,25 @@
-import { useState } from 'react';
-import { Col, Space } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { AppleOutlined, AndroidOutlined } from '@ant-design/icons';
-import { RadioGroup, RadioButton, RadioChangeEvent } from '@app/components/common/Radio/Radio';
-import { Tabs, TabPane } from '@app/components/common/Tabs/Tabs';
-import { PageTitle } from '@app/components/common/PageTitle/PageTitle';
-import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles';
+import { useState } from 'react'
+import { Col, Space } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { AppleOutlined, AndroidOutlined } from '@ant-design/icons'
+import {
+  RadioGroup,
+  RadioButton,
+  RadioChangeEvent
+} from '@app/components/common/Radio/Radio'
+import { Tabs, TabPane } from '@app/components/common/Tabs/Tabs'
+import { PageTitle } from '@app/components/common/PageTitle/PageTitle'
+import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles'
 
 const TabsPage: React.FC = () => {
-  const { t } = useTranslation();
-  const [tabPosition, setTabPosition] = useState<'top' | 'left' | 'right' | 'bottom'>('top');
+  const { t } = useTranslation()
+  const [tabPosition, setTabPosition] = useState<
+    'top' | 'left' | 'right' | 'bottom'
+  >('top')
 
   const changeTabPosition = (e: RadioChangeEvent) => {
-    setTabPosition(e.target.value);
-  };
+    setTabPosition(e.target.value)
+  }
 
   return (
     <>
@@ -54,8 +60,7 @@ const TabsPage: React.FC = () => {
                   {t('tabs.tab')} 1
                 </span>
               }
-              key="1"
-            >
+              key="1">
               {t('tabs.tabContent')} 1
             </TabPane>
             <TabPane
@@ -65,8 +70,7 @@ const TabsPage: React.FC = () => {
                   {t('tabs.tab')} 2
                 </span>
               }
-              key="2"
-            >
+              key="2">
               {t('tabs.tabContent')} 2
             </TabPane>
           </Tabs>
@@ -97,7 +101,7 @@ const TabsPage: React.FC = () => {
         </S.Card>
       </Col>
     </>
-  );
-};
+  )
+}
 
-export default TabsPage;
+export default TabsPage

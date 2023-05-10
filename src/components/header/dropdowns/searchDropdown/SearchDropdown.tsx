@@ -1,18 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { FilterIcon } from 'components/common/icons/FilterIcon';
-import { SearchOverlay } from './searchOverlay/SearchOverlay/SearchOverlay';
-import { Dropdown } from 'antd';
-import { DropdownHeader } from '@app/components/header/Header/Header.styles';
-import { CategoryComponents } from 'components/header/HeaderSearch/HeaderSearch';
-import { Btn, InputSearch } from '../../HeaderSearch/HeaderSearch.styles';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect, useRef, useState } from 'react'
+import { FilterIcon } from 'components/common/icons/FilterIcon'
+import { SearchOverlay } from './searchOverlay/SearchOverlay/SearchOverlay'
+import { Dropdown } from 'antd'
+import { DropdownHeader } from '@app/components/header/Header/Header.styles'
+import { CategoryComponents } from 'components/header/HeaderSearch/HeaderSearch'
+import { Btn, InputSearch } from '../../HeaderSearch/HeaderSearch.styles'
+import { useTranslation } from 'react-i18next'
 
 interface SearchOverlayProps {
-  query: string;
-  setQuery: (query: string) => void;
-  data: CategoryComponents[] | null;
-  isOverlayVisible: boolean;
-  setOverlayVisible: (state: boolean) => void;
+  query: string
+  setQuery: (query: string) => void
+  data: CategoryComponents[] | null
+  isOverlayVisible: boolean
+  setOverlayVisible: (state: boolean) => void
 }
 
 export const SearchDropdown: React.FC<SearchOverlayProps> = ({
@@ -20,28 +20,32 @@ export const SearchDropdown: React.FC<SearchOverlayProps> = ({
   setQuery,
   data,
   isOverlayVisible,
-  setOverlayVisible,
+  setOverlayVisible
 }) => {
-  const [isFilterVisible, setFilterActive] = useState(false);
+  const [isFilterVisible, setFilterActive] = useState(false)
 
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   useEffect(() => {
-    setOverlayVisible(!!query || isFilterVisible);
-  }, [query, isFilterVisible, setOverlayVisible]);
+    setOverlayVisible(!!query || isFilterVisible)
+  }, [query, isFilterVisible, setOverlayVisible])
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ref = useRef<any>(null);
+  const ref = useRef<any>(null)
 
   return (
     <>
       <Dropdown
-        {...((!!data || isFilterVisible) && { trigger: ['click'], onVisibleChange: setOverlayVisible })}
+        {...((!!data || isFilterVisible) && {
+          trigger: ['click'],
+          onVisibleChange: setOverlayVisible
+        })}
         overlayClassName="search-dropdown"
-        overlay={<SearchOverlay data={data} isFilterVisible={isFilterVisible} />}
+        overlay={
+          <SearchOverlay data={data} isFilterVisible={isFilterVisible} />
+        }
         visible={isOverlayVisible}
-        getPopupContainer={() => ref.current}
-      >
+        getPopupContainer={() => ref.current}>
         <DropdownHeader>
           <InputSearch
             width="100%"
@@ -64,5 +68,5 @@ export const SearchDropdown: React.FC<SearchOverlayProps> = ({
         </DropdownHeader>
       </Dropdown>
     </>
-  );
-};
+  )
+}

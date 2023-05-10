@@ -1,17 +1,22 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { ScreeningsFriend } from '../ScreeningsFriend/ScreeningsFriend';
-import { CurrentStatisticsState, ScreeningWithDoctors } from '../../ScreeningsCard/ScreeningsCard';
-import { MobileScreenings } from '../MobileScreenings/MobileScreenings';
-import { DesktopScreenings } from '../DesktopScreenings/DesktopScreenings';
-import { useResponsive } from '@app/hooks/useResponsive';
-import * as S from './ScreeningsFriends.styles';
+import React, { useCallback, useMemo, useState } from 'react'
+import { ScreeningsFriend } from '../ScreeningsFriend/ScreeningsFriend'
+import {
+  CurrentStatisticsState,
+  ScreeningWithDoctors
+} from '../../ScreeningsCard/ScreeningsCard'
+import { MobileScreenings } from '../MobileScreenings/MobileScreenings'
+import { DesktopScreenings } from '../DesktopScreenings/DesktopScreenings'
+import { useResponsive } from '@app/hooks/useResponsive'
+import * as S from './ScreeningsFriends.styles'
 
 interface ScreeningsFriendsProps {
-  screenings: ScreeningWithDoctors[];
-  currentStatistics: CurrentStatisticsState;
-  setCurrentStatistics: (func: (state: CurrentStatisticsState) => CurrentStatisticsState) => void;
-  isFirstClick: boolean;
-  setFirstClick: (state: boolean) => void;
+  screenings: ScreeningWithDoctors[]
+  currentStatistics: CurrentStatisticsState
+  setCurrentStatistics: (
+    func: (state: CurrentStatisticsState) => CurrentStatisticsState
+  ) => void
+  isFirstClick: boolean
+  setFirstClick: (state: boolean) => void
 }
 
 export const ScreeningsFriends: React.FC<ScreeningsFriendsProps> = ({
@@ -19,38 +24,38 @@ export const ScreeningsFriends: React.FC<ScreeningsFriendsProps> = ({
   currentStatistics,
   setCurrentStatistics,
   isFirstClick,
-  setFirstClick,
+  setFirstClick
 }) => {
-  const [isVisibleMenu, setVisibleMenu] = useState(true);
+  const [isVisibleMenu, setVisibleMenu] = useState(true)
 
-  const { mobileOnly, isTablet } = useResponsive();
+  const { mobileOnly, isTablet } = useResponsive()
 
   const handleClickItem = useCallback(
     (mode: number) => () => {
       setCurrentStatistics((prev) => {
         if (isFirstClick && prev.firstUser !== mode) {
-          setFirstClick(!isFirstClick);
+          setFirstClick(!isFirstClick)
 
           return {
             ...prev,
-            secondUser: mode,
-          };
+            secondUser: mode
+          }
         } else if (prev.secondUser !== mode) {
-          setFirstClick(!isFirstClick);
+          setFirstClick(!isFirstClick)
 
           return {
             ...prev,
-            firstUser: mode,
-          };
+            firstUser: mode
+          }
         } else {
           return {
-            ...prev,
-          };
+            ...prev
+          }
         }
-      });
+      })
     },
-    [isFirstClick, setFirstClick, setCurrentStatistics],
-  );
+    [isFirstClick, setFirstClick, setCurrentStatistics]
+  )
 
   const screeningsItems = useMemo(
     () =>
@@ -67,12 +72,14 @@ export const ScreeningsFriends: React.FC<ScreeningsFriendsProps> = ({
           isVisibleMenu={isVisibleMenu}
         />
       )),
-    [screenings, currentStatistics, isVisibleMenu, handleClickItem],
-  );
+    [screenings, currentStatistics, isVisibleMenu, handleClickItem]
+  )
 
   return (
     <S.Wrapper $isVisible={isVisibleMenu}>
-      {mobileOnly && screeningsItems.length > 0 && <MobileScreenings screeningsItems={screeningsItems} />}
+      {mobileOnly && screeningsItems.length > 0 && (
+        <MobileScreenings screeningsItems={screeningsItems} />
+      )}
 
       {isTablet && (
         <DesktopScreenings
@@ -82,5 +89,5 @@ export const ScreeningsFriends: React.FC<ScreeningsFriendsProps> = ({
         />
       )}
     </S.Wrapper>
-  );
-};
+  )
+}

@@ -1,50 +1,56 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
-import * as S from './SiderMenu.styles';
-import { sidebarNavigation, SidebarNavigationItem } from '../sidebarNavigation';
-import { Menu } from 'antd';
-import { useAppSelector } from '@app/hooks/reduxHooks';
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { Link, useLocation } from 'react-router-dom'
+import * as S from './SiderMenu.styles'
+import { sidebarNavigation, SidebarNavigationItem } from '../sidebarNavigation'
+import { Menu } from 'antd'
+import { useAppSelector } from '@app/hooks/reduxHooks'
 
 interface SiderContentProps {
-  setCollapsed: (isCollapsed: boolean) => void;
+  setCollapsed: (isCollapsed: boolean) => void
 }
 
 const sidebarNavFlat = sidebarNavigation.reduce(
   (result: SidebarNavigationItem[], current) =>
-    result.concat(current.children && current.children.length > 0 ? current.children : current),
-  [],
-);
+    result.concat(
+      current.children && current.children.length > 0
+        ? current.children
+        : current
+    ),
+  []
+)
 
 const SiderMenu: React.FC<SiderContentProps> = ({ setCollapsed }) => {
-  const { t } = useTranslation();
-  const location = useLocation();
-  const user = useAppSelector((state) => state.user.user);
+  const { t } = useTranslation()
+  const location = useLocation()
+  const user = useAppSelector((state) => state.user.user)
 
-  const userRole = user ? user.roles : [{ name: 'USER_ROLE' }];
+  const userRole = user ? user.roles : [{ name: 'USER_ROLE' }]
 
-  const currentMenuItem = sidebarNavFlat.find(({ url }) => url === location.pathname);
-  const defaultSelectedKeys = currentMenuItem ? [currentMenuItem.key] : [];
+  const currentMenuItem = sidebarNavFlat.find(
+    ({ url }) => url === location.pathname
+  )
+  const defaultSelectedKeys = currentMenuItem ? [currentMenuItem.key] : []
 
   const openedSubmenu = sidebarNavigation.find(({ children }) =>
-    children?.some(({ url }) => url === location.pathname),
-  );
-  const defaultOpenKeys = openedSubmenu ? [openedSubmenu.key] : [];
+    children?.some(({ url }) => url === location.pathname)
+  )
+  const defaultOpenKeys = openedSubmenu ? [openedSubmenu.key] : []
 
   const renderNavigation = (roles: { name: string }[]) => {
-    let navigationByRole: SidebarNavigationItem[] = [];
+    let navigationByRole: SidebarNavigationItem[] = []
     // role && role === 'ADMIN_ROLE'
     //   ? sidebarNavigation.filter((item) => item.admin === true)
     //   : sidebarNavigation.filter((item) => item.admin !== true);
 
-    const _roles = roles.map((rol) => rol.name);
+    const _roles = roles.map((rol) => rol.name)
 
     if (_roles.length && _roles.includes('DEV_ROLE')) {
-      navigationByRole = sidebarNavigation.filter((item) => item.dev);
+      navigationByRole = sidebarNavigation.filter((item) => item.dev)
     } else if (_roles.length && _roles.includes('ADMIN_ROLE')) {
-      navigationByRole = sidebarNavigation.filter((item) => item.admin);
+      navigationByRole = sidebarNavigation.filter((item) => item.admin)
     } else {
-      navigationByRole = sidebarNavigation.filter((item) => item.user);
+      navigationByRole = sidebarNavigation.filter((item) => item.user)
     }
 
     return navigationByRole.map((nav) =>
@@ -54,8 +60,7 @@ const SiderMenu: React.FC<SiderContentProps> = ({ setCollapsed }) => {
           title={t(nav.title)}
           icon={nav.icon}
           onTitleClick={() => setCollapsed(false)}
-          popupClassName="d-none"
-        >
+          popupClassName="d-none">
           {nav.children.map((childNav) => (
             <Menu.Item key={childNav.key} title="">
               <Link to={childNav.url || ''}>{t(childNav.title)}</Link>
@@ -66,20 +71,19 @@ const SiderMenu: React.FC<SiderContentProps> = ({ setCollapsed }) => {
         <Menu.Item key={nav.key} title="" icon={nav.icon}>
           <Link to={nav.url || ''}>{t(nav.title)}</Link>
         </Menu.Item>
-      ),
-    );
-  };
+      )
+    )
+  }
 
   return (
     <S.Menu
       mode="inline"
       defaultSelectedKeys={defaultSelectedKeys}
       defaultOpenKeys={defaultOpenKeys}
-      onClick={() => setCollapsed(true)}
-    >
+      onClick={() => setCollapsed(true)}>
       {renderNavigation(userRole)}
     </S.Menu>
-  );
-};
+  )
+}
 
-export default SiderMenu;
+export default SiderMenu

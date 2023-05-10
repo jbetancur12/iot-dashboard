@@ -1,19 +1,19 @@
-import { MutableRefObject, useEffect, useRef } from 'react';
+import { MutableRefObject, useEffect, useRef } from 'react'
 
 interface UseMountedReturnVal {
-  isMounted: MutableRefObject<boolean>;
+  isMounted: MutableRefObject<boolean>
 }
 
 export const useMounted = (): UseMountedReturnVal => {
-  const isMounted = useRef(false);
+  const isMounted = useRef(false)
 
   useEffect(() => {
-    isMounted.current = true;
+    isMounted.current = true
 
     return () => {
-      isMounted.current = false;
-    };
-  }, []);
+      isMounted.current = false
+    }
+  }, [])
 
-  return { isMounted };
-};
+  return { isMounted }
+}

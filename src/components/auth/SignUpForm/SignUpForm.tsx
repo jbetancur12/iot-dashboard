@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { BaseForm } from '@app/components/common/forms/BaseForm/BaseForm';
-import { useAppDispatch } from '@app/hooks/reduxHooks';
-import { doSignUp } from '@app/store/slices/authSlice';
-import { notificationController } from '@app/controllers/notificationController';
-import { ReactComponent as GoogleIcon } from '@app/assets/icons/google.svg';
-import { ReactComponent as FacebookIcon } from '@app/assets/icons/facebook.svg';
-import * as Auth from '@app/components/layouts/AuthLayout/AuthLayout.styles';
-import * as S from './SignUpForm.styles';
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { BaseForm } from '@app/components/common/forms/BaseForm/BaseForm'
+import { useAppDispatch } from '@app/hooks/reduxHooks'
+import { doSignUp } from '@app/store/slices/authSlice'
+import { notificationController } from '@app/controllers/notificationController'
+import { ReactComponent as GoogleIcon } from '@app/assets/icons/google.svg'
+import { ReactComponent as FacebookIcon } from '@app/assets/icons/facebook.svg'
+import * as Auth from '@app/components/layouts/AuthLayout/AuthLayout.styles'
+import * as S from './SignUpForm.styles'
 
 interface SignUpFormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
+  firstName: string
+  lastName: string
+  email: string
+  password: string
 }
 
 interface SignUpFormProps {
-  basic?: boolean;
+  basic?: boolean
 }
 
 const initValues = {
@@ -28,49 +28,51 @@ const initValues = {
   email: 'christopher.johnson@altence.com',
   password: 'test-pass',
   confirmPassword: 'test-pass',
-  termOfUse: true,
-};
+  termOfUse: true
+}
 
 export const SignUpForm: React.FC<SignUpFormProps> = ({ basic = true }) => {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const [isLoading, setLoading] = useState(false);
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const [isLoading, setLoading] = useState(false)
 
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const handleSubmit = (values: SignUpFormData) => {
-    setLoading(true);
+    setLoading(true)
     dispatch(doSignUp(values))
       .unwrap()
       .then(() => {
         notificationController.success({
           message: t('auth.signUpSuccessMessage'),
-          description: t('auth.signUpSuccessDescription'),
-        });
-        basic ? navigate(-1) : navigate('/auth/login');
+          description: t('auth.signUpSuccessDescription')
+        })
+        basic ? navigate(-1) : navigate('/auth/login')
       })
       .catch((err) => {
-        notificationController.error({ message: err.message });
-        setLoading(false);
-      });
-  };
+        notificationController.error({ message: err.message })
+        setLoading(false)
+      })
+  }
 
   return (
     <Auth.FormWrapper>
-      <BaseForm layout="vertical" onFinish={handleSubmit} requiredMark="optional" initialValues={initValues}>
+      <BaseForm
+        layout="vertical"
+        onFinish={handleSubmit}
+        requiredMark="optional"
+        initialValues={initValues}>
         {!basic && <S.Title>{t('common.signUp')}</S.Title>}
         <Auth.FormItem
           name="firstName"
           label={t('common.firstName')}
-          rules={[{ required: true, message: t('common.requiredField') }]}
-        >
+          rules={[{ required: true, message: t('common.requiredField') }]}>
           <Auth.FormInput placeholder={t('common.firstName')} />
         </Auth.FormItem>
         <Auth.FormItem
           name="lastName"
           label={t('common.lastName')}
-          rules={[{ required: true, message: t('common.requiredField') }]}
-        >
+          rules={[{ required: true, message: t('common.requiredField') }]}>
           <Auth.FormInput placeholder={t('common.lastName')} />
         </Auth.FormItem>
         <Auth.FormItem
@@ -80,31 +82,27 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ basic = true }) => {
             { required: true, message: t('common.requiredField') },
             {
               type: 'email',
-              message: t('common.notValidEmail'),
-            },
-          ]}
-        >
+              message: t('common.notValidEmail')
+            }
+          ]}>
           <Auth.FormInput placeholder={t('common.email')} />
         </Auth.FormItem>
         <Auth.FormItem
           name="city"
           label={t('common.city')}
-          rules={[{ required: true, message: t('common.requiredField') }]}
-        >
+          rules={[{ required: true, message: t('common.requiredField') }]}>
           <Auth.FormInput placeholder={t('common.city')} />
         </Auth.FormItem>
         <Auth.FormItem
           name="address1"
           label={t('common.address')}
-          rules={[{ required: true, message: t('common.requiredField') }]}
-        >
+          rules={[{ required: true, message: t('common.requiredField') }]}>
           <Auth.FormInput placeholder={t('common.address')} />
         </Auth.FormItem>
         <Auth.FormItem
           label={t('common.password')}
           name="password"
-          rules={[{ required: true, message: t('common.requiredField') }]}
-        >
+          rules={[{ required: true, message: t('common.requiredField') }]}>
           <Auth.FormInputPassword placeholder={t('common.password')} />
         </Auth.FormItem>
         <Auth.FormItem
@@ -116,13 +114,14 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ basic = true }) => {
             ({ getFieldValue }) => ({
               validator(_, value) {
                 if (!value || getFieldValue('password') === value) {
-                  return Promise.resolve();
+                  return Promise.resolve()
                 }
-                return Promise.reject(new Error(t('common.confirmPasswordError')));
-              },
-            }),
-          ]}
-        >
+                return Promise.reject(
+                  new Error(t('common.confirmPasswordError'))
+                )
+              }
+            })
+          ]}>
           <Auth.FormInputPassword placeholder={t('common.confirmPassword')} />
         </Auth.FormItem>
         <Auth.ActionsWrapper>
@@ -142,7 +141,10 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ basic = true }) => {
           </BaseForm.Item>
         </Auth.ActionsWrapper>
         <BaseForm.Item noStyle>
-          <Auth.SubmitButton type="primary" htmlType="submit" loading={isLoading}>
+          <Auth.SubmitButton
+            type="primary"
+            htmlType="submit"
+            loading={isLoading}>
             {t('common.signUp')}
           </Auth.SubmitButton>
         </BaseForm.Item>
@@ -176,5 +178,5 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ basic = true }) => {
         )}
       </BaseForm>
     </Auth.FormWrapper>
-  );
-};
+  )
+}

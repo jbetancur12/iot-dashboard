@@ -1,20 +1,20 @@
-import { Col, Space } from 'antd';
-import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
-import { PageTitle } from '@app/components/common/PageTitle/PageTitle';
-import { Alert } from '@app/components/common/Alert/Alert';
-import { Button } from '@app/components/common/buttons/Button/Button';
-import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles';
+import { Col, Space } from 'antd'
+import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
+import { PageTitle } from '@app/components/common/PageTitle/PageTitle'
+import { Alert } from '@app/components/common/Alert/Alert'
+import { Button } from '@app/components/common/buttons/Button/Button'
+import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles'
 
 const Card = styled(S.Card)`
   .ant-card-body {
     flex-direction: column;
     align-items: flex-start;
   }
-`;
+`
 
 const AlertsPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <>
@@ -31,15 +31,35 @@ const AlertsPage: React.FC = () => {
         </Card>
         <Card title={t('alerts.closable')}>
           <Alert message={t('alerts.warning')} type="warning" closable />
-          <Alert message={t('alerts.error')} description={t('alerts.errorDescription')} type="error" closable />
+          <Alert
+            message={t('alerts.error')}
+            description={t('alerts.errorDescription')}
+            type="error"
+            closable
+          />
         </Card>
         <Card title={t('alerts.icons')}>
           <Alert message={t('alerts.success')} type="success" showIcon />
           <Alert message={t('alerts.info')} type="info" showIcon />
-          <Alert message={t('alerts.warning')} type="warning" showIcon closable />
+          <Alert
+            message={t('alerts.warning')}
+            type="warning"
+            showIcon
+            closable
+          />
           <Alert message={t('alerts.error')} type="error" showIcon />
-          <Alert message={t('alerts.success')} description={t('alerts.successDescription')} type="success" showIcon />
-          <Alert message={t('alerts.info')} description={t('alerts.infoDescription')} type="info" showIcon />
+          <Alert
+            message={t('alerts.success')}
+            description={t('alerts.successDescription')}
+            type="success"
+            showIcon
+          />
+          <Alert
+            message={t('alerts.info')}
+            description={t('alerts.infoDescription')}
+            type="info"
+            showIcon
+          />
           <Alert
             message={t('alerts.warning')}
             description={t('alerts.warningDescription')}
@@ -47,7 +67,12 @@ const AlertsPage: React.FC = () => {
             showIcon
             closable
           />
-          <Alert message={t('alerts.error')} description={t('alerts.errorDescription')} type="error" showIcon />
+          <Alert
+            message={t('alerts.error')}
+            description={t('alerts.errorDescription')}
+            type="error"
+            showIcon
+          />
         </Card>
         <Card title={t('alerts.customActions')}>
           <Alert
@@ -103,7 +128,7 @@ const AlertsPage: React.FC = () => {
         </Card>
       </Col>
     </>
-  );
-};
+  )
+}
 
-export default AlertsPage;
+export default AlertsPage

@@ -1,46 +1,54 @@
-import { useState } from 'react';
-import { Col } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { Button } from '@app/components/common/buttons/Button/Button';
-import { Modal, InfoModal, SuccessModal, WarningModal, ErrorModal } from '@app/components/common/Modal/Modal';
-import { PageTitle } from '@app/components/common/PageTitle/PageTitle';
-import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles';
+import { useState } from 'react'
+import { Col } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { Button } from '@app/components/common/buttons/Button/Button'
+import {
+  Modal,
+  InfoModal,
+  SuccessModal,
+  WarningModal,
+  ErrorModal
+} from '@app/components/common/Modal/Modal'
+import { PageTitle } from '@app/components/common/PageTitle/PageTitle'
+import * as S from '@app/pages/uiComponentsPages//UIComponentsPage.styles'
 
 const ModalsPage: React.FC = () => {
-  const { t } = useTranslation();
-  const [isBasicModalVisible, setIsBasicModalVisible] = useState<boolean>(false);
-  const [isSmallModalVisible, setIsSmallModalVisible] = useState<boolean>(false);
-  const [isMiddleModalVisible, setIsMiddleModalVisible] = useState<boolean>(false);
-  const [isLargeModalVisible, setIsLargeModalVisible] = useState<boolean>(false);
-  const [isFullscreenModalVisible, setIsFullscreenModalVisible] = useState<boolean>(false);
+  const { t } = useTranslation()
+  const [isBasicModalVisible, setIsBasicModalVisible] = useState<boolean>(false)
+  const [isSmallModalVisible, setIsSmallModalVisible] = useState<boolean>(false)
+  const [isMiddleModalVisible, setIsMiddleModalVisible] =
+    useState<boolean>(false)
+  const [isLargeModalVisible, setIsLargeModalVisible] = useState<boolean>(false)
+  const [isFullscreenModalVisible, setIsFullscreenModalVisible] =
+    useState<boolean>(false)
 
   const success = () => {
     SuccessModal({
       title: t('modals.successTitle'),
-      content: t('modals.someContent'),
-    });
-  };
+      content: t('modals.someContent')
+    })
+  }
 
   const info = () => {
     InfoModal({
       title: t('modals.infoTitle'),
-      content: t('modals.someContent'),
-    });
-  };
+      content: t('modals.someContent')
+    })
+  }
 
   const warning = () => {
     WarningModal({
       title: t('modals.warningTitle'),
-      content: t('modals.someContent'),
-    });
-  };
+      content: t('modals.someContent')
+    })
+  }
 
   const error = () => {
     ErrorModal({
       title: t('modals.errorTitle'),
-      content: t('modals.someContent'),
-    });
-  };
+      content: t('modals.someContent')
+    })
+  }
 
   return (
     <>
@@ -54,8 +62,7 @@ const ModalsPage: React.FC = () => {
             title={t('modals.basic')}
             visible={isBasicModalVisible}
             onOk={() => setIsBasicModalVisible(false)}
-            onCancel={() => setIsBasicModalVisible(false)}
-          >
+            onCancel={() => setIsBasicModalVisible(false)}>
             <p>{t('modals.someContent')}</p>
             <p>{t('modals.someContent')}</p>
             <p>{t('modals.someContent')}</p>
@@ -71,7 +78,9 @@ const ModalsPage: React.FC = () => {
           <Button type="primary" onClick={() => setIsLargeModalVisible(true)}>
             {t('modals.large')}
           </Button>
-          <Button type="primary" onClick={() => setIsFullscreenModalVisible(true)}>
+          <Button
+            type="primary"
+            onClick={() => setIsFullscreenModalVisible(true)}>
             {t('modals.fullscreen')}
           </Button>
           <Modal
@@ -80,8 +89,7 @@ const ModalsPage: React.FC = () => {
             visible={isSmallModalVisible}
             onOk={() => setIsSmallModalVisible(false)}
             onCancel={() => setIsSmallModalVisible(false)}
-            size="small"
-          >
+            size="small">
             <p>{t('modals.someContent')}</p>
             <p>{t('modals.someContent')}</p>
             <p>{t('modals.someContent')}</p>
@@ -92,8 +100,7 @@ const ModalsPage: React.FC = () => {
             visible={isMiddleModalVisible}
             onOk={() => setIsMiddleModalVisible(false)}
             onCancel={() => setIsMiddleModalVisible(false)}
-            size="medium"
-          >
+            size="medium">
             <p>{t('modals.someContent')}</p>
             <p>{t('modals.someContent')}</p>
             <p>{t('modals.someContent')}</p>
@@ -104,8 +111,7 @@ const ModalsPage: React.FC = () => {
             visible={isLargeModalVisible}
             onOk={() => setIsLargeModalVisible(false)}
             onCancel={() => setIsLargeModalVisible(false)}
-            size="large"
-          >
+            size="large">
             <p>{t('modals.someContent')}</p>
             <p>{t('modals.someContent')}</p>
             <p>{t('modals.someContent')}</p>
@@ -116,8 +122,7 @@ const ModalsPage: React.FC = () => {
             visible={isFullscreenModalVisible}
             onOk={() => setIsFullscreenModalVisible(false)}
             onCancel={() => setIsFullscreenModalVisible(false)}
-            width={'100%'}
-          >
+            width={'100%'}>
             <p>{t('modals.someContent')}</p>
             <p>{t('modals.someContent')}</p>
             <p>{t('modals.someContent')}</p>
@@ -139,7 +144,7 @@ const ModalsPage: React.FC = () => {
         </S.Card>
       </Col>
     </>
-  );
-};
+  )
+}
 
-export default ModalsPage;
+export default ModalsPage

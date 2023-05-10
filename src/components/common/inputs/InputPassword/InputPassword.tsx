@@ -1,10 +1,10 @@
-import React from 'react';
-import { Input as AntInput, InputProps as AntInputProps } from 'antd';
+import React from 'react'
+import { Input as AntInput, InputProps as AntInputProps } from 'antd'
 
 interface InputPasswordProps extends AntInputProps {
-  className?: string;
-  visibilityToggle?: boolean;
-  iconRender?: (visible: boolean) => React.ReactNode;
+  className?: string
+  visibilityToggle?: boolean
+  iconRender?: (visible: boolean) => React.ReactNode
 }
 
 export const InputPassword = React.forwardRef<AntInput, InputPasswordProps>(
@@ -12,5 +12,5 @@ export const InputPassword = React.forwardRef<AntInput, InputPasswordProps>(
     <AntInput.Password ref={ref} className={className} {...props}>
       {children}
     </AntInput.Password>
-  ),
-);
+  )
+)

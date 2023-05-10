@@ -1,11 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import * as S from './ProfileOverlay.styles';
-import { DropdownMenu } from '@app/components/header/Header/Header.styles';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import * as S from './ProfileOverlay.styles'
+import { DropdownMenu } from '@app/components/header/Header/Header.styles'
 
 export const ProfileOverlay: React.FC = ({ ...props }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <DropdownMenu selectable={false} {...props}>
@@ -21,5 +21,5 @@ export const ProfileOverlay: React.FC = ({ ...props }) => {
         </S.Text>
       </S.MenuItem>
     </DropdownMenu>
-  );
-};
+  )
+}

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const AddCardWrapper = styled.div`
   display: flex;
@@ -11,4 +11,4 @@ export const AddCardWrapper = styled.div`
   cursor: pointer;
   font-size: ${(props) => props.theme.commonFontSizes.xxl};
   color: ${(props) => props.theme.colors.border.main};
-`;
+`

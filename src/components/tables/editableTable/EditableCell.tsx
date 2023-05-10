@@ -1,15 +1,15 @@
-import React from 'react';
-import { Input, InputNumber, Form } from 'antd';
-import { BasicTableRow } from '@app/api/table.api';
+import React from 'react'
+import { Input, InputNumber, Form } from 'antd'
+import { BasicTableRow } from '@app/api/table.api'
 
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
-  editing: boolean;
-  dataIndex: string;
-  title: string;
-  inputType: 'number' | 'text';
-  record: BasicTableRow;
-  index: number;
-  children: React.ReactNode;
+  editing: boolean
+  dataIndex: string
+  title: string
+  inputType: 'number' | 'text'
+  record: BasicTableRow
+  index: number
+  children: React.ReactNode
 }
 
 export const EditableCell: React.FC<EditableCellProps> = ({
@@ -20,7 +20,7 @@ export const EditableCell: React.FC<EditableCellProps> = ({
   children,
   ...restProps
 }) => {
-  const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
+  const inputNode = inputType === 'number' ? <InputNumber /> : <Input />
 
   return (
     <td {...restProps}>
@@ -31,15 +31,14 @@ export const EditableCell: React.FC<EditableCellProps> = ({
           rules={[
             {
               required: true,
-              message: `Please Input ${title}!`,
-            },
-          ]}
-        >
+              message: `Please Input ${title}!`
+            }
+          ]}>
           {inputNode}
         </Form.Item>
       ) : (
         children
       )}
     </td>
-  );
-};
+  )
+}

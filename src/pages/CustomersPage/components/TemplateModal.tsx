@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { Modal, Form, Input, Button } from 'antd';
-import { Select, Option } from '@app/components/common/selects/Select/Select';
-import { TemplateData } from '@app/api/template.api';
+import React, { useState } from 'react'
+import { Modal, Form, Input, Button } from 'antd'
+import { Select, Option } from '@app/components/common/selects/Select/Select'
+import { TemplateData } from '@app/api/template.api'
 
 interface ITemplateModalProps {
-  visible: boolean;
-  onCreate: (values: any) => void;
-  onUpdate: (id: string | undefined, data: TemplateData) => void;
-  onCancel: () => void;
-  template?: any;
-  customer: string | undefined;
+  visible: boolean
+  onCreate: (values: any) => void
+  onUpdate: (id: string | undefined, data: TemplateData) => void
+  onCancel: () => void
+  template?: any
+  customer: string | undefined
 }
 
 const TemplateModal: React.FC<ITemplateModalProps> = ({
@@ -18,35 +18,35 @@ const TemplateModal: React.FC<ITemplateModalProps> = ({
   onUpdate,
   onCancel,
   template,
-  customer,
+  customer
 }) => {
-  const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
+  const [form] = Form.useForm()
+  const [loading, setLoading] = useState(false)
 
-  form.setFieldsValue(template);
+  form.setFieldsValue(template)
 
   form.setFieldsValue({
-    customer: customer,
-  });
+    customer: customer
+  })
 
   const handleOk = () => {
     // setLoading(true);
     form
       .validateFields()
       .then((values) => {
-        template ? onUpdate(template._id, values) : onCreate(values);
-        form.resetFields();
+        template ? onUpdate(template._id, values) : onCreate(values)
+        form.resetFields()
         //   setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
-      });
-  };
+        console.log(error)
+      })
+  }
 
   const handleOnCancel = () => {
-    form.resetFields();
-    onCancel();
-  };
+    form.resetFields()
+    onCancel()
+  }
 
   return (
     <Modal
@@ -58,11 +58,14 @@ const TemplateModal: React.FC<ITemplateModalProps> = ({
         <Button key="cancel" onClick={handleOnCancel}>
           Cancelar
         </Button>,
-        <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
+        <Button
+          key="submit"
+          type="primary"
+          loading={loading}
+          onClick={handleOk}>
           {template ? 'Actualizar' : 'Crear'}
-        </Button>,
-      ]}
-    >
+        </Button>
+      ]}>
       <Form form={form} layout="vertical">
         <Form.Item
           name="name"
@@ -70,10 +73,9 @@ const TemplateModal: React.FC<ITemplateModalProps> = ({
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese el nombre',
-            },
-          ]}
-        >
+              message: 'Por favor ingrese el nombre'
+            }
+          ]}>
           <Input placeholder="Ingrese el nombre" />
         </Form.Item>
         <Form.Item
@@ -82,10 +84,9 @@ const TemplateModal: React.FC<ITemplateModalProps> = ({
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese una Description',
-            },
-          ]}
-        >
+              message: 'Por favor ingrese una Description'
+            }
+          ]}>
           <Input placeholder="Ingrese el nombre" />
         </Form.Item>
 
@@ -95,10 +96,9 @@ const TemplateModal: React.FC<ITemplateModalProps> = ({
           rules={[
             {
               required: true,
-              message: 'Por favor selecciones algo',
-            },
-          ]}
-        >
+              message: 'Por favor selecciones algo'
+            }
+          ]}>
           <Select placeholder="Seleccione algo">
             <Option value="graph">Grafica</Option>
             <Option value="display">Display</Option>
@@ -112,15 +112,14 @@ const TemplateModal: React.FC<ITemplateModalProps> = ({
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese un customer',
-            },
-          ]}
-        >
+              message: 'Por favor ingrese un customer'
+            }
+          ]}>
           <Input placeholder="Ingrese el customer" />
         </Form.Item>
       </Form>
     </Modal>
-  );
-};
+  )
+}
 
-export default TemplateModal;
+export default TemplateModal

@@ -1,12 +1,12 @@
-import React from 'react';
-import { dashboardNews } from '@app/constants/dashboardNews';
-import { DashboardCard } from '../DashboardCard/DashboardCard';
-import * as S from './NewsCard.styles';
-import { useTranslation } from 'react-i18next';
-import { ArticleCard } from 'components/common/ArticleCard/ArticleCard';
+import React from 'react'
+import { dashboardNews } from '@app/constants/dashboardNews'
+import { DashboardCard } from '../DashboardCard/DashboardCard'
+import * as S from './NewsCard.styles'
+import { useTranslation } from 'react-i18next'
+import { ArticleCard } from 'components/common/ArticleCard/ArticleCard'
 
 export const NewsCard: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <DashboardCard title={t('dashboard.news')}>
@@ -25,5 +25,5 @@ export const NewsCard: React.FC = () => {
         ))}
       </S.Wrapper>
     </DashboardCard>
-  );
-};
+  )
+}

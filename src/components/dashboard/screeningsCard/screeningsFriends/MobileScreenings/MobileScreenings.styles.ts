@@ -1,5 +1,5 @@
-import { Carousel } from 'components/common/Carousel/Carousel';
-import styled from 'styled-components';
+import { Carousel } from 'components/common/Carousel/Carousel'
+import styled from 'styled-components'
 
 export const ScreeningsCarousel = styled(Carousel)`
   margin: 0 1rem;
@@ -12,4 +12,4 @@ export const ScreeningsCarousel = styled(Carousel)`
     display: flex;
     justify-content: center;
   }
-`;
+`

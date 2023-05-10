@@ -1,29 +1,29 @@
 export interface Message {
-  id: number;
-  description: string;
+  id: number
+  description: string
 }
 
 export interface Mention extends Message {
-  userName: string;
-  userIcon: string;
-  place: string;
-  href: string;
+  userName: string
+  userIcon: string
+  place: string
+  href: string
 }
 
-export type Notification = Mention | Message;
+export type Notification = Mention | Message
 
 export const notifications = [
   {
     id: 2,
-    description: 'header.notifications.loginAttempt',
+    description: 'header.notifications.loginAttempt'
   },
   {
     id: 1,
-    description: 'header.notifications.successPayment',
+    description: 'header.notifications.successPayment'
   },
   {
     id: 3,
-    description: 'header.notifications.serverError',
+    description: 'header.notifications.serverError'
   },
   {
     id: 4,
@@ -32,6 +32,6 @@ export const notifications = [
     userIcon:
       'https://res.cloudinary.com/lapkinthegod/image/upload/v1629187274/young-male-doctor-white-uniform_x7dcrs.jpg',
     place: 'dashboard.latestScreenings.title',
-    href: `/#latest-screenings`,
-  },
-];
+    href: `/#latest-screenings`
+  }
+]
