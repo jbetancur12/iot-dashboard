@@ -5,45 +5,45 @@ import { CustomerData } from '@app/api/customer.api';
 interface ICustomerModalProps {
   visible: boolean;
   onCreate: (values: any) => void;
-  onUpdate: (id: string | undefined, data:CustomerData) => void;
+  onUpdate: (id: string | undefined, data: CustomerData) => void;
   onCancel: () => void;
   user?: any;
 }
 
-
 const initialValues = {
-    name: "", 
-    IdCustomer:"", 
-    email: "", 
-    phone: "", 
-    country: "", 
-    city: "", 
-    address1: ""
-}
+  name: '',
+  IdCustomer: '',
+  email: '',
+  phone: '',
+  country: '',
+  city: '',
+  address1: '',
+};
 
 const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpdate, onCancel, user }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  
-  
-  form.setFieldsValue(user)
+
+  form.setFieldsValue(user);
 
   const handleOk = () => {
     // setLoading(true);
-    form.validateFields().then(values => {
-      user ? onUpdate(user._id, values) : onCreate(values);
-      form.resetFields();
-    //   setLoading(false);
-    }).catch(error =>{
-        console.log(error)
-    });
-  }
+    form
+      .validateFields()
+      .then((values) => {
+        user ? onUpdate(user._id, values) : onCreate(values);
+        form.resetFields();
+        //   setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handleOnCancel = () => {
-    form.resetFields()
-    onCancel()
-  }
-
+    form.resetFields();
+    onCancel();
+  };
 
   return (
     <Modal
@@ -52,19 +52,15 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
       title={user ? 'Editar Usuario' : 'Crear Usuario'}
       onCancel={handleOnCancel}
       footer={[
-        <Button key="cancel" onClick={handleOnCancel}>Cancelar</Button>,
+        <Button key="cancel" onClick={handleOnCancel}>
+          Cancelar
+        </Button>,
         <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
           {user ? 'Actualizar' : 'Crear'}
         </Button>,
       ]}
     >
-
-        
-      <Form
-        form={form}
-        layout="vertical"
-
-      >
+      <Form form={form} layout="vertical">
         <Form.Item
           name="name"
           label="Nombre"
@@ -95,7 +91,7 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
           label="ID"
           rules={[
             {
-              required: !user,              
+              required: !user,
               message: 'Por favor ingrese identificacion',
             },
           ]}
@@ -107,7 +103,7 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
           label="phone"
           rules={[
             {
-              required: true,              
+              required: true,
               message: 'Por favor ingrese Telefono',
             },
           ]}
@@ -119,7 +115,7 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
           label="country"
           rules={[
             {
-              required: true,              
+              required: true,
               message: 'Por favor ingrese Pais',
             },
           ]}
@@ -131,7 +127,7 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
           label="city"
           rules={[
             {
-              required: true,              
+              required: true,
               message: 'Por favor ingrese Ciudad',
             },
           ]}
@@ -143,7 +139,7 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
           label="address1"
           rules={[
             {
-              required: true,              
+              required: true,
               message: 'Por favor ingrese Direccion',
             },
           ]}

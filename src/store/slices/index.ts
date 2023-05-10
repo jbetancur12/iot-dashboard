@@ -19,5 +19,5 @@ export default {
   customer: customerReducer,
   template: templateReducer,
   variable: variableReducer,
-  mqtt: mqttSlice
+  mqtt: mqttSlice,
 };

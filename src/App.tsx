@@ -27,8 +27,6 @@ const App: React.FC = () => {
 
   useAutoNightMode();
 
-
-
   let lang = esES;
 
   switch (language) {
@@ -42,9 +40,6 @@ const App: React.FC = () => {
       break;
   }
 
-
-  
-
   return (
     <>
       <meta name="theme-color" content={currentTheme.colors.main.primary} />
@@ -52,9 +47,7 @@ const App: React.FC = () => {
         <GlobalStyle />
         <ConfigProvider locale={lang}>
           <ThemeSwitcher theme={theme}>
-         
             <AppRouter />
-       
           </ThemeSwitcher>
         </ConfigProvider>
       </ThemeProvider>

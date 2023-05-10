@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import mqtt, { MqttClient, IClientOptions } from 'mqtt';
 import { setClient, setError } from '@app/store/slices/mqttSlice';
 
-export const createMqttClient = ( url: string,topics:string[], options?: IClientOptions) => (dispatch: Dispatch) => {
+export const createMqttClient = (url: string, topics: string[], options?: IClientOptions) => (dispatch: Dispatch) => {
   const client = mqtt.connect(url, {
     ...options,
     reconnectPeriod: 1000,
@@ -22,7 +22,7 @@ export const createMqttClient = ( url: string,topics:string[], options?: IClient
     console.error('MQTT error:', error);
     dispatch(setError(error));
   });
-  console.log(client)
+  console.log(client);
 
   return client;
 };

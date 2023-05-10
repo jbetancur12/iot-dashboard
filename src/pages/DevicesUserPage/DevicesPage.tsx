@@ -7,7 +7,7 @@ import * as S from './DevicesPage.styles';
 
 const DevicesPage: React.FC = () => {
   const userId = readUser()?.id;
-  console.log("🚀 ~ file: DevicesPage.tsx:10 ~ userId:", readUser()?.customer)
+  console.log('🚀 ~ file: DevicesPage.tsx:10 ~ userId:', readUser()?.customer);
 
   const [things, setThings] = useState<ThingDataResponse[]>([]);
 

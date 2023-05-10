@@ -15,11 +15,11 @@ export interface SignUpRequest {
 }
 
 export interface SignUpRequest2 {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    custome?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  custome?: string;
 }
 
 export interface ResetPasswordRequest {
@@ -32,7 +32,7 @@ export interface SecurityCodePayload {
 
 export interface NewPasswordData {
   newPassword: string;
-  code: string | null
+  code: string | null;
 }
 
 export interface LoginRequest {
@@ -45,8 +45,6 @@ export interface LoginResponse {
   refreshToken: string;
   user: UserModel;
 }
-
-
 
 export const login = (loginPayload: LoginRequest): Promise<LoginResponse> =>
   httpApi.post<LoginResponse>('api/auth/signin', { ...loginPayload }).then(({ data }) => data);
@@ -61,6 +59,8 @@ export const verifySecurityCode = (securityCodePayload: SecurityCodePayload): Pr
   httpApi.post<undefined>('api/auth/verify-otp', { ...securityCodePayload }).then(({ data }) => data);
 
 export const setNewPassword = (newPasswordData: NewPasswordData): Promise<undefined> =>
-  httpApi.put<undefined>(`api/auth/new-password${newPasswordData.code ? `/${newPasswordData.code}` : ""}`, { ...newPasswordData }).then(({ data }) => data);
-
-  
+  httpApi
+    .put<undefined>(`api/auth/new-password${newPasswordData.code ? `/${newPasswordData.code}` : ''}`, {
+      ...newPasswordData,
+    })
+    .then(({ data }) => data);

@@ -6,40 +6,47 @@ import { TemplateData } from '@app/api/template.api';
 interface ITemplateModalProps {
   visible: boolean;
   onCreate: (values: any) => void;
-  onUpdate: (id: string | undefined, data:TemplateData) => void;
+  onUpdate: (id: string | undefined, data: TemplateData) => void;
   onCancel: () => void;
   template?: any;
-  customer: string | undefined
+  customer: string | undefined;
 }
 
-
-const TemplateModal: React.FC<ITemplateModalProps> = ({ visible, onCreate, onUpdate, onCancel, template, customer }) => {
+const TemplateModal: React.FC<ITemplateModalProps> = ({
+  visible,
+  onCreate,
+  onUpdate,
+  onCancel,
+  template,
+  customer,
+}) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  
-  
-  form.setFieldsValue(template)
+
+  form.setFieldsValue(template);
 
   form.setFieldsValue({
-    "customer": customer
-  })
+    customer: customer,
+  });
 
   const handleOk = () => {
     // setLoading(true);
-    form.validateFields().then(values => {
-      template ? onUpdate(template._id, values) : onCreate(values);
-      form.resetFields();
-    //   setLoading(false);
-    }).catch(error =>{
-        console.log(error)
-    });
-  }
+    form
+      .validateFields()
+      .then((values) => {
+        template ? onUpdate(template._id, values) : onCreate(values);
+        form.resetFields();
+        //   setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handleOnCancel = () => {
-    form.resetFields()
-    onCancel()
-  }
-
+    form.resetFields();
+    onCancel();
+  };
 
   return (
     <Modal
@@ -48,19 +55,15 @@ const TemplateModal: React.FC<ITemplateModalProps> = ({ visible, onCreate, onUpd
       title={template ? 'Editar Usuario' : 'Crear Usuario'}
       onCancel={handleOnCancel}
       footer={[
-        <Button key="cancel" onClick={handleOnCancel}>Cancelar</Button>,
+        <Button key="cancel" onClick={handleOnCancel}>
+          Cancelar
+        </Button>,
         <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
           {template ? 'Actualizar' : 'Crear'}
         </Button>,
       ]}
     >
-
-        
-      <Form
-        form={form}
-        layout="vertical"
-
-      >
+      <Form form={form} layout="vertical">
         <Form.Item
           name="name"
           label="Nomber"
@@ -79,7 +82,7 @@ const TemplateModal: React.FC<ITemplateModalProps> = ({ visible, onCreate, onUpd
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese una Description'
+              message: 'Por favor ingrese una Description',
             },
           ]}
         >
@@ -87,20 +90,20 @@ const TemplateModal: React.FC<ITemplateModalProps> = ({ visible, onCreate, onUpd
         </Form.Item>
 
         <Form.Item
-         name="type"
-         label="Tipo"
-         rules={[
-           {
-             required: true,
-             message: 'Por favor selecciones algo'
-           },
-         ]}
+          name="type"
+          label="Tipo"
+          rules={[
+            {
+              required: true,
+              message: 'Por favor selecciones algo',
+            },
+          ]}
         >
-        <Select  placeholder="Seleccione algo">
-          <Option value="graph">Grafica</Option>
-          <Option value="display">Display</Option>
-          <Option value="output">Output</Option>
-        </Select>
+          <Select placeholder="Seleccione algo">
+            <Option value="graph">Grafica</Option>
+            <Option value="display">Display</Option>
+            <Option value="output">Output</Option>
+          </Select>
         </Form.Item>
 
         <Form.Item
@@ -115,8 +118,6 @@ const TemplateModal: React.FC<ITemplateModalProps> = ({ visible, onCreate, onUpd
         >
           <Input placeholder="Ingrese el customer" />
         </Form.Item>
-
-        
       </Form>
     </Modal>
   );

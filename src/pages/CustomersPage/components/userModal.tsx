@@ -5,40 +5,40 @@ import { CustomerData } from '@app/api/customer.api';
 interface ICustomerModalProps {
   visible: boolean;
   onCreate: (values: any) => void;
-  onUpdate: (id: string | undefined, data:CustomerData) => void;
+  onUpdate: (id: string | undefined, data: CustomerData) => void;
   onCancel: () => void;
   user?: any;
-  customer: string | undefined
+  customer: string | undefined;
 }
-
 
 const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpdate, onCancel, user, customer }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  
-  
-  form.setFieldsValue(user)
+
+  form.setFieldsValue(user);
 
   form.setFieldsValue({
-    "customer": customer
-  })
+    customer: customer,
+  });
 
   const handleOk = () => {
     // setLoading(true);
-    form.validateFields().then(values => {
-      user ? onUpdate(user._id, values) : onCreate(values);
-      form.resetFields();
-    //   setLoading(false);
-    }).catch(error =>{
-        console.log(error)
-    });
-  }
+    form
+      .validateFields()
+      .then((values) => {
+        user ? onUpdate(user._id, values) : onCreate(values);
+        form.resetFields();
+        //   setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handleOnCancel = () => {
-    form.resetFields()
-    onCancel()
-  }
-
+    form.resetFields();
+    onCancel();
+  };
 
   return (
     <Modal
@@ -47,19 +47,15 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
       title={user ? 'Editar Usuario' : 'Crear Usuario'}
       onCancel={handleOnCancel}
       footer={[
-        <Button key="cancel" onClick={handleOnCancel}>Cancelar</Button>,
+        <Button key="cancel" onClick={handleOnCancel}>
+          Cancelar
+        </Button>,
         <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
           {user ? 'Actualizar' : 'Crear'}
         </Button>,
       ]}
     >
-
-        
-      <Form
-        form={form}
-        layout="vertical"
-
-      >
+      <Form form={form} layout="vertical">
         <Form.Item
           name="firstName"
           label="Nomber"
@@ -98,8 +94,6 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
           <Input placeholder="Ingrese el correo electrónico" />
         </Form.Item>
 
-
-
         <Form.Item
           name="customer"
           label="Customer"
@@ -112,7 +106,6 @@ const CustomerModal: React.FC<ICustomerModalProps> = ({ visible, onCreate, onUpd
         >
           <Input placeholder="Ingrese el customer" />
         </Form.Item>
-        
       </Form>
     </Modal>
   );

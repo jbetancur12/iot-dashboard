@@ -5,7 +5,7 @@ import { BaseForm } from '@app/components/common/forms/BaseForm/BaseForm';
 import { notificationController } from '@app/controllers/notificationController';
 import { useAppDispatch } from '@app/hooks/reduxHooks';
 import { doSetNewPassword } from '@app/store/slices/authSlice';
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom';
 import * as S from './NewPasswordForm.styles';
 import * as Auth from '@app/components/layouts/AuthLayout/AuthLayout.styles';
 
@@ -23,10 +23,10 @@ export const NewPasswordForm: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setLoading] = useState(false);
 
-  const code = searchParams.get('code')
+  const code = searchParams.get('code');
 
   const handleSubmit = (values: NewPasswordFormData) => {
     setLoading(true);
@@ -82,7 +82,7 @@ export const NewPasswordForm: React.FC = () => {
         </Auth.FormItem>
         <BaseForm.Item noStyle>
           <S.SubmitButton type="primary" htmlType="submit" loading={isLoading}>
-            {!code ? t('common.resetPassword') : "Crear contraseña"}
+            {!code ? t('common.resetPassword') : 'Crear contraseña'}
           </S.SubmitButton>
         </BaseForm.Item>
       </BaseForm>

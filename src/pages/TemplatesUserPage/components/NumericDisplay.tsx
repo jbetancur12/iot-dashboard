@@ -4,7 +4,7 @@ import { Typography } from 'antd';
 const { Text } = Typography;
 
 interface NumericDataProps {
-  value: number | string ;
+  value: number | string;
   label?: string;
 }
 
@@ -12,7 +12,7 @@ const NumericData: React.FC<NumericDataProps> = ({ value, label }) => {
   return (
     <div>
       {label && <Text strong>{label} </Text>}
-      <br/>
+      <br />
       <Text>{value ? value : 0}</Text>
     </div>
   );
