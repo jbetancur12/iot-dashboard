@@ -53,7 +53,6 @@ const TemplateProfile = () => {
       .unwrap()
       .then((res) => {
         if (res !== undefined) {
-          console.log('XXXXXXXXXXX', res)
           // @ts-ignore
           setVariables((current) => [...current, res.data])
         }

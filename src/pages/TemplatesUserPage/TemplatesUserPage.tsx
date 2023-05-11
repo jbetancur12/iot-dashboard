@@ -25,7 +25,7 @@ const TemplatesPage: React.FC = () => {
           <Link
             to={{
               pathname: 'charts',
-              search: `?template=${template._id}`
+              search: `?customer=${customer?._id}&template=${template._id}`
             }}>
             <S.TemplateCard key={template._id}>
               <S.Title>{template.name}</S.Title>

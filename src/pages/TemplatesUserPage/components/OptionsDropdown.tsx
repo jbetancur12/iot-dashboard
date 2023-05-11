@@ -33,19 +33,19 @@ const OptionsDropdown: React.FC<IProps> = ({
     // actualizar el color del botón
     switch (e.key) {
       case '1':
-        setButtonColor('green')
+        // setButtonColor('green')
         setSelectedOption('On')
         break
       case '0':
-        setButtonColor('red')
+        // setButtonColor('red')
         setSelectedOption('Off')
         break
       case '2':
-        setButtonColor('orange')
+        // setButtonColor('orange')
         setSelectedOption('Auto')
         break
       default:
-        setButtonColor('gray')
+        // setButtonColor('gray')
         break
     }
   }

@@ -27,6 +27,22 @@ import { createMqttClient } from '@app/utils/mqtt'
 import { setClient } from '@app/store/slices/mqttSlice'
 import OptionsDropdown from '../components/OptionsDropdown'
 import { VariableData } from '@app/api/variable.api'
+import Ch, { DataItem } from './Ch'
+
+function sortByKey(array: any[], key: string) {
+  return array.sort((a, b) => {
+    const valueA = a[key]
+    const valueB = b[key]
+
+    if (valueA < valueB) {
+      return -1
+    } else if (valueA > valueB) {
+      return 1
+    } else {
+      return 0
+    }
+  })
+}
 
 interface Meas {
   variableName: string
@@ -73,6 +89,7 @@ const Chart = () => {
   const [mqttDataObj, setMqttDataObj] = useState<any>({})
   const [mqttInputObj, setMqttInputObj] = useState<any>({ 0: '0,0' })
   const templateId = searchParams.get('template')
+  const customerId = searchParams.get('customer')
 
   const handleOnMessage = (topic: string, message: Buffer) => {
     const data = message.toString().split('/')
@@ -92,17 +109,48 @@ const Chart = () => {
 
   let dimensions: Set<string> = new Set<string>(['product'])
 
-  const source = data.map((d: any) => {
+  const source: DataItem[] = data.map((d: any) => {
     const { timestamp, measurements } = d
     const variables = Object.keys(measurements)
     variables.forEach((v: string) => dimensions.add(v))
     return { product: new Date(timestamp).toLocaleString(), ...measurements }
   })
 
+  const _series =
+    source.length > 0 &&
+    Object.keys(source[0])
+      .filter((key, index) => key !== 'product')
+      .map((key, index) => ({
+        name: key,
+        type: 'line',
+        data: source.map((item) => item[key] as number),
+        yAxisIndex: index
+      }))
+
+  const yAxis =
+    source.length > 0 &&
+    Object.keys(source[0])
+      .filter((key) => key !== 'product')
+      .map((key, index) => ({
+        type: 'value',
+        //   name: key,
+        scale: true,
+        position: 'left',
+        offset: index * -40,
+        axisLine: {
+          // Configura la línea del eje Y
+          show: true
+        },
+        splitLine: {
+          // Configura las líneas de división del eje Y
+          show: true
+        }
+        //   gridIndex: index,
+      }))
+
   const series = generateChartTypeArray(dimensions.size)
 
   const handleOutput = (vp?: number, msg?: string, customer?: string) => {
-    console.log(vp, msg)
     client?.publish(
       'input',
       `${customer}/${templateId}/${Date.now()}/${vp}/${msg}`
@@ -152,11 +200,44 @@ const Chart = () => {
     color: getChartColors(theme)
   }
 
+  const _option = {
+    tooltip: {
+      valueFormatter: (value: number) => {
+        return value.toFixed(1)
+      },
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: chartColors.tooltipLabel
+        }
+      }
+    },
+    legend: {
+      data:
+        source.length > 0 &&
+        Object.keys(source[0]).filter((key) => key !== 'product')
+    },
+    xAxis: {
+      type: 'category',
+      data: source.length > 0 && source.map((item) => item.product)
+    },
+    yAxis: yAxis,
+    grid: {
+      top: 80,
+      left: 20,
+      right: 20,
+      bottom: 0,
+      containLabel: true
+    },
+    series: _series
+  }
+
   const option = {
     dataset: {
       // Provide a set of data.
 
-      dimensions: Array.from(dimensions),
+      //dimensions: Array.from(dimensions),
       source: source
     },
 
@@ -213,7 +294,7 @@ const Chart = () => {
 
     if (!client) {
       dispatch(
-        createMqttClient('wss://mqtt.smaf.com.co:8081', ['json', 'output'], {
+        createMqttClient('wss://mqtt.smaf.com.co:8081', ['sensor', 'output'], {
           clientId:
             'mqtt-react-test-' + Math.random().toString(16).substring(2, 8),
           username: 'smaf',
@@ -222,7 +303,7 @@ const Chart = () => {
       )
       client
     } else {
-      client?.publish('input', `12345678/${templateId}/0/0/update`)
+      client?.publish('input', `${customerId}/${templateId}/0/0/update`)
     }
 
     return () => {
@@ -238,13 +319,13 @@ const Chart = () => {
     // Actualizar el estado local con los datos recibidos del topic
     const onMessage = (topic: string, message: string) => {
       const data = message.toString().split('/')
+
       if (data[1] === templateId && topic === 'sensor') {
         const IncomingData = { ...mqttDataObj, [data[3]]: data[4] }
         setMqttDataObj((prevData: any) => ({ ...prevData, [data[3]]: data[4] }))
       }
 
-      if (topic === 'output') {
-        console.log('XXXXXX', data)
+      if (data[1] === templateId && topic === 'output') {
         const receivedData = {
           pinVirtual: data[3],
           operationStatus: data[4].split(',')[0],
@@ -269,6 +350,89 @@ const Chart = () => {
   }, [client])
 
   const rows = Math.ceil(variables.length / 5)
+  //   const option = {
+  //     "dataset": {
+  //         "dimensions": [
+  //             "product",
+  //             "Temperatura Node",
+  //             "Humedad Sim",
+  //             "Temperatura 2"
+  //         ],
+  //         "source": [
+  //             {
+  //                 "product": "5/10/2023, 6:30:00 PM",
+  //                 "Temperatura 2": 12.75,
+  //                 "Temperatura Node": 24.904819277108434,
+  //                 "Humedad Sim": 69.8695652173913,
+  //             },
+  //             {
+  //                 "product": "5/10/2023, 6:45:00 PM",
+  //                 "Temperatura 2": 12.526666666666667,
+  //                 "Humedad Sim": 76.85555555555555,
+  //                 "Temperatura Node": 25.05111111111111
+  //             },
+  //             {
+  //                 "product": "5/10/2023, 7:00:00 PM",
+  //                 "Temperatura 2": 12.260000000000002,
+  //                 "Temperatura Node": 25.362222222222222,
+  //                 "Humedad Sim": 75.39
+  //             },
+  //             {
+  //                 "product": "5/10/2023, 7:15:00 PM",
+  //                 "Temperatura 2": 12.113333333333333,
+  //                 "Humedad Sim": 76.3,
+  //                 "Temperatura Node": 25.352066115702478
+  //             },
+  //             {
+  //                 "product": "5/10/2023, 7:30:00 PM",
+  //                 "Temperatura 2": 11.870833333333332,
+  //                 "Temperatura Node": 25.245714285714286,
+  //                 "Humedad Sim": 72.87916666666666,
+  //             }
+  //         ]
+  //     },
+  //     "tooltip": {
+  //         "trigger": "axis",
+  //         "axisPointer": {
+  //             "type": "cross",
+  //             "label": {
+  //                 "backgroundColor": "#6A7985"
+  //             }
+  //         }
+  //     },
+  //     "legend": {},
+  //     "grid": {
+  //         "top": 80,
+  //         "left": 20,
+  //         "right": 20,
+  //         "bottom": 0,
+  //         "containLabel": true
+  //     },
+  //     "xAxis": [
+  //         {
+  //             "show": true,
+  //             "type": "category",
+  //             "boundaryGap": false,
+  //             "axisLabel": {
+  //                 "fontSize": "0.75rem",
+  //                 "fontWeight": "300",
+  //                 "color": "#01509A"
+  //             }
+  //         }
+  //     ],
+  //     "yAxis": {},
+  //     "series": [
+  //         {
+  //             "type": "line"
+  //         },
+  //         {
+  //             "type": "line"
+  //         },
+  //         {
+  //             "type": "line"
+  //         }
+  //     ]
+  // }
 
   const outputs = variables.filter((obj) => obj.typePin === 'digitalOutput')
 
@@ -312,8 +476,9 @@ const Chart = () => {
         style={{ marginBottom: '16px' }}
         //title={t('charts.gradientLabel')}
       >
-        {data.length > 0 ? (
-          <BaseChart option={option} />
+        {source.length > 0 ? (
+          //@ts-ignore
+          <BaseChart option={_option} />
         ) : (
           <div style={{ marginTop: '30px' }}>
             <Empty />
