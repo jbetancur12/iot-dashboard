@@ -1,12 +1,12 @@
+import {
+  TemplateDataResponse,
+  getCustomerTemplates
+} from '@app/api/template.api'
 import { readUser } from '@app/services/localStorage.service'
 import { Col, Row } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as S from './TemplatesUserPage.styles'
-import {
-  getCustomerTemplates,
-  TemplateDataResponse
-} from '@app/api/template.api'
 
 const TemplatesPage: React.FC = () => {
   const customer = readUser()?.customer
@@ -15,8 +15,6 @@ const TemplatesPage: React.FC = () => {
   useEffect(() => {
     getCustomerTemplates(customer?._id).then((res) => setTemplates(res))
   }, [])
-
-  console.log(templates)
 
   return (
     <Row gutter={[30, 30]}>

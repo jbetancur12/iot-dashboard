@@ -1,8 +1,11 @@
-import React, { CSSProperties, useEffect, useState } from 'react'
-import { EChartsOption } from 'echarts-for-react'
-import ReactECharts from 'echarts-for-react'
-import { Loading } from '../Loading'
+import {
+  EChartsOption,
+  default as EChartsReact,
+  default as ReactECharts
+} from 'echarts-for-react'
+import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import { DefaultTheme, useTheme } from 'styled-components'
+import { Loading } from '../Loading'
 
 export interface BaseChartProps {
   option?: EChartsOption
@@ -57,14 +60,72 @@ export const BaseChart: React.FC<BaseChartProps> = ({
   const theme = useTheme()
   const [loading, setLoading] = useState(true)
 
+  const chartRef = useRef<EChartsReact | null>(null)
+
   const chartHeight = height || '400px'
 
   const defaultOption = {
     color: getChartColors(theme)
   }
 
+  const handleChartRendered = (e: any) => {
+    const chartInstance = e?.getEchartsInstance?.()
+    console.log(chartInstance)
+    // const series = chartInstance.getOption().series;
+
+    // series.forEach((serie: any, index: number) => {
+    //   const yAxisIndex = serie.yAxisIndex || 0;
+    //   const yAxisColor = defaultOption.color[index % defaultOption.color.length];
+
+    //   chartInstance.setOption({
+    //     yAxis: {
+    //       yAxisIndex: yAxisIndex,
+    //       axisLine: {
+    //         lineStyle: {
+    //           color: yAxisColor,
+    //         },
+    //       },
+    //     },
+    //   });
+    // });
+  }
+
   useEffect(() => {
     // TODO FIXME workaround to make sure that parent container is initialized before the chart
+    // if(chartRef.current){
+    //     const chartInstance = chartRef.current.getEchartsInstance()
+    //     const series = chartInstance.getOption().series as any[] || [];
+    //     let colorIndex = 0;
+    //     series.forEach((serie, index) => {
+    //         // console.log("🚀 ~ file: BaseChart.tsx:112 ~ series.forEach ~ serie:", serie)
+    //         const yAxisIndex = serie.yAxisIndex || 0;
+    //         const yAxisColor = getChartColors(theme)[colorIndex % getChartColors(theme).length];
+
+    //       console.log({
+    //         yAxis: {
+    //             yAxisIndex,
+    //             axisLine: {
+    //                 lineStyle: {
+    //                     color: yAxisColor,
+    //                 },
+    //             },
+    //         },
+    //     })
+
+    //         // chartInstance.setOption({
+    //         //     yAxis: {
+    //         //         yAxisIndex,
+    //         //         axisLine: {
+    //         //             lineStyle: {
+    //         //                 color: yAxisColor,
+    //         //             },
+    //         //         },
+    //         //     },
+    //         // });
+    //         colorIndex++;
+    //     });
+    //     // console.log("🚀 ~ file: BaseChart.tsx:99 ~ series.forEach ~ yAxisColor:", chartRef.current.getEchartsInstance().getOption())
+    // }
     setTimeout(() => {
       setLoading(false)
     }, 1000 / 2)
@@ -74,6 +135,7 @@ export const BaseChart: React.FC<BaseChartProps> = ({
     <Loading />
   ) : (
     <ReactECharts
+      ref={chartRef}
       {...props}
       option={{ ...defaultOption, ...option }}
       style={{

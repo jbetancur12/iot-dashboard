@@ -1,33 +1,27 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {
-  TemplateDataResponse,
-  getTemplate,
-  getTemplateMeasurements
-} from '@app/api/template.api'
-import { AppDate } from '@app/constants/Dates'
-import dayjs from 'dayjs'
-import { useSearchParams } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import { useTheme } from 'styled-components'
+import { getTemplate, getTemplateMeasurements } from '@app/api/template.api'
+import { VariableData } from '@app/api/variable.api'
+import { Card } from '@app/components/common/Card/Card'
 import {
   BaseChart,
   getChartColors
 } from '@app/components/common/charts/BaseChart'
-import { Col, Empty, Row, Space, message } from 'antd'
-import { Button } from '@app/components/common/buttons/Button/Button'
 import { DayjsDatePicker } from '@app/components/common/pickers/DayjsDatePicker'
-import ExcelExport from '../../../utils/ExcelExport'
-import * as ST from '../../DevicesUserPage/subpages/chartStyles'
-import { Card } from '@app/components/common/Card/Card'
-import NumericDisplay from '../components/NumericDisplay'
-import { useDispatch, useSelector } from 'react-redux'
+import { AppDate } from '@app/constants/Dates'
+import { setClient } from '@app/store/slices/mqttSlice'
 import { RootState } from '@app/store/store'
 import { createMqttClient } from '@app/utils/mqtt'
-import { setClient } from '@app/store/slices/mqttSlice'
+import { Col, Empty, Row, Space } from 'antd'
+import dayjs from 'dayjs'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import { useSearchParams } from 'react-router-dom'
+import { useTheme } from 'styled-components'
+import * as ST from '../../DevicesUserPage/subpages/chartStyles'
+import NumericDisplay from '../components/NumericDisplay'
 import OptionsDropdown from '../components/OptionsDropdown'
-import { VariableData } from '@app/api/variable.api'
-import Ch, { DataItem } from './Ch'
+import { DataItem } from './Ch'
 
 function sortByKey(array: any[], key: string) {
   return array.sort((a, b) => {
@@ -42,6 +36,21 @@ function sortByKey(array: any[], key: string) {
       return 0
     }
   })
+}
+
+function findIndexWithMostKeys(data: Record<string, any>[]): number {
+  let maxKeys = 0
+  let maxKeysIndex = -1
+
+  for (let i = 0; i < data.length; i++) {
+    const keys = Object.keys(data[i])
+    if (keys.length > maxKeys) {
+      maxKeys = keys.length
+      maxKeysIndex = i
+    }
+  }
+
+  return maxKeysIndex
 }
 
 interface Meas {
@@ -118,35 +127,46 @@ const Chart = () => {
 
   const _series =
     source.length > 0 &&
-    Object.keys(source[0])
+    Object.keys(source[findIndexWithMostKeys(source)])
       .filter((key, index) => key !== 'product')
       .map((key, index) => ({
         name: key,
         type: 'line',
         data: source.map((item) => item[key] as number),
         yAxisIndex: index
+        //   lineStyle: {
+        //     color: 'blue', // Color de la serie 1 y del primer eje Y
+        //   },
       }))
-
+  let colorIndex = 0
   const yAxis =
     source.length > 0 &&
-    Object.keys(source[0])
+    Object.keys(source[findIndexWithMostKeys(source)])
       .filter((key) => key !== 'product')
-      .map((key, index) => ({
-        type: 'value',
-        //   name: key,
-        scale: true,
-        position: 'left',
-        offset: index * -40,
-        axisLine: {
-          // Configura la línea del eje Y
-          show: true
-        },
-        splitLine: {
-          // Configura las líneas de división del eje Y
-          show: true
+      .map((key, index) => {
+        const yAxisColor =
+          getChartColors(theme)[colorIndex % getChartColors(theme).length]
+        colorIndex++
+        return {
+          type: 'value',
+          //   name: key,
+          scale: true,
+          position: 'left',
+          offset: index * -40,
+          axisLine: {
+            // Configura la línea del eje Y
+            show: true,
+            lineStyle: {
+              color: yAxisColor
+            }
+          },
+          splitLine: {
+            // Configura las líneas de división del eje Y
+            show: true
+          }
+          //   gridIndex: index,
         }
-        //   gridIndex: index,
-      }))
+      })
 
   const series = generateChartTypeArray(dimensions.size)
 
@@ -203,6 +223,7 @@ const Chart = () => {
   const _option = {
     tooltip: {
       valueFormatter: (value: number) => {
+        if (value == undefined) return 0
         return value.toFixed(1)
       },
       trigger: 'axis',
@@ -216,7 +237,9 @@ const Chart = () => {
     legend: {
       data:
         source.length > 0 &&
-        Object.keys(source[0]).filter((key) => key !== 'product')
+        Object.keys(source[findIndexWithMostKeys(source)]).filter(
+          (key) => key !== 'product'
+        )
     },
     xAxis: {
       type: 'category',
@@ -287,10 +310,14 @@ const Chart = () => {
   }
 
   useEffect(() => {
-    getTemplateMeasurements(startDate, endDate, templateId).then(({ data }) =>
-      setData(data)
+    getTemplateMeasurements(
+      startDate,
+      endDate,
+      '644e996039ca466fcc4a6a54'
+    ).then(({ data }) => setData(data))
+    getTemplate('644e996039ca466fcc4a6a54').then((data) =>
+      setVariables(data.variables)
     )
-    getTemplate(templateId).then((data) => setVariables(data.variables))
 
     if (!client) {
       dispatch(
@@ -320,8 +347,9 @@ const Chart = () => {
     const onMessage = (topic: string, message: string) => {
       const data = message.toString().split('/')
 
-      if (data[1] === templateId && topic === 'sensor') {
+      if (data[1] === '644e996039ca466fcc4a6a54' && topic === 'sensor') {
         const IncomingData = { ...mqttDataObj, [data[3]]: data[4] }
+
         setMqttDataObj((prevData: any) => ({ ...prevData, [data[3]]: data[4] }))
       }
 

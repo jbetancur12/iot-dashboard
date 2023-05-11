@@ -1,16 +1,16 @@
+import ForgotPasswordPage from '@app/pages/ForgotPasswordPage'
+import LockPage from '@app/pages/LockPage'
+import LoginPage from '@app/pages/LoginPage'
+import NewPasswordPage from '@app/pages/NewPasswordPage'
+import SecurityCodePage from '@app/pages/SecurityCodePage'
+import SignUpPage from '@app/pages/SignUpPage'
 import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 // no lazy loading for auth pages to avoid flickering
 const AuthLayout = React.lazy(
   () => import('@app/components/layouts/AuthLayout/AuthLayout')
 )
-import LoginPage from '@app/pages/LoginPage'
-import SignUpPage from '@app/pages/SignUpPage'
-import ForgotPasswordPage from '@app/pages/ForgotPasswordPage'
-import SecurityCodePage from '@app/pages/SecurityCodePage'
-import NewPasswordPage from '@app/pages/NewPasswordPage'
-import LockPage from '@app/pages/LockPage'
 
 import MainLayout from '@app/components/layouts/main/MainLayout/MainLayout'
 import ProfileLayout from '@app/components/profile/ProfileLayout'
@@ -236,7 +236,6 @@ const LogoutFallback = withLoading(Logout)
 export const AppRouter: React.FC = () => {
   const user = useAppSelector((state) => state.user.user)
   const userRole = user ? user.roles : [{ name: 'USER_ROLE' }]
-  console.log('🚀 ~ file: AppRouter.tsx:137 ~ userRole:', user)
 
   const _roles = userRole.map((rol) => rol.name)
 

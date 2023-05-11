@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux'
 // import { setClient, setError } from '';
-import mqtt, { MqttClient, IClientOptions } from 'mqtt'
 import { setClient, setError } from '@app/store/slices/mqttSlice'
+import mqtt, { IClientOptions } from 'mqtt'
 
 export const createMqttClient =
   (url: string, topics: string[], options?: IClientOptions) =>
@@ -24,7 +24,6 @@ export const createMqttClient =
       console.error('MQTT error:', error)
       dispatch(setError(error))
     })
-    console.log(client)
 
     return client
   }
