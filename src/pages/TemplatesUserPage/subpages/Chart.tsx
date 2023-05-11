@@ -152,7 +152,7 @@ const Chart = () => {
           //   name: key,
           scale: true,
           position: 'left',
-          offset: index * -40,
+          offset: index * 40,
           axisLine: {
             // Configura la línea del eje Y
             show: true,
@@ -248,7 +248,7 @@ const Chart = () => {
     yAxis: yAxis,
     grid: {
       top: 80,
-      left: 20,
+      left: 200,
       right: 20,
       bottom: 0,
       containLabel: true
@@ -287,7 +287,7 @@ const Chart = () => {
     },
     grid: {
       top: 80,
-      left: 20,
+      left: 400,
       right: 20,
       bottom: 0,
       containLabel: true
