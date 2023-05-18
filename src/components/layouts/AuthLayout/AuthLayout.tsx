@@ -5,11 +5,11 @@ import * as S from './AuthLayout.styles'
 const AuthLayout: React.FC = () => {
   return (
     <S.Wrapper>
-      <S.BackgroundWrapper>
-        <S.LoginWrapper>
-          <Outlet />
-        </S.LoginWrapper>
-      </S.BackgroundWrapper>
+      {/* <S.BackgroundWrapper> */}
+      <S.LoginWrapper>
+        <Outlet />
+      </S.LoginWrapper>
+      {/* </S.BackgroundWrapper> */}
     </S.Wrapper>
   )
 }

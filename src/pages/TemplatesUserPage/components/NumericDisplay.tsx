@@ -1,10 +1,10 @@
-import React from 'react'
 import { Typography } from 'antd'
+import React from 'react'
 
 const { Text } = Typography
 
 interface NumericDataProps {
-  value: number | string
+  value: { value: string | number; date: string }
   label?: string
 }
 
@@ -13,7 +13,10 @@ const NumericData: React.FC<NumericDataProps> = ({ value, label }) => {
     <div>
       {label && <Text strong>{label} </Text>}
       <br />
-      <Text>{value ? value : 0}</Text>
+      <Text>{value ? value.value : 0}</Text>
+      <h6 style={{ color: 'gray', marginTop: '16px' }}>
+        {value ? value.date : 0}
+      </h6>
     </div>
   )
 }

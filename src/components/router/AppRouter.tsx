@@ -39,8 +39,12 @@ const TemplatePage = React.lazy(
 const DevicesChartPage = React.lazy(
   () => import('@app/pages/DevicesUserPage/subpages/Charts')
 )
-const TemplatesChartPage = React.lazy(
-  () => import('@app/pages/TemplatesUserPage/subpages/Chart')
+const TemplatesDataViewPage = React.lazy(
+  () => import('@app/pages/TemplatesUserPage/subpages/DataView')
+)
+
+const MqttPage = React.lazy(
+  () => import('@app/pages/TemplatesUserPage/subpages/Test2')
 )
 
 const DevicesManagerPage = React.lazy(
@@ -173,7 +177,7 @@ const Customers = withLoading(CustomersPage)
 const Customer = withLoading(CustomerPage)
 const Template = withLoading(TemplatePage)
 const DevicesChart = withLoading(DevicesChartPage)
-const TemplatesChart = withLoading(TemplatesChartPage)
+const TemplatesDataView = withLoading(TemplatesDataViewPage)
 const NewUser = withLoading(NewUserPage)
 const NewDevice = withLoading(NewDevicePage)
 const NewDevice2 = withLoading(NewDevicePage2)
@@ -182,6 +186,7 @@ const TemplatesUser = withLoading(TemplatesUserPage)
 const NewsFeed = withLoading(NewsFeedPage)
 const Kanban = withLoading(KanbanPage)
 const AdvancedForm = withLoading(AdvancedFormsPage)
+const MQTT = withLoading(MqttPage)
 
 // UI Components
 const Buttons = withLoading(ButtonsPage)
@@ -252,7 +257,7 @@ export const AppRouter: React.FC = () => {
           {/* <Route index element={<Dashboard />} /> */}
           {_roles.includes('USER_ROLE') ? (
             <>
-              <Route index element={<Navigate to="/devices" replace />} />
+              {/* <Route index element={<Navigate to="/devices" replace />} /> */}
               <Route index element={<Navigate to="/templates" replace />} />
             </>
           ) : (
@@ -276,9 +281,10 @@ export const AppRouter: React.FC = () => {
             <Route index element={<Devices />} />
             <Route path="charts" element={<DevicesChart />} />
           </Route>
+          {/* <Route path="mqtt" element={<MQTT />} /> */}
           <Route path="templates">
             <Route index element={<TemplatesUser />} />
-            <Route path="charts" element={<TemplatesChart />} />
+            <Route path="charts" element={<TemplatesDataView />} />
           </Route>
           <Route path="apps">
             <Route path="feed" element={<NewsFeed />} />

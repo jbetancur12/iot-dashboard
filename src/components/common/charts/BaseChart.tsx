@@ -68,68 +68,27 @@ export const BaseChart: React.FC<BaseChartProps> = ({
     color: getChartColors(theme)
   }
 
-  const handleChartRendered = (e: any) => {
-    const chartInstance = e?.getEchartsInstance?.()
-    console.log(chartInstance)
-    // const series = chartInstance.getOption().series;
-
-    // series.forEach((serie: any, index: number) => {
-    //   const yAxisIndex = serie.yAxisIndex || 0;
-    //   const yAxisColor = defaultOption.color[index % defaultOption.color.length];
-
-    //   chartInstance.setOption({
-    //     yAxis: {
-    //       yAxisIndex: yAxisIndex,
-    //       axisLine: {
-    //         lineStyle: {
-    //           color: yAxisColor,
-    //         },
-    //       },
-    //     },
-    //   });
-    // });
-  }
-
   useEffect(() => {
-    // TODO FIXME workaround to make sure that parent container is initialized before the chart
-    // if(chartRef.current){
-    //     const chartInstance = chartRef.current.getEchartsInstance()
-    //     const series = chartInstance.getOption().series as any[] || [];
-    //     let colorIndex = 0;
-    //     series.forEach((serie, index) => {
-    //         // console.log("🚀 ~ file: BaseChart.tsx:112 ~ series.forEach ~ serie:", serie)
-    //         const yAxisIndex = serie.yAxisIndex || 0;
-    //         const yAxisColor = getChartColors(theme)[colorIndex % getChartColors(theme).length];
-
-    //       console.log({
-    //         yAxis: {
-    //             yAxisIndex,
-    //             axisLine: {
-    //                 lineStyle: {
-    //                     color: yAxisColor,
-    //                 },
-    //             },
-    //         },
-    //     })
-
-    //         // chartInstance.setOption({
-    //         //     yAxis: {
-    //         //         yAxisIndex,
-    //         //         axisLine: {
-    //         //             lineStyle: {
-    //         //                 color: yAxisColor,
-    //         //             },
-    //         //         },
-    //         //     },
-    //         // });
-    //         colorIndex++;
-    //     });
-    //     // console.log("🚀 ~ file: BaseChart.tsx:99 ~ series.forEach ~ yAxisColor:", chartRef.current.getEchartsInstance().getOption())
-    // }
     setTimeout(() => {
-      setLoading(false)
+      setLoading(!loading)
     }, 1000 / 2)
   }, [])
+
+  const onLegendselectchanged = (params: any) => {
+    const selected = params.selected
+    const chartInstance = chartRef.current?.getEchartsInstance()
+
+    if (chartInstance) {
+      // @ts-ignore
+      const legendData = chartInstance.getOption().legend[0].data
+      const updatedOption = { ...option }
+      legendData.forEach((label: string, index: number) => {
+        updatedOption.yAxis[index].axisLine = { show: selected[label] }
+        // updatedOption.yAxis[index].offset = selected[label] ? updatedOption.yAxis[index].offset : updatedOption.yAxis[index].offset - 40
+      })
+      chartInstance.setOption(updatedOption)
+    }
+  }
 
   return loading ? (
     <Loading />
@@ -145,7 +104,8 @@ export const BaseChart: React.FC<BaseChartProps> = ({
         width,
         zIndex: 0
       }}
-      onEvents={onEvents}
+      //   onEvents={{...onEvents,  legendselectchanged: onLegendselectchanged}}
+      onEvents={{ ...onEvents, legendselectchanged: onLegendselectchanged }}
     />
   )
 }

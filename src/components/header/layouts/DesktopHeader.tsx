@@ -1,8 +1,7 @@
-import React from 'react'
 import { Col, Row } from 'antd'
-import { NotificationsDropdown } from '../dropdowns/notificationsDropdown/NotificationsDropdown'
-import { ProfileDropdown } from '../dropdowns/profileDropdown/ProfileDropdown/ProfileDropdown'
+import React from 'react'
 import { HeaderSearch } from '../HeaderSearch/HeaderSearch'
+import { ProfileDropdown } from '../dropdowns/profileDropdown/ProfileDropdown/ProfileDropdown'
 import { SettingsDropdown } from '../dropdowns/settingsDropdown/SettingsDropdown'
 
 import * as S from '../Header/Header.styles'
@@ -34,7 +33,8 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
 
   return (
     <Row justify="space-between" align="middle">
-      {leftSide}
+      {/* {leftSide} */}
+      <div />
 
       <S.ProfileColumn xl={8} xxl={8} $isTwoColumnsLayout={isTwoColumnsLayout}>
         <Row align="middle" justify="end" gutter={[30, 30]}>

@@ -1,11 +1,11 @@
-import styled from 'styled-components'
-import { Checkbox, Button } from 'antd'
 import { LeftOutlined } from '@ant-design/icons'
+import loginBackground from '@app/assets/images/login-bg.webp'
 import { BaseForm } from '@app/components/common/forms/BaseForm/BaseForm'
 import { Input as CommonInput } from '@app/components/common/inputs/Input/Input'
 import { InputPassword as CommonInputPassword } from '@app/components/common/inputs/InputPassword/InputPassword'
 import { hexToRGB } from '@app/utils/utils'
-import loginBackground from '@app/assets/images/login-bg.webp'
+import { Button, Checkbox } from 'antd'
+import styled from 'styled-components'
 
 export const Wrapper = styled.div`
   height: 100vh;
@@ -22,6 +22,8 @@ export const BackgroundWrapper = styled.div`
 `
 
 export const LoginWrapper = styled.div`
+  box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
+    0 15px 40px rgba(166, 173, 201, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;

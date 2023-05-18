@@ -1,5 +1,6 @@
-import React from 'react'
 import {
+  BlockOutlined,
+  BulbOutlined,
   CompassOutlined,
   DashboardOutlined,
   FormOutlined,
@@ -7,10 +8,9 @@ import {
   LayoutOutlined,
   LineChartOutlined,
   TableOutlined,
-  UserOutlined,
-  BlockOutlined,
-  BulbOutlined
+  UserOutlined
 } from '@ant-design/icons'
+import React from 'react'
 
 export interface SidebarNavigationItem {
   title: string
@@ -42,17 +42,17 @@ export const sidebarNavigation: SidebarNavigationItem[] = [
     dev: true,
     user: false
   },
+  //   {
+  //     title: 'common.devices',
+  //     key: 'devices',
+  //     url: '/devices',
+  //     icon: <BulbOutlined />,
+  //     admin: false,
+  //     dev: false,
+  //     user: true
+  //   },
   {
-    title: 'common.devices',
-    key: 'devices',
-    url: '/devices',
-    icon: <BulbOutlined />,
-    admin: false,
-    dev: false,
-    user: true
-  },
-  {
-    title: 'common.templates',
+    title: 'Plantillas',
     key: 'templates',
     url: '/templates',
     icon: <BulbOutlined />,

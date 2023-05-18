@@ -54,8 +54,9 @@ export const getCustomerTemplates = (
 export const getTemplateMeasurements = (
   startDate: AppDate,
   endDate: AppDate,
-  templateId: string | null
+  templateId: string | null,
+  queryString: string
 ): Promise<any> =>
   httpApi.get<any[]>(
-    `api/measures/data?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}&unit=minute&period=15&template=${templateId}`
+    `api/measures/data?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}&unit=minute&period=15&template=${templateId}&variables=${queryString}`
   )

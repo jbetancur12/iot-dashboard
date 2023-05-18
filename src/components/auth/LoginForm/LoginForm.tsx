@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
 import { BaseForm } from '@app/components/common/forms/BaseForm/BaseForm'
+import * as Auth from '@app/components/layouts/AuthLayout/AuthLayout.styles'
+import { notificationController } from '@app/controllers/notificationController'
 import { useAppDispatch } from '@app/hooks/reduxHooks'
 import { doLogin } from '@app/store/slices/authSlice'
-import { notificationController } from '@app/controllers/notificationController'
-import { ReactComponent as FacebookIcon } from '@app/assets/icons/facebook.svg'
-import { ReactComponent as GoogleIcon } from '@app/assets/icons/google.svg'
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Link, useNavigate } from 'react-router-dom'
 import * as S from './LoginForm.styles'
-import * as Auth from '@app/components/layouts/AuthLayout/AuthLayout.styles'
 
 interface LoginFormData {
   email: string
