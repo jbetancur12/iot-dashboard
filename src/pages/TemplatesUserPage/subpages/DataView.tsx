@@ -92,6 +92,7 @@ const DataView = () => {
       .map((key, index) => ({
         name: key,
         type: 'line',
+        smooth: true,
         data: source.map((item) => item[key] as number),
         yAxisIndex: index,
         markPoint: maxMin && {
