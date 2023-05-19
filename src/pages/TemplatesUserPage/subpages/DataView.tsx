@@ -71,6 +71,7 @@ const DataView = () => {
   const [maxMin, setMaxMin] = useState<Boolean>(false)
   const [loadingChart, setLoadingChart] = useState(false)
   const [ai, setAi] = useState<Sensor[]>([])
+  const [variablesQuery, setVariablesQuery] = useState<string[]>([])
   const templateId = searchParams.get('template')
   const customerId = searchParams.get('customer')
 
@@ -181,6 +182,9 @@ const DataView = () => {
 
     setStartDate(dayjs(dt))
     setRange(value)
+    const queryString = variablesQuery.join(',')
+
+    fetchData(startDate, endDate, templateId, queryString)
   }
 
   const _option = {
@@ -276,6 +280,7 @@ const DataView = () => {
   const outputs = variables.filter((obj) => obj.typePin === 'digitalOutput')
 
   const handleFormSubmit = (selectedOptions: string[]) => {
+    setVariablesQuery(selectedOptions)
     // Aquí puedes realizar la llamada a la API y enviar las selecciones
     const queryString = selectedOptions.join(',')
 
@@ -303,6 +308,9 @@ const DataView = () => {
             onChange={(dt: any) => {
               setStartDate(dt[0] as AppDate)
               setEndDate(dt[1] as AppDate)
+              const queryString = variablesQuery.join(',')
+
+              fetchData(startDate, endDate, templateId, queryString)
             }}
           />
         )}
