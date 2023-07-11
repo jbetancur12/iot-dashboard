@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Card, Descriptions, Space, Table } from 'antd'
 import { useAppDispatch, useAppSelector } from '@app/hooks/reduxHooks'
+import { Button, Card, Descriptions, Space, Table } from 'antd'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 // import { retrieveCustomer } from '@app/store/slices/templateSlice';
 // import { CustomerDataResponse, updateCustomer } from '@app/api/template.api';
 import { PlusOutlined } from '@ant-design/icons'
-import { notificationController } from '@app/controllers/notificationController'
-import { useTranslation } from 'react-i18next'
-import { retrieveTemplate } from '@app/store/slices/templateSlice'
 import { TemplateDataResponse } from '@app/api/template.api'
-import VariableModal from '../components/VariableModal'
+import { VariableData, VariableDataResponse } from '@app/api/variable.api'
+import { notificationController } from '@app/controllers/notificationController'
+import { retrieveTemplate } from '@app/store/slices/templateSlice'
 import {
   doCreateVariable,
   doDeleteVariable
 } from '@app/store/slices/variableSlice'
-import { VariableData } from '@app/api/variable.api'
+import { useTranslation } from 'react-i18next'
+import VariableModal from '../components/VariableModal'
 
 const { Meta } = Card
 
 const TemplateProfile = () => {
   const { t } = useTranslation()
   const [template, setTemplate] = useState<Partial<TemplateDataResponse>>({})
-  const [variables, setVariables] = useState([])
+  const [variables, setVariables] = useState<VariableDataResponse[]>([])
   const [open, setOpen] = useState(false)
   const dispatch = useAppDispatch()
 
@@ -72,6 +72,8 @@ const TemplateProfile = () => {
     dispatch(doDeleteVariable(rowId))
       .unwrap()
       .then((data) => {
+        const updatedVariables = variables.filter((item) => item._id !== rowId)
+        setVariables(updatedVariables)
         notificationController.success({
           message: 'Variable eliminada',
           // @ts-ignored

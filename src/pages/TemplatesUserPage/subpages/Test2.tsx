@@ -1,7 +1,9 @@
 import { VariableData } from '@app/api/variable.api'
+import { TabPane, Tabs } from '@app/components/common/Tabs/Tabs'
 import { Col, Row } from 'antd'
 import { QoS } from 'mqtt'
 import React, { useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import * as S from '../TemplatesUserPage.styles'
 import NumericDisplay from '../components/NumericDisplay'
 import OptionsDropdown from '../components/OptionsDropdown'
@@ -48,6 +50,8 @@ const MqttComponent: React.FC<Props> = ({
     mqttSub,
     mqttUnSub
   } = HookMqtt()
+
+  const { t } = useTranslation()
 
   // Ejemplo de cómo usar el contexto QosOption
   const qosOptions: QosOptionType[] = useContext(QosOption)
@@ -133,48 +137,55 @@ const MqttComponent: React.FC<Props> = ({
 
   return (
     <>
-      {Array.from({ length: rows }, (_, i) => (
-        <Row
-          gutter={[16, 16]}
-          key={i}
-          style={{
-            marginBottom: '16px',
-            display: 'flex',
-            justifyContent: 'center'
-          }}>
-          {variables.slice(i * 5, (i + 1) * 5).map((v, i) => {
-            if (v.typePin !== 's' && v.typePin !== 'digitals') {
-              return (
-                <Col xs={24} sm={12} md={8} lg={6} xl={4} key={i}>
-                  <S.TemplateCard style={{ textAlign: 'center', padding: 0 }}>
-                    {/* @ts-ignore */}
-                    <NumericDisplay
-                      value={mqttDataObj[v.virtualPin]}
-                      label={v.name}
-                    />
-                  </S.TemplateCard>
-                </Col>
-              )
-            }
-          })}
-        </Row>
-      ))}
-      <Row gutter={[16, 16]}>
-        {outputs &&
-          outputs.map((o, i) => (
-            <Col key={i} xs={24} sm={12} md={8} lg={6} xl={4}>
-              <div style={{ width: '100%' }}>
-                <OptionsDropdown
-                  name={o.name}
-                  handleOutput={handleOutput}
-                  virtualPin={o.virtualPin}
-                  customer={o.customer}
-                  states={mqttInputObj}
-                />
-              </div>
-            </Col>
+      <Tabs defaultActiveKey="1">
+        <TabPane tab={`Sensores`} key="1">
+          {Array.from({ length: rows }, (_, i) => (
+            <Row
+              gutter={[16, 16]}
+              key={i}
+              style={{
+                marginBottom: '16px',
+                display: 'flex',
+                justifyContent: 'center'
+              }}>
+              {variables.slice(i * 5, (i + 1) * 5).map((v, i) => {
+                if (v.typePin !== 's' && v.typePin !== 'digitals') {
+                  return (
+                    <Col xs={24} sm={12} md={8} lg={6} xl={4} key={i}>
+                      <S.TemplateCard
+                        style={{ textAlign: 'center', padding: 0 }}>
+                        {/* @ts-ignore */}
+                        <NumericDisplay
+                          value={mqttDataObj[v.virtualPin]}
+                          label={v.name}
+                        />
+                      </S.TemplateCard>
+                    </Col>
+                  )
+                }
+              })}
+            </Row>
           ))}
-      </Row>
+        </TabPane>
+        <TabPane tab="Actuadores" key="2">
+          <Row gutter={[16, 16]}>
+            {outputs &&
+              outputs.map((o, i) => (
+                <Col key={i} xs={24} sm={12} md={8} lg={6} xl={4}>
+                  <div style={{ width: '100%' }}>
+                    <OptionsDropdown
+                      name={o.name}
+                      handleOutput={handleOutput}
+                      virtualPin={o.virtualPin}
+                      customer={o.customer}
+                      states={mqttInputObj}
+                    />
+                  </div>
+                </Col>
+              ))}
+          </Row>
+        </TabPane>
+      </Tabs>
     </>
   )
 }

@@ -95,6 +95,7 @@ const DataView = () => {
         type: 'line',
         smooth: true,
         data: source.map((item) => item[key] as number),
+        // showSymbol: false,
         yAxisIndex: index,
         markPoint: maxMin && {
           symbolSize: 50,
@@ -184,7 +185,7 @@ const DataView = () => {
     setRange(value)
     const queryString = variablesQuery.join(',')
 
-    fetchData(startDate, endDate, templateId, queryString)
+    fetchData(dayjs(dt), endDate, templateId, queryString)
   }
 
   const _option = {
@@ -280,13 +281,13 @@ const DataView = () => {
   const outputs = variables.filter((obj) => obj.typePin === 'digitalOutput')
 
   const handleFormSubmit = (selectedOptions: string[]) => {
-    setVariablesQuery(selectedOptions)
+    // setVariablesQuery(selectedOptions)
     // Aquí puedes realizar la llamada a la API y enviar las selecciones
     const queryString = selectedOptions.join(',')
 
     fetchData(startDate, endDate, templateId, queryString)
   }
-
+  console.log('XXXXX', variablesQuery.length)
   return (
     <>
       <Space size="small" wrap style={{ marginBottom: '10px' }}>
@@ -297,7 +298,8 @@ const DataView = () => {
             $isSelected={range === value}
             onClick={handleClick}
             data-value={value}
-            key={idx}>
+            key={idx}
+            disabled={variablesQuery.length === 0}>
             {t(`charts.ranges.${value}`)}
           </ST.rangeButton>
         ))}
@@ -310,7 +312,12 @@ const DataView = () => {
               setEndDate(dt[1] as AppDate)
               const queryString = variablesQuery.join(',')
 
-              fetchData(startDate, endDate, templateId, queryString)
+              fetchData(
+                dt[0] as AppDate,
+                dt[1] as AppDate,
+                templateId,
+                queryString
+              )
             }}
           />
         )}
@@ -331,7 +338,11 @@ const DataView = () => {
         <ExcelExport fileName={'Export - ' + Date.now()} excelData={newData}></ExcelExport> */}
       </Space>
 
-      <SelectComponent options={ai} onSubmit={handleFormSubmit} />
+      <SelectComponent
+        options={ai}
+        onSubmit={handleFormSubmit}
+        setVariablesQuery={setVariablesQuery}
+      />
 
       <Card
         padding="0"

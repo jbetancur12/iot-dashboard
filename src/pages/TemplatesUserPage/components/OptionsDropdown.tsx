@@ -1,5 +1,5 @@
+import { Button, Card, Dropdown, Menu, MenuProps, Typography } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { Button, Menu, Dropdown, Typography, Card, MenuProps } from 'antd'
 import { CSSProperties } from 'styled-components'
 
 const { Text } = Typography
@@ -92,12 +92,12 @@ const OptionsDropdown: React.FC<IProps> = ({
         setLoading(false)
         break
       case '1':
-        setStateColor('green')
+        setStateColor('orange')
         setSelectedOption('On')
         setLoading(false)
         break
       case '2':
-        setStateColor('orange')
+        setStateColor('green')
         setSelectedOption('Auto')
         setLoading(false)
         break

@@ -46,6 +46,9 @@ export interface LoginResponse {
   user: UserModel
 }
 
+export const deleteUser = (user: string): Promise<any> =>
+  httpApi.delete<any>(`api/users/${user}`).then(({ data }) => data)
+
 export const login = (loginPayload: LoginRequest): Promise<LoginResponse> =>
   httpApi
     .post<LoginResponse>('api/auth/signin', { ...loginPayload })

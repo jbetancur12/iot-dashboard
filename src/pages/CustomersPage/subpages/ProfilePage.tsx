@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Card, Descriptions, Space, Table } from 'antd'
-import { useAppDispatch, useAppSelector } from '@app/hooks/reduxHooks'
-import { useNavigate, useParams } from 'react-router-dom'
-import { retrieveCustomer } from '@app/store/slices/customerSlice'
-import { CustomerDataResponse, updateCustomer } from '@app/api/customer.api'
 import { PlusOutlined } from '@ant-design/icons'
-import UserModal from '../components/userModal'
-import { doSignUp } from '@app/store/slices/authSlice'
+import { deleteUser } from '@app/api/auth.api'
+import { CustomerDataResponse } from '@app/api/customer.api'
+import { TabPane, Tabs } from '@app/components/common/Tabs/Tabs'
 import { notificationController } from '@app/controllers/notificationController'
-import { useTranslation } from 'react-i18next'
-import { Tabs, TabPane } from '@app/components/common/Tabs/Tabs'
+import { useAppDispatch, useAppSelector } from '@app/hooks/reduxHooks'
+import { doSignUp } from '@app/store/slices/authSlice'
+import { retrieveCustomer } from '@app/store/slices/customerSlice'
 import {
   doCreateTemplate,
   doDeleteTemplate,
   retrieveTemplates
 } from '@app/store/slices/templateSlice'
+import { Button, Card, Descriptions, Space, Table } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useNavigate, useParams } from 'react-router-dom'
 import TemplateModal from '../components/TemplateModal'
+import UserModal from '../components/userModal'
 
 const { Meta } = Card
 
@@ -27,11 +28,15 @@ interface SignUpFormData {
   customer?: string
 }
 
+interface User extends Omit<SignUpFormData, 'password'> {
+  id: string
+}
+
 const UserProfile = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [customer, setCustomer] = useState<Partial<CustomerDataResponse>>({})
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState<User[]>([])
   const [templates, setTemplates] = useState([])
   const [open, setOpen] = useState(false)
   const [openTemplate, setOpenTemplate] = useState(false)
@@ -135,6 +140,13 @@ const UserProfile = () => {
     setOpen(false)
   }
 
+  const onDelete = (id: string) => {
+    deleteUser(id).then((res) => {
+      const updatedUsers = users.filter((user) => user.id !== id)
+      setUsers(updatedUsers)
+    })
+  }
+
   const onCancelTemplate = () => {
     setOpenTemplate(false)
   }
@@ -158,6 +170,23 @@ const UserProfile = () => {
       title: 'Email',
       dataIndex: 'email',
       key: 'email'
+    },
+    {
+      title: t('tables.actions'),
+      dataIndex: 'actions',
+      width: '15%',
+      render: (text: string, record: { firstName: string; id: string }) => {
+        return (
+          <Space>
+            {/* <Button type="ghost" onClick={() => handleEdit(record)}>
+                {t('tables.edit')}
+              </Button> */}
+            <Button type="default" danger onClick={() => onDelete(record.id)}>
+              {t('tables.delete')}
+            </Button>
+          </Space>
+        )
+      }
     }
   ]
 

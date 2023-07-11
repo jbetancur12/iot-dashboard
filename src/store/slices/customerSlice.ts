@@ -1,6 +1,5 @@
 import {
   CustomerData,
-  CustomerDataResponse,
   createCustomer,
   deleteCustomer,
   getCustomer,
