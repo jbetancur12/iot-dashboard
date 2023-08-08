@@ -1,6 +1,10 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { deleteUser } from '@app/api/auth.api'
 import { CustomerDataResponse } from '@app/api/customer.api'
+import {
+  TemplateDataResponse,
+  getCustomerTemplates
+} from '@app/api/template.api'
 import { TabPane, Tabs } from '@app/components/common/Tabs/Tabs'
 import { notificationController } from '@app/controllers/notificationController'
 import { useAppDispatch, useAppSelector } from '@app/hooks/reduxHooks'
@@ -8,8 +12,7 @@ import { doSignUp } from '@app/store/slices/authSlice'
 import { retrieveCustomer } from '@app/store/slices/customerSlice'
 import {
   doCreateTemplate,
-  doDeleteTemplate,
-  retrieveTemplates
+  doDeleteTemplate
 } from '@app/store/slices/templateSlice'
 import { Button, Card, Descriptions, Space, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
@@ -37,7 +40,7 @@ const UserProfile = () => {
   const navigate = useNavigate()
   const [customer, setCustomer] = useState<Partial<CustomerDataResponse>>({})
   const [users, setUsers] = useState<User[]>([])
-  const [templates, setTemplates] = useState([])
+  const [templates, setTemplates] = useState<TemplateDataResponse[]>([])
   const [open, setOpen] = useState(false)
   const [openTemplate, setOpenTemplate] = useState(false)
   const dispatch = useAppDispatch()
@@ -55,12 +58,16 @@ const UserProfile = () => {
       })
   }
 
+  //   const fetchTemplates = () => {
+  //     dispatch(retrieveTemplates())
+  //       .unwrap()
+  //       .then((res) => {
+  //         setTemplates(res)
+  //       })
+  //   }
+
   const fetchTemplates = () => {
-    dispatch(retrieveTemplates())
-      .unwrap()
-      .then((res) => {
-        setTemplates(res)
-      })
+    getCustomerTemplates(id).then((res) => setTemplates(res))
   }
 
   const handleDeleteTemplateRow = (
