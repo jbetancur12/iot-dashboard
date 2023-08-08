@@ -8,6 +8,7 @@ import { PlusOutlined } from '@ant-design/icons'
 import { TemplateDataResponse } from '@app/api/template.api'
 import { VariableData, VariableDataResponse } from '@app/api/variable.api'
 import { notificationController } from '@app/controllers/notificationController'
+import FileUploader from '@app/pages/TemplatesUserPage/subpages/FileUploader'
 import { retrieveTemplate } from '@app/store/slices/templateSlice'
 import {
   doCreateVariable,
@@ -152,9 +153,12 @@ const TemplateProfile = () => {
           <Descriptions.Item label="Tipo">{template.type}</Descriptions.Item>
         </Descriptions>
         <Space />
-        <Button type="primary" icon={<PlusOutlined />} onClick={showModal}>
-          Agregar Variable
-        </Button>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Button type="primary" icon={<PlusOutlined />} onClick={showModal}>
+            Agregar Variable
+          </Button>
+          <FileUploader />
+        </div>
         <Table dataSource={variables} columns={columns} />
       </Card>
       <VariableModal

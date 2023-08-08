@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
+import { BackwardOutlined, ForwardOutlined } from '@ant-design/icons'
 import { getTemplate, getTemplateMeasurements } from '@app/api/template.api'
 import { VariableData } from '@app/api/variable.api'
 import { Card } from '@app/components/common/Card/Card'
@@ -18,6 +19,7 @@ import { useSearchParams } from 'react-router-dom'
 import { useTheme } from 'styled-components'
 import * as ST from '../../DevicesUserPage/subpages/chartStyles'
 import { DataItem } from './Ch'
+import FileUploader from './FileUploader'
 import SelectComponent, { Sensor } from './SelectComponent'
 import Test2 from './Test2'
 
@@ -86,6 +88,13 @@ const DataView = () => {
 
   const xData = source.length > 0 ? source.map((item) => item.product) : []
 
+  let startDateButton = startDate
+  console.log(
+    '🚀 ~ file: DataView.tsx:92 ~ DataView ~ startDateButton:',
+    startDateButton
+  )
+  let endDateButton = endDate
+
   const _series =
     source.length > 0 &&
     Object.keys(source[findIndexWithMostKeys(source)])
@@ -145,6 +154,92 @@ const DataView = () => {
           //   gridIndex: index,
         }
       })
+
+  const forwardDate = () => {
+    switch (range) {
+      case 'lastHour':
+        const queryString = variablesQuery.join(',')
+
+        fetchData(
+          startDate.add(1, 'hour'),
+          endDate.add(1, 'hour'),
+          templateId,
+          queryString
+        )
+        break
+      case '6Hours':
+        setStartDate(startDate.add(6, 'hour'))
+        setEndDate(startDate.add(6, 'hour'))
+        break
+      case '1Day':
+        setStartDate(startDate.add(24, 'hour'))
+        setEndDate(startDate.add(24, 'hour'))
+        break
+      case '1Week':
+        setStartDate(startDate.add(168, 'hour'))
+        setEndDate(startDate.add(168, 'hour'))
+        break
+      case '1Month':
+        setStartDate(startDate.add(730, 'hour'))
+        setEndDate(startDate.add(730, 'hour'))
+        break
+      case '3Months':
+        setStartDate(startDate.add(2190, 'hour'))
+        setEndDate(startDate.add(2190, 'hour'))
+        break
+
+      default:
+        break
+    }
+  }
+
+  const backwardDate = () => {
+    switch (range) {
+      case 'lastHour':
+        const queryString = variablesQuery.join(',')
+
+        startDateButton = startDateButton.subtract(1, 'hour')
+        console.log(
+          '🚀 ~ file: DataView.tsx:198 ~ backwardDate ~ startDateButton:',
+          startDateButton
+        )
+        endDateButton = endDateButton.add(1, 'hour')
+
+        //   const toFetch = {
+        //     startDate:startDateButton,
+        //     endDate: endDateButton,
+        //     templateId: templateId,
+        //     queryString: queryString
+        //  }
+        //   console.log("🚀 ~ file: DataView.tsx:200 ~ backwardDate ~ toFetch:", toFetch)
+
+        fetchData(startDateButton, endDateButton, templateId, queryString)
+        break
+      case '6Hours':
+        setStartDate(startDate.subtract(6, 'hour'))
+        setEndDate(startDate.subtract(6, 'hour'))
+        break
+      case '1Day':
+        setStartDate(startDate.subtract(24, 'hour'))
+        setEndDate(startDate.subtract(24, 'hour'))
+        break
+      case '1Week':
+        setStartDate(startDate.subtract(168, 'hour'))
+        setEndDate(startDate.subtract(168, 'hour'))
+        break
+      case '1Month':
+        setStartDate(startDate.subtract(730, 'hour'))
+        setEndDate(startDate.subtract(730, 'hour'))
+        break
+      case '3Months':
+        setStartDate(startDate.subtract(2190, 'hour'))
+        setEndDate(startDate.subtract(2190, 'hour'))
+        break
+
+      default:
+        break
+    }
+  }
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const dt: Date = new Date()
@@ -360,12 +455,27 @@ const DataView = () => {
             Seleccione al menos una variable
           </span>
         ) : !loadingChart ? (
-          //@ts-ignore
-          <BaseChart option={_option} />
+          <>
+            {/*@ts-ignore */}
+            <BaseChart option={_option} />
+            <div
+              style={{
+                display: 'flex'
+              }}>
+              <Button onClick={backwardDate}>
+                <BackwardOutlined />
+              </Button>
+              <Button onClick={forwardDate}>
+                <ForwardOutlined />
+              </Button>
+            </div>
+          </>
         ) : (
           <Loading />
         )}
       </Card>
+
+      <FileUploader />
 
       <Test2
         rows={rows}
