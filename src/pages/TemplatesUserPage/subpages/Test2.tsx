@@ -149,7 +149,7 @@ const MqttComponent: React.FC<Props> = ({
                 justifyContent: 'center'
               }}>
               {variables.slice(i * 5, (i + 1) * 5).map((v, i) => {
-                if (v.typePin !== 's' && v.typePin !== 'digitals') {
+                if (v.typePin == 'analogInput') {
                   return (
                     <Col xs={24} sm={12} md={8} lg={6} xl={4} key={i}>
                       <S.TemplateCard
@@ -158,6 +158,9 @@ const MqttComponent: React.FC<Props> = ({
                         <NumericDisplay
                           value={mqttDataObj[v.virtualPin]}
                           label={v.name}
+                          virtualPin={v.virtualPin}
+                          sensorType={v.sensorType}
+                          unit={v.unit}
                         />
                       </S.TemplateCard>
                     </Col>

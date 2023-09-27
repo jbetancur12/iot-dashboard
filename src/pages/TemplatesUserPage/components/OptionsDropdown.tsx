@@ -75,10 +75,14 @@ const OptionsDropdown: React.FC<IProps> = ({
 
     switch (aState[0]) {
       case '0':
-        setButtonColor('red')
+        setButtonColor('#b31414')
         break
       case '1':
-        setButtonColor('green')
+        if (aState[1] === '1') {
+          setButtonColor('orange')
+        } else {
+          setButtonColor('green')
+        }
         break
       default:
         setButtonColor('gray')
@@ -87,7 +91,7 @@ const OptionsDropdown: React.FC<IProps> = ({
 
     switch (aState[1]) {
       case '0':
-        setStateColor('red')
+        setStateColor('#b31414')
         setSelectedOption('Off')
         setLoading(false)
         break
@@ -120,7 +124,9 @@ const OptionsDropdown: React.FC<IProps> = ({
           }}
         />
         <Dropdown overlay={menu} placement="bottomCenter">
-          <Button style={{ backgroundColor: stateColor }} loading={loading}>
+          <Button
+            style={{ backgroundColor: stateColor, color: 'white' }}
+            loading={loading}>
             {selectedOption}
           </Button>
         </Dropdown>

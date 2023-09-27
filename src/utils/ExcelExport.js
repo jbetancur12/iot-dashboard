@@ -9,12 +9,18 @@ export default function excelExport({ excelData, fileName }) {
 
   const exportToExcel = async () => {
     const ws = XLSX.utils.json_to_sheet(excelData)
-    console.log(excelData)
-    const max_width = excelData.reduce((w, r) => Math.max(w, r.date.length), 10)
+    const colums = Object.keys(excelData[0])
+    const columsModificado = colums.map((item) =>
+      item === 'product' ? 'date' : item
+    )
+    const max_width = excelData.reduce(
+      (w, r) => Math.max(w, r.product.length),
+      10
+    )
     // const tt = excelData.map(w => {console.log(Object.keys(w))})
 
     ws['!cols'] = [{ wch: max_width }]
-    XLSX.utils.sheet_add_aoa(ws, [['Date', 'Temperature', 'Humidity']], {
+    XLSX.utils.sheet_add_aoa(ws, [columsModificado], {
       origin: 'A1'
     })
     const wb = { Sheets: { data: ws }, SheetNames: ['data'] }

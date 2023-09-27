@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import { BackwardOutlined, ForwardOutlined } from '@ant-design/icons'
 import { getTemplate, getTemplateMeasurements } from '@app/api/template.api'
 import { VariableData } from '@app/api/variable.api'
 import { Card } from '@app/components/common/Card/Card'
@@ -12,6 +11,7 @@ import {
 } from '@app/components/common/charts/BaseChart'
 import { DayjsDatePicker } from '@app/components/common/pickers/DayjsDatePicker'
 import { AppDate } from '@app/constants/Dates'
+import ExcelExport from '@app/utils/ExcelExport'
 import { Space } from 'antd'
 import dayjs from 'dayjs'
 import { useTranslation } from 'react-i18next'
@@ -19,7 +19,6 @@ import { useSearchParams } from 'react-router-dom'
 import { useTheme } from 'styled-components'
 import * as ST from '../../DevicesUserPage/subpages/chartStyles'
 import { DataItem } from './Ch'
-import FileUploader from './FileUploader'
 import SelectComponent, { Sensor } from './SelectComponent'
 import Test2 from './Test2'
 
@@ -52,7 +51,7 @@ const ranges = [
   '1Day',
   '1Week',
   '1Month',
-  '3Months',
+  //   '3Months',
   'custom'
 ]
 
@@ -89,10 +88,7 @@ const DataView = () => {
   const xData = source.length > 0 ? source.map((item) => item.product) : []
 
   let startDateButton = startDate
-  console.log(
-    '🚀 ~ file: DataView.tsx:92 ~ DataView ~ startDateButton:',
-    startDateButton
-  )
+
   let endDateButton = endDate
 
   const _series =
@@ -423,6 +419,10 @@ const DataView = () => {
           Max/Min
         </Button>
 
+        <ExcelExport
+          fileName={'Export - ' + Date.now()}
+          excelData={source}></ExcelExport>
+
         {/* <Button type="primary" severity="info" onClick={() => setMaxMin(!maxMin)}>
           Max/Min
         </Button>
@@ -462,20 +462,18 @@ const DataView = () => {
               style={{
                 display: 'flex'
               }}>
-              <Button onClick={backwardDate}>
+              {/* <Button onClick={backwardDate}>
                 <BackwardOutlined />
               </Button>
               <Button onClick={forwardDate}>
                 <ForwardOutlined />
-              </Button>
+              </Button> */}
             </div>
           </>
         ) : (
           <Loading />
         )}
       </Card>
-
-      <FileUploader />
 
       <Test2
         rows={rows}
