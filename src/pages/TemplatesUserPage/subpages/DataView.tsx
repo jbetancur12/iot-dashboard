@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
+import { BackwardOutlined, ForwardOutlined } from '@ant-design/icons'
 import { getTemplate, getTemplateMeasurements } from '@app/api/template.api'
 import { VariableData } from '@app/api/variable.api'
 import { Card } from '@app/components/common/Card/Card'
@@ -152,89 +153,71 @@ const DataView = () => {
       })
 
   const forwardDate = () => {
+    const queryString = variablesQuery.join(',')
+    let hoursToAdd = 1;
+
     switch (range) {
       case 'lastHour':
-        const queryString = variablesQuery.join(',')
-
-        fetchData(
-          startDate.add(1, 'hour'),
-          endDate.add(1, 'hour'),
-          templateId,
-          queryString
-        )
+        hoursToAdd = 1;
         break
       case '6Hours':
-        setStartDate(startDate.add(6, 'hour'))
-        setEndDate(startDate.add(6, 'hour'))
+        hoursToAdd = 6;
         break
       case '1Day':
-        setStartDate(startDate.add(24, 'hour'))
-        setEndDate(startDate.add(24, 'hour'))
-        break
+        hoursToAdd = 24;
+      break
       case '1Week':
-        setStartDate(startDate.add(168, 'hour'))
-        setEndDate(startDate.add(168, 'hour'))
+        hoursToAdd = 168;
         break
       case '1Month':
-        setStartDate(startDate.add(730, 'hour'))
-        setEndDate(startDate.add(730, 'hour'))
-        break
-      case '3Months':
-        setStartDate(startDate.add(2190, 'hour'))
-        setEndDate(startDate.add(2190, 'hour'))
+        hoursToAdd = 730;
         break
 
       default:
         break
     }
+
+    const sd = startDate.add(hoursToAdd, 'hour');
+    const ed = endDate.add(hoursToAdd, 'hour');
+
+    setStartDate(sd);
+    setEndDate(ed);
+
+    fetchData(sd, ed, templateId, queryString);
   }
 
   const backwardDate = () => {
+    const queryString = variablesQuery.join(',')
+    let hoursToSubtract = 1;
+
     switch (range) {
       case 'lastHour':
-        const queryString = variablesQuery.join(',')
-
-        startDateButton = startDateButton.subtract(1, 'hour')
-        console.log(
-          '🚀 ~ file: DataView.tsx:198 ~ backwardDate ~ startDateButton:',
-          startDateButton
-        )
-        endDateButton = endDateButton.add(1, 'hour')
-
-        //   const toFetch = {
-        //     startDate:startDateButton,
-        //     endDate: endDateButton,
-        //     templateId: templateId,
-        //     queryString: queryString
-        //  }
-        //   console.log("🚀 ~ file: DataView.tsx:200 ~ backwardDate ~ toFetch:", toFetch)
-
-        fetchData(startDateButton, endDateButton, templateId, queryString)
+        hoursToSubtract = 1;
         break
       case '6Hours':
-        setStartDate(startDate.subtract(6, 'hour'))
-        setEndDate(startDate.subtract(6, 'hour'))
+        hoursToSubtract = 6;
         break
       case '1Day':
-        setStartDate(startDate.subtract(24, 'hour'))
-        setEndDate(startDate.subtract(24, 'hour'))
-        break
+        hoursToSubtract = 24;
+      break
       case '1Week':
-        setStartDate(startDate.subtract(168, 'hour'))
-        setEndDate(startDate.subtract(168, 'hour'))
+        hoursToSubtract = 168;
         break
       case '1Month':
-        setStartDate(startDate.subtract(730, 'hour'))
-        setEndDate(startDate.subtract(730, 'hour'))
-        break
-      case '3Months':
-        setStartDate(startDate.subtract(2190, 'hour'))
-        setEndDate(startDate.subtract(2190, 'hour'))
+        hoursToSubtract = 730;
         break
 
       default:
         break
     }
+
+    const sd = startDate.subtract(hoursToSubtract, 'hour');
+    const ed = endDate.subtract(hoursToSubtract, 'hour');
+
+    setStartDate(sd);
+    setEndDate(ed);
+
+    fetchData(sd, ed, templateId, queryString);
   }
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -460,14 +443,16 @@ const DataView = () => {
             <BaseChart option={_option} />
             <div
               style={{
-                display: 'flex'
+                display: 'flex',
+                justifyContent: 'space-around',
+                marginTop: 15
               }}>
-              {/* <Button onClick={backwardDate}>
+              <Button onClick={backwardDate}>
                 <BackwardOutlined />
               </Button>
               <Button onClick={forwardDate}>
                 <ForwardOutlined />
-              </Button> */}
+              </Button>
             </div>
           </>
         ) : (
